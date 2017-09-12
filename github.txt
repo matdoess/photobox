@@ -4,5 +4,15 @@ echo "# photobox" >> README.md
 git init
 git add README.md
 git commit -m "first commit"
-git remote add origin https://github.com/matdoess/photobox.git
+#git remote add origin https://github.com/matdoess/photobox.git
+git remote add origin ssh://git@github.com/matdoess/photobox.git
 git push -u origin master
+
+# ssh key erzeugen in ~/.ssh
+ssh-keygen
+
+# Key bei GitHub hinzufügen
+https://github.com/settings/keys
+
+# URL im Repo von https auf ssh ändern (Falls am Anfang nicht gemacht)
+git remote set-url origin ssh://git@github.com/matdoess/photobox.git
