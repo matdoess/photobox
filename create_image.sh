@@ -1,26 +1,41 @@
 #!/bin/bash
 
-#convert -size 100x60 xc:skyblue -fill white -stroke black \
-#          -font Yanone-Kaffeesatz-Regular -pointsize 40 -gravity center \
-#          -draw "text 0,0 'Hello'"   img/draw_text.gif
-
 # image must have a width which is a multiple of 32, and a height which is a multiple of 16. 
 
-#convert -size 320x320 xc:skyblue -fill white -stroke black \
-#          -font Yanone-Kaffeesatz-Regular -pointsize 300 -gravity center \
-#          -draw "text 0,0 '3'"   img/3.png
+### Countdown erstellen
 
-convert -size 320x320 xc:none -fill white -stroke black \
-          -font Yanone-Kaffeesatz-Regular -pointsize 300 -gravity center \
-          -draw "text 0,0 '1'"   img/1.png
+# Variablen
+num_start=1
+num_end=3
+num_font="Yanone-Kaffeesatz-Regular"   # ImageMagick alle Fonts anzeigen [ convert -list font ]
+num_size="320x320"
+num_pointsize=300
 
-### Weißes Bild für Cheese ###
+# Script
+for num in $(seq $num_start $num_end)
+do
+convert -size $num_size xc:none -fill white -stroke black \
+          -font $num_font -pointsize $num_pointsize -gravity center \
+          -draw "text 0,0 '$num'"   img/$num.png
+done
 
-# Test > Erfolg [colorspace vermutlich überflüssig]
-#convert -size 320x320 xc:white -depth 16 -colorspace RGB -set colorspace RGB -define png:color-type=6 img/white.png
+### Weißes Bild für Cheese
 
-# Version: rein Weiß
-#convert -size 1920x1088 xc:white -define png:color-type=6 img/white.png
+# Variablen
+cheese_size="800x480"
+cheese_alpha=j   #j/n Transparenz aktivieren?
+cheese_alphaset=80  #Transparenz in Prozent
 
-# Version: Transparent Weiß
-convert -size 1920x1088 xc:white -alpha set -channel Alpha -evaluate set 80% -define png:color-type=6 img/white.png
+if [ $cheese_alpha == n ]
+then
+ convert -size $cheese_size xc:white -define png:color-type=6 img/white.png
+
+elif [ $cheese_alpha == j ]
+then
+ convert -size $cheese_size xc:white -alpha set -channel Alpha -evaluate set $cheese_alphaset% -define png:color-type=6 img/white.png
+else
+ echo "Nichts Ausgeführt"
+fi
+
+### Script ENDE
+read -p "Press enter to quit"

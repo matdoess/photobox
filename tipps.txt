@@ -1,2 +1,0 @@
-# ImageMagick alle Fonts anzeigen
-convert -list font
