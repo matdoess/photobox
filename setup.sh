@@ -9,7 +9,7 @@ sudo apt-get install synaptic
 # Schriften
 sudo apt-get install fonts-yanone-kaffeesatz ttf-staypuft
 # Software
-sudo apt-get install imagemagick
+sudo apt-get install imagemagick ffmpeg
 
 ### Nice to Have ###
 sudo apt-get install gimp

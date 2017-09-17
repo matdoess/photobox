@@ -10,7 +10,7 @@
 
 # Run picam Rotate / Preview / Preview Fullscreen
 cd ~/picam
-./picam --alsadev hw:1,0 --rotation 180 --preview --previewrect 0,0,800,480
+./picam --alsadev hw:1,0 --rotation 180 --hflip --preview --previewrect 0,0,800,480
 
 
 read -p "Press ENTER to quit."
