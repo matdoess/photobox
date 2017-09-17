@@ -12,7 +12,7 @@ with picamera.PiCamera() as camera:
     camera.resolution = (800, 480)
     camera.framerate = 24
     camera.start_preview()
-
+    camera.vflip = True
     # Add Overlay Countdown
     sleep(1)
     #3
@@ -33,5 +33,7 @@ with picamera.PiCamera() as camera:
     sleep(0.2)
 ##    camera.remove_overlay(o)
     #Cheese
+    camera.hflip = True
     camera.capture('pics/countdown.jpg')
+    camera.hflip = False
     camera.stop_preview()
