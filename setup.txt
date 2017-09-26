@@ -1,0 +1,21 @@
+
+### Using Official RPi touch display
+https://kivy.org/docs/installation/installation-rpi.html#using-official-rpi-touch-display
+
+# If you are using the official Raspberry Pi touch display, you need to configure Kivy to use it as an input source. To do this, edit the file ~/.kivy/config.ini and go to the [input] section. Add this:
+
+mouse = mouse
+mtdev_%(name)s = probesysfs,provider=mtdev
+hid_%(name)s = probesysfs,provider=hidinput
+
+# Folgende Zeile auskommentieren
+%(name)s = probesysfs,provider=hidinput
+
+Fertiger Eintrag in .kivy/config.txt
+------
+[input]
+mouse = mouse
+## %(name)s = probesysfs,provider=hidinput
+mtdev_%(name)s = probesysfs,provider=mtdev
+hid_%(name)s = probesysfs,provider=hidinput
+------
