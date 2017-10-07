@@ -1,0 +1,54 @@
+# Custom buttons
+<HomeButton@Button>:
+    font_size: 32
+##    size_hint: 1, 0.5
+##    pos_hint: {'center_y': 0}
+
+<CustomPopup>:
+##    size_hint: .5, .5
+    background: 'img/black.png'
+    separator_color: (0, 0, 0, 1)
+    auto_dismiss: False
+    title: ""
+    on_open:
+        root.video()
+        root.dismiss()
+    Button:
+        #size_hint: .5, .5
+        background_color: (0, 0, 0, 1)
+        text: ""
+        on_press: root.dismiss()
+
+<HomeGridLayout>:
+    id: home
+    rows: 3
+    padding: 10
+    spacing: 0
+    
+    # Abstand oben
+    BoxLayout:
+    
+    # Buttons
+    BoxLayout:
+##        size_hint: 0.5, 0.5
+##        pos_hint: {'center_y': 1}
+        spacing: 10
+        
+        HomeButton:
+            text: "Video"
+            on_press:
+                root.open_popup()
+                #home.video()
+        HomeButton:
+            text: "Foto"
+            on_press:
+                print('Foto')
+                root.open_popup()
+        HomeButton:
+            background_color: (0, 0, 0, 1)
+            text: "Aufgabe"
+            on_press: print('Aufgabe')
+    
+    # Abstand unten
+    BoxLayout:
+    
