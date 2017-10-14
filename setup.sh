@@ -27,6 +27,10 @@ sudo apt-get install libsdl2-dev libsdl2-image-dev libsdl2-mixer-dev libsdl2-ttf
 
 # Install a new enough version of Cython
 sudo pip install -U Cython==0.25.2
+sudo pip3 install -U Cython==0.25.2
 
 # Install Kivy globally on your system
 sudo pip install git+https://github.com/kivy/kivy.git@master
+sudo pip3 install git+https://github.com/kivy/kivy.git@master
+
+

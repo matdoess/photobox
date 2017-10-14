@@ -11,8 +11,8 @@
     auto_dismiss: False
     title: ""
     on_open:
-        root.video()
-        root.dismiss()
+        root.open_video()
+        #root.dismiss()
     Button:
         #size_hint: .5, .5
         background_color: (0, 0, 0, 1)
@@ -43,7 +43,8 @@
             text: "Foto"
             on_press:
                 print('Foto')
-                root.open_popup()
+                #root.open_popup()
+                root.open_video()
         HomeButton:
             background_color: (0, 0, 0, 1)
             text: "Aufgabe"
