@@ -19,3 +19,14 @@ mouse = mouse
 mtdev_%(name)s = probesysfs,provider=mtdev
 hid_%(name)s = probesysfs,provider=hidinput
 ------
+
+
+### picam ###
+# Service Datei
+copy setup/picam.service  to  /etc/systemd/system/
+# Systemctl Basics
+sudo systemctl status picam.service
+sudo systemctl stop picam.service
+sudo systemctl start picam.service
+# Änderungen in picam.service laden
+sudo systemctl daemon-reload

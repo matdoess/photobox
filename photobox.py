@@ -13,11 +13,19 @@ from kivy.uix.popup import Popup
 #PiCamera
 from picamera import PiCamera
 
+#Process Management
+import shlex
+from subprocess import Popen
+from subprocess import run
+
 #Sonstige
 from time import sleep
 from datetime import datetime
 #################################################################
 
+### FUNCTIONS ###
+
+# Imagename erstellen
 global imagename
 def imagename():
     imagepath = 'pics/'
@@ -42,13 +50,49 @@ def video():
     camera.annotate_text = 'Hello world!'
     camera.capture(imagename())
     camera.stop_preview()
+    camera.close()
 
+# picam
+global picam
+def picam(input):
+    if input is 'init':
+        pscmd = shlex.split("sudo systemctl start picam.service")
+        run(pscmd)
+        
+    elif input is 'quit':
+        pscmd = shlex.split("sudo systemctl stop picam.service")
+        run(pscmd)
+    
+    elif input is 'start':
+        pscmd = shlex.split("touch /home/pi/picam/hooks/start_record")
+        run(pscmd)
+    
+    elif input is 'stop':
+        pscmd = shlex.split("touch /home/pi/picam/hooks/stop_record")
+        run(pscmd)
+        
+    else:
+        print("wrong input")
+        
+### KIVY ###
 
 class CustomPopup(Popup):
     
     def open_video(self):
         video()
 
+class VideoPopup(Popup):
+    
+    def picam_init(self):
+        picam('init')
+    def picam_quit(self):
+        picam('quit')
+    def picam_start(self):
+        picam('start')
+    def picam_stop(self):
+        picam('stop')
+    def sleep(self, time):
+        sleep(time)
 
 class HomeGridLayout(GridLayout):
     
@@ -56,8 +100,9 @@ class HomeGridLayout(GridLayout):
         the_popup = CustomPopup()
         the_popup.open()
         
-    def open_video(self):
-        video()
+    def open_videopopup(self):
+        the_videopopup = VideoPopup()
+        the_videopopup.open()
 
 class PhotoboxApp(App):
     
