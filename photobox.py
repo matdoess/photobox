@@ -88,6 +88,19 @@ def picam(input):
     else:
         print("wrong input")
         
+### Eigene Classen ###
+    
+class StorageClass():
+    selection = ""
+    def setselection(self,value):
+        self.selection = value
+    def getselection(self):
+        return self.selection
+
+### Eigene Objekte ###
+global storage
+storage = StorageClass()
+        
 ### KIVY ###
 
 class CustomPopup(Popup):
@@ -107,6 +120,20 @@ class VideoPopup(Popup):
         picam('stop')
     def sleep(self, time):
         sleep(time)
+        
+class TaskPopup(Popup):
+    
+##    taskshort = "foobar"
+    def randomtask(self):
+        foobar = random.choice(list(taskdict.keys()))
+##        self.taskshort =
+##        print('randomtask called' + self.taskshort)
+##        return random.choice(list(taskdict.keys()))
+        tasktextbutton1 = self.ids['tasktextbutton']
+        tasktextbutton1.text = foobar
+        storage.setselection(foobar)
+        print(storage.getselection())
+    
 
 class HomeGridLayout(GridLayout):
     
@@ -117,6 +144,10 @@ class HomeGridLayout(GridLayout):
     def open_videopopup(self):
         the_videopopup = VideoPopup()
         the_videopopup.open()
+        
+    def open_taskpopup(self):
+        the_taskpopup = TaskPopup()
+        the_taskpopup.open()
 
 class PhotoboxApp(App):
     

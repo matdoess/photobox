@@ -40,6 +40,31 @@
             root.sleep(1)
             root.picam_quit()
             root.dismiss()
+            
+<TaskPopup>:
+    background: 'img/black.png'
+    separator_color: (0, 0, 0, 1)
+    auto_dismiss: False
+    title: ""
+    on_open:
+##        foobar = self.randomtask()
+##        button1.text = self.randomtask()
+        self.randomtask()
+        #root.dismiss()
+    GridLayout:
+        rows: 2
+        padding: 10
+        spacing: 0
+##  size_hint: .5, .5
+
+        Label:
+            id:tasktextbutton
+            #size_hint: .5, .5
+            background_color: (0, 0, 0, 1)
+            text: ""
+            #on_press: root.dismiss()
+        Button:
+            text: "OK"
 
 <HomeGridLayout>:
     id: home
@@ -70,7 +95,9 @@
         HomeButton:
             #background_color: (0, 0, 0, 1)
             text: "Aufgabe"
-            on_press: print('Aufgabe')
+            on_press:
+                print('Aufgabe')
+                root.open_taskpopup()
     
     # Abstand unten
     BoxLayout:
