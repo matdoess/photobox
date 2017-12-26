@@ -1,6 +1,10 @@
+import shlex
+from subprocess import Popen
+from subprocess import run
+
 class PiCam():
 
-    def init(self)
+    def init(self):
         pscmd = shlex.split("sudo systemctl start picam.service")
         run(pscmd)
         
@@ -8,7 +12,7 @@ class PiCam():
         pscmd = shlex.split("sudo systemctl stop picam.service")
         run(pscmd)
     
-    start(self):
+    def start(self):
         pscmd = shlex.split("touch /home/pi/picam/hooks/start_record")
         run(pscmd)
     
