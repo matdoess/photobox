@@ -6,9 +6,7 @@ class Helper():
         tasks = {}
     
         for line in lines :
-            # line = lines[line]
             line = line.replace("\n", "");
-            # print(line.split(":"))
             shortTask = line.split(":")[0]
             longTask = line.split(":")[1]
             tasks[shortTask] = longTask
@@ -23,7 +21,45 @@ class Helper():
     def getMailAddresses(self):
         print("getMailAddresses")
 
+        try:
+            filepath = "./config/mailaddresses.txt"
+            file = open(filepath);
+            addresses = file.readlines();
+            return addresses
+        except IOError as err:
+            print("Error reading the file {0}: {1}".format(filepath, err))
+            return None
+
+    def findMailAddressByMail(self, mail):
+        print("findMailAddressByMail")
+
+        addresses = self.getMailAddresses()
+
+        for address in addresses:
+            address = address.replace("\n", "")
+            if address == mail:
+                return address
+
+        return None
+
+
+    def addMailAddress(self, mail):
+        print("addMailAddress")
+
+        address = self.findMailAddressByMail(mail)
+
+        if address == None:
+            filepath = "./config/mailaddresses.txt"
+            file = open(filepath, "a");
+            file.write("\n")
+            file.write(mail)
+            file.close()
 
 
 # helper = Helper()
+# helper.getMailAddresses()
+# foundAddress = helper.findMailAddressByMail("elisabethkeller1@web.des")
+# helper.addMailAddress("test@web.de")
+
+# print(foundAddress)
 
