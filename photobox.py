@@ -22,7 +22,9 @@ from datetime import datetime
 import random
 
 #Eigene Module
-from sendEmail import SendEmail
+from Helper import Helper
+from SendEmail import SendEmail
+from PiCam import PiCam
 #################################################################
 
 ### FUNCTIONS ###
@@ -56,50 +58,27 @@ def video():
     # camera.close()
 
 # picam
-global picam
-def picam(input):
-    if input is 'init':
-        pscmd = shlex.split("sudo systemctl start picam.service")
-        run(pscmd)
+# global picam
+# def picam(input):
+#     if input is 'init':
+#         pscmd = shlex.split("sudo systemctl start picam.service")
+#         run(pscmd)
         
-    elif input is 'quit':
-        pscmd = shlex.split("sudo systemctl stop picam.service")
-        run(pscmd)
+#     elif input is 'quit':
+#         pscmd = shlex.split("sudo systemctl stop picam.service")
+#         run(pscmd)
     
-    elif input is 'start':
-        pscmd = shlex.split("touch /home/pi/picam/hooks/start_record")
-        run(pscmd)
+#     elif input is 'start':
+#         pscmd = shlex.split("touch /home/pi/picam/hooks/start_record")
+#         run(pscmd)
     
-    elif input is 'stop':
-        pscmd = shlex.split("touch /home/pi/picam/hooks/stop_record")
-        run(pscmd)
+#     elif input is 'stop':
+#         pscmd = shlex.split("touch /home/pi/picam/hooks/stop_record")
+#         run(pscmd)
         
-    else:
-        print("wrong input")
-        
-### Eigene Classen ###
-
-class HelperClass():
-
-    def getTasks(self):
-        file = open("./config/tasks.txt");
-        lines = file.readlines();
-        tasks = {}
+#     else:
+#         print("wrong input")
     
-        for line in lines :
-            # line = lines[line]
-            line = line.replace("\n", "");
-            # print(line.split(":"))
-            shortTask = line.split(":")[0]
-            longTask = line.split(":")[1]
-            tasks[shortTask] = longTask
-        
-        return tasks
-
-    def getMailText(self):
-        file = open("./config/mailtext.txt");
-        mailtext = file.read()
-        return mailtext
         
 ### KIVY ###
 
@@ -109,25 +88,30 @@ class CustomPopup(Popup):
         video()
 
 class VideoPopup(Popup):
+
+    picam = PiCam()
     
     def picam_init(self):
-        picam('init')
+        picam.init()
+    
     def picam_quit(self):
-        picam('quit')
+        picam.quit()
+    
     def picam_start(self):
-        picam('start')
+        picam.start()
+    
     def picam_stop(self):
-        picam('stop')
+        picam.stop()
+    
     def sleep(self, time):
         sleep(time)
 
         
 class TaskPopup(Popup):
     
-    helper = HelperClass()
+    helper = Helper()
 
     def randomtask(self):
-        
         tasks = self.helper.getTasks();
         taskButtonText = random.choice(list(tasks.keys()))
 
