@@ -1,17 +1,15 @@
 # Kivy
 import kivy
 from kivy.app import App
-##from kivy.uix.button import Button
-##from kivy.uix.scatter import Scatter
-##from kivy.uix.label import Label
+from kivy.uix.label import Label
 from kivy.uix.floatlayout import FloatLayout
 from kivy.uix.gridlayout import GridLayout
 from kivy.uix.boxlayout import BoxLayout
-from kivy.uix.button import Label
+from kivy.uix.button import Button
 from kivy.uix.popup import Popup
 
 #PiCamera
-from picamera import PiCamera
+# from picamera import PiCamera
 
 #Process Management
 import shlex
@@ -22,22 +20,12 @@ from subprocess import run
 from time import sleep
 from datetime import datetime
 import random
+
+#Eigene Module
+from sendEmail import SendEmail
 #################################################################
 
 ### FUNCTIONS ###
-
-# Aufgabenliste
-global taskdict
-global taskshort
-global tasklong
-taskdict = {'kuss':'Küsst euch',
-            'grimasse':'Schneide eine Grimasse',
-            'model':'Mach eine Modelpose',
-            'herz':'Mach ein Herz mit der Hand',
-            'profil':'Lass ein Profil fotografieren',
-            'prost':'Stoße mit jemandem an'}
-#taskshort = random.choice(list(taskdict.keys()))
-#tasklong = taskdict[taskshort]
 
 # Imagename erstellen
 global imagename
@@ -52,19 +40,20 @@ def imagename():
 # Camera
 global video
 def video():
-    camera = PiCamera()
+    print("Picamera Function");
+    # camera = PiCamera()
     
-    camera.rotation = 180
-    camera.resolution = (3280, 2464)
-    #camera.resolution = (2000, 2000)
-    #camera.framerate = 15
+    # camera.rotation = 180
+    # camera.resolution = (3280, 2464)
+    # #camera.resolution = (2000, 2000)
+    # #camera.framerate = 15
     
-    camera.start_preview(resolution=(1640, 1232))
-    sleep(5)
-    camera.annotate_text = 'Hello world!'
-    camera.capture(imagename())
-    camera.stop_preview()
-    camera.close()
+    # camera.start_preview(resolution=(1640, 1232))
+    # sleep(5)
+    # camera.annotate_text = 'Hello world!'
+    # camera.capture(imagename())
+    # camera.stop_preview()
+    # camera.close()
 
 # picam
 global picam
@@ -89,17 +78,28 @@ def picam(input):
         print("wrong input")
         
 ### Eigene Classen ###
-    
-class StorageClass():
-    selection = ""
-    def setselection(self,value):
-        self.selection = value
-    def getselection(self):
-        return self.selection
 
-### Eigene Objekte ###
-global storage
-storage = StorageClass()
+class HelperClass():
+
+    def getTasks(self):
+        file = open("./config/tasks.txt");
+        lines = file.readlines();
+        tasks = {}
+    
+        for line in lines :
+            # line = lines[line]
+            line = line.replace("\n", "");
+            # print(line.split(":"))
+            shortTask = line.split(":")[0]
+            longTask = line.split(":")[1]
+            tasks[shortTask] = longTask
+        
+        return tasks
+
+    def getMailText(self):
+        file = open("./config/mailtext.txt");
+        mailtext = file.read()
+        return mailtext
         
 ### KIVY ###
 
@@ -120,19 +120,28 @@ class VideoPopup(Popup):
         picam('stop')
     def sleep(self, time):
         sleep(time)
+
         
 class TaskPopup(Popup):
     
-##    taskshort = "foobar"
+    helper = HelperClass()
+
     def randomtask(self):
-        foobar = random.choice(list(taskdict.keys()))
-##        self.taskshort =
-##        print('randomtask called' + self.taskshort)
-##        return random.choice(list(taskdict.keys()))
+        
+        tasks = self.helper.getTasks();
+        taskButtonText = random.choice(list(tasks.keys()))
+
         tasktextbutton1 = self.ids['tasktextbutton']
-        tasktextbutton1.text = foobar
-        storage.setselection(foobar)
-        print(storage.getselection())
+        tasktextbutton1.text = taskButtonText
+
+    def sendEmail(self):
+
+        mailtext = self.helper.getMailText()
+        receiver = "jody.lerch@web.de"
+        # receiver = "matthiasdoess@gmail.com"
+
+        mail = SendEmail()
+        mail.send(receiver, mailtext);
     
 
 class HomeGridLayout(GridLayout):
