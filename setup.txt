@@ -20,6 +20,9 @@ mtdev_%(name)s = probesysfs,provider=mtdev
 hid_%(name)s = probesysfs,provider=hidinput
 ------
 
+# Virtuelles Keyboard aktivieren
+keyboard_mode = systemanddock
+
 
 ### picam ###
 # Service Datei

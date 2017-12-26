@@ -9,7 +9,7 @@ from kivy.uix.button import Button
 from kivy.uix.popup import Popup
 
 #PiCamera
-# from picamera import PiCamera
+from picamera import PiCamera
 
 #Sonstige
 from time import sleep
@@ -39,19 +39,18 @@ def imagename():
 global video
 def video():
     print("Picamera Function");
-    # camera = PiCamera()
+    camera = PiCamera()
     
-    # camera.rotation = 180
-    # camera.resolution = (3280, 2464)
-    # #camera.resolution = (2000, 2000)
-    # #camera.framerate = 15
-    
-    # camera.start_preview(resolution=(1640, 1232))
-    # sleep(5)
-    # camera.annotate_text = 'Hello world!'
-    # camera.capture(imagename())
-    # camera.stop_preview()
-    # camera.close()
+    camera.rotation = 180
+    camera.resolution = (3280, 2464)
+    #camera.resolution = (2000, 2000)
+    #camera.framerate = 15
+    camera.start_preview(resolution=(1640, 1232), fullscreen=False, window=(0,0,800,480))
+    sleep(5)
+    camera.annotate_text = 'Hello world!'
+    camera.capture(imagename())
+    camera.stop_preview()
+    camera.close()
         
 ### KIVY ###
 
@@ -59,6 +58,11 @@ class CustomPopup(Popup):
     
     def open_video(self):
         video()
+    def send_email(self):
+        mail = SendEmail()
+        mailtext='test'
+        receiver='matthias.doess@gmail.com'
+        mail.send(receiver,mailtext)
 
 class VideoPopup(Popup):
 

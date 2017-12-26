@@ -33,4 +33,10 @@ sudo pip3 install -U Cython==0.25.2
 sudo pip install git+https://github.com/kivy/kivy.git@master
 sudo pip3 install git+https://github.com/kivy/kivy.git@master
 
+### Python Module ###
+# Wand (ImageMagick API)
+sudo pip install Wand
+sudo pip3 install Wand
+sudo apt-get install libmagickwand-dev
+
 
