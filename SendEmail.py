@@ -52,7 +52,7 @@ class SendEmail():
     #
     # function to send a mail
     #
-    def sendmail(self,recipient,subject,content):
+    def sendmail(self, recipient, subject, content, attachementPath):
 
         # generate a RFC 2822 message
         msg = MIMEMultipart()
@@ -74,16 +74,14 @@ class SendEmail():
 
         msg.attach(MIMEText(content))
 
-        filePath = "./pics/attachement.jpg"
-
         # imageFile = file("./pics/2017-10-15_19-11-06_Test.jpg").read()
-        imageFile = open(filePath, "rb")
+        imageFile = open(attachementPath, "rb")
 
         part = MIMEBase('application', "octet-stream")
         part.set_payload(encodebytes(imageFile.read()).decode())
         imageFile.close()
         part.add_header('Content-Transfer-Encoding', 'base64')
-        part.add_header('Content-Disposition', 'attachment; filename="%s"' % basename(filePath))
+        part.add_header('Content-Disposition', 'attachment; filename="%s"' % basename(attachementPath))
         msg.attach(part)   # msg is an instance of MIMEMultipart()
 
         # part = MIMEBase('application', "octet-stream")
@@ -102,7 +100,7 @@ class SendEmail():
     #
     # main function
     #
-    def send(self, sendToAddress, mailContent):
+    def send(self, sendToAddress, mailContent, attachementPath="./pics/attachement.jpg"):
 
         # call sendmail() and generate a new mail with specified subject and content
-        self.sendmail(sendToAddress, 'Deine Photobox Bilder', mailContent)
+        self.sendmail(sendToAddress, 'Deine Photobox Bilder', mailContent, attachementPath)
