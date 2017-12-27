@@ -1,0 +1,112 @@
+#: kivy 1.9
+#: import ScreenManager kivy.uix.screenmanager.ScreenManager
+#: import Screen kivy.uix.screenmanager.ScreenManager
+#: import MenuScreen screen
+#: import FotoScreen screen
+#: import VideoScreen screen
+#: import TaskScreen screen
+
+
+#ScreenManager:
+#    id: screen_manager
+#    #transition: FadeTransition()
+#    MenuScreen:
+#        id: menu_screen
+#        name: 'MenuScreen'
+#        manager: 'screen_manager'
+#    FotoScreen:
+#        id: foto_screen
+#        name: 'FotoScreen'
+#        manager: 'screen_manager'
+#    VideoScreen: 
+#        id: task_screen
+#        name: 'VideoScreen'
+#        manager: 'screen_manager'
+#    TaskScreen: 
+#        id: task_screen
+#        name: 'TaskScreen'
+#        manager: 'screen_manager'
+
+<MenuScreen>:
+    BoxLayout:
+        Button:
+            text: 'Video'
+            on_press:
+                root.manager.current = 'video'
+                root.manager.transition.direction = 'left'
+        Button:
+            text: 'Foto'
+            on_press:
+                root.manager.current = 'foto'
+                root.manager.transition.direction = 'left'
+        Button:
+            text: 'Aufgabe'
+            on_press:
+                root.manager.current = 'task'
+                root.manager.transition.direction = 'left'
+        TextInput:
+            id: 'emailInput'
+            text: ""
+            size_hint_y: None
+            height: self.parent.height * 0.1
+            pos_hint: {'x': 0.5, 'y': .9}
+            on_text: root.inputChanged(self.text)
+
+        ScrollView:
+            size: self.size
+            scroll_type: ['bars', 'content']
+            GridLayout:
+                spacing: 10
+                id: grid
+                size_hint_y: None
+                height: self.minimum_height
+                cols: 1
+
+<VideoScreen>:
+    BoxLayout:
+        orientation:'vertical'
+        Label:
+            text: 'Test label'
+            size_hint_y: None
+            height: self.parent.height * 0.1
+            canvas.before: 
+                Color: 
+                    rgb: 0, 1, 0
+                Rectangle: 
+                    pos: self.pos 
+                    size: self.size 
+        Label:
+            text: 'Label in der Mitte'
+            canvas.before: 
+                Color: 
+                    rgb: 0, 0, 1
+                Rectangle: 
+                    pos: self.pos 
+                    size: self.size 
+        Button:
+            text: 'Back to menu'
+            size_hint_y: None
+            height: self.parent.height * 0.1
+            on_press: 
+                root.manager.current = 'menu'
+                root.manager.transition.direction = 'right'
+
+<FotoScreen>:
+    BoxLayout:
+        Button:
+            text: 'Back to menu'
+            size_hint_y: None
+            height: self.parent.height * 0.1
+            on_press: 
+                root.manager.current = 'menu'
+                root.manager.transition.direction = 'right'
+
+<TaskScreen>:
+    BoxLayout:
+        Button:
+            text: 'Back to menu'
+            size_hint_y: None
+            height: self.parent.height * 0.1
+            on_press: 
+                root.manager.current = 'menu'
+                root.manager.transition.direction = 'right'
