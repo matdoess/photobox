@@ -50,7 +50,7 @@ class Camera():
             #cam.remove_overlay(o)
             cam.annotate_text_size = self.textsize
             cam.annotate_text = self.textlong
-            self.imgname = imagename()
+            self.imgname = imagename(self.textshort)
             cam.hflip = True
             cam.capture(self.imgname)
             cam.hflip = False
@@ -66,6 +66,7 @@ class Camera():
 if __name__ == "__main__":
     print(imagename())
     camera = Camera()
+    camera.textshort = 'kuss'
     camera.textlong = 'Hochzeit von Elisabeth & Johannes' 
     camera.start()
     print(camera.getName())
