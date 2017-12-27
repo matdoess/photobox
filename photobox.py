@@ -14,11 +14,14 @@ from time import sleep
 from datetime import datetime
 import random
 import sys
+import threading
 
 #Eigene Module
 from Helper import Helper
 from SendEmail import SendEmail
 from PiCam import PiCam
+from ImageResize import ImageResize
+from Camera import Camera
 
 import os
 host = os.environ.get('HOSTNAME')
@@ -33,44 +36,53 @@ if host == "raspberrypi":
 ### FUNCTIONS ###
 
 # Imagename erstellen
-global imagename
-def imagename():
-    imagepath = 'pics/'
-    imagedatetime = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
-    imagesuffix = '_Test'
-    imageext = '.jpg'
-    imagenamecomplete = imagepath + imagedatetime + imagesuffix + imageext
-    return imagenamecomplete
+##global imagename
+##def imagename():
+##    imagepath = 'pics/'
+##    imagedatetime = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
+##    imagesuffix = '_Test'
+##    imageext = '.jpg'
+##    imagenamecomplete = imagepath + imagedatetime + imagesuffix + imageext
+##    return imagenamecomplete
 
 # Camera
-global video
-def video():
-    print("Picamera Function");
-    if host == "raspberrypi":
-        camera = PiCamera()
-        
-        camera.rotation = 180
-        camera.resolution = (3280, 2464)
-        #camera.resolution = (2000, 2000)
-        #camera.framerate = 15
-        camera.start_preview(resolution=(1640, 1232), fullscreen=False, window=(0,0,800,480))
-        sleep(5)
-        camera.annotate_text = 'Hello world!'
-        camera.capture(imagename())
-        camera.stop_preview()
-        camera.close()
+##global video
+##def video():
+##    print("Picamera Function");
+##    if host == "raspberrypi":
+##        camera = PiCamera()
+##        
+##        camera.rotation = 180
+##        camera.resolution = (3280, 2464)
+##        #camera.resolution = (2000, 2000)
+##        #camera.framerate = 15
+##        camera.start_preview(resolution=(1640, 1232), fullscreen=False, window=(0,0,800,480))
+##        sleep(5)
+##        camera.annotate_text = 'Hello world!'
+##        camera.capture(imagename())
+##        camera.stop_preview()
+##        camera.close()
         
 ### KIVY ###
 
 class CustomPopup(Popup):
-    
+    camera = Camera()
+    res = ImageResize()
+    helper = Helper()
     def open_video(self):
-        video()
+        self.camera.start()
+        #print('Bild wurde gespeichert:' + camera.getname())
+    def img_resize(self):
+        self.res.imgresize(self.camera.getName())
+        print('Komprimiertes Bild gespeichert unter:' + self.res.getName())
     def send_email(self):
         mail = SendEmail()
-        mailtext='test'
-        receiver='matthias.doess@gmail.com'
-        mail.send(receiver,mailtext)
+        receiver='jody1990.jl@gmail.com'
+        mailtext = self.helper.getMailText()
+        mailfile = self.res.getName()
+        #mail.send(receiver,mailtext) #Backgroundprozess
+        mail_thread = threading.Thread(target=mail.send, args=(receiver,mailtext,mailfile))
+        mail_thread.start()
 
 class VideoPopup(Popup):
 

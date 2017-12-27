@@ -12,6 +12,7 @@ class ImageResize():
     imgquality=80
     imgaddname = '_mail'
     imgaddfolder = 'mail'
+    imgnewname = ""
 
     def imgresize(self,imgfile):
         imgnameext = os.path.basename(imgfile)
@@ -22,14 +23,16 @@ class ImageResize():
         #print('imgext=' + imgext)
         imgfolder = os.path.dirname(imgfile)
         #print('imgfolder=' + imgfolder)
-        imgnewname = imgfolder + '/' + self.imgaddfolder + '/' + imgname + self.imgaddname + imgext
-        print(imgnewname)
+        self.imgnewname = imgfolder + '/' + self.imgaddfolder + '/' + imgname + self.imgaddname + imgext
+        print(self.imgnewname)
         with Image(filename=imgfile) as img:
             with img.clone() as converted:
                 converted.transform(resize=self.imgsize)
                 converted.compression_quality = self.imgquality
-                converted.save(filename=imgnewname)
+                converted.save(filename=self.imgnewname)
 
+    def getName(self):
+        return self.imgnewname
 
 #
 # TEST
