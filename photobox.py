@@ -8,8 +8,6 @@ from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.button import Button
 from kivy.uix.popup import Popup
 
-#PiCamera
-from picamera import PiCamera
 
 #Sonstige
 from time import sleep
@@ -21,6 +19,15 @@ import sys
 from Helper import Helper
 from SendEmail import SendEmail
 from PiCam import PiCam
+
+import os
+host = os.environ.get('HOSTNAME')
+
+if host == "raspberrypi":
+    #PiCamera
+    from picamera import PiCamera
+
+
 #################################################################
 
 ### FUNCTIONS ###
@@ -39,18 +46,19 @@ def imagename():
 global video
 def video():
     print("Picamera Function");
-    camera = PiCamera()
-    
-    camera.rotation = 180
-    camera.resolution = (3280, 2464)
-    #camera.resolution = (2000, 2000)
-    #camera.framerate = 15
-    camera.start_preview(resolution=(1640, 1232), fullscreen=False, window=(0,0,800,480))
-    sleep(5)
-    camera.annotate_text = 'Hello world!'
-    camera.capture(imagename())
-    camera.stop_preview()
-    camera.close()
+    if host == "raspberrypi":
+        camera = PiCamera()
+        
+        camera.rotation = 180
+        camera.resolution = (3280, 2464)
+        #camera.resolution = (2000, 2000)
+        #camera.framerate = 15
+        camera.start_preview(resolution=(1640, 1232), fullscreen=False, window=(0,0,800,480))
+        sleep(5)
+        camera.annotate_text = 'Hello world!'
+        camera.capture(imagename())
+        camera.stop_preview()
+        camera.close()
         
 ### KIVY ###
 
@@ -114,7 +122,7 @@ class HomeGridLayout(GridLayout):
     def open_videopopup(self):
         the_videopopup = VideoPopup()
         the_videopopup.open()
-        sys.exit("Error message")
+        # sys.exit("Error message")
         
     def open_taskpopup(self):
         the_taskpopup = TaskPopup()
