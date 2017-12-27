@@ -24,7 +24,7 @@ class Helper():
         try:
             filepath = "./config/mailaddresses.txt"
             file = open(filepath);
-            addresses = file.readlines();
+            addresses = file.read().splitlines();
             return addresses
         except IOError as err:
             print("Error reading the file {0}: {1}".format(filepath, err))
@@ -36,7 +36,6 @@ class Helper():
         addresses = self.getMailAddresses()
 
         for address in addresses:
-            address = address.replace("\n", "")
             if address == mail:
                 return address
 
@@ -56,6 +55,9 @@ class Helper():
             file.close()
 
 
+if __name__ == "__main__":
+    helper = Helper()
+    helper.getMailAddresses()
 # helper = Helper()
 # helper.getMailAddresses()
 # foundAddress = helper.findMailAddressByMail("elisabethkeller1@web.des")

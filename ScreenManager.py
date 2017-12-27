@@ -11,6 +11,8 @@ from kivy.uix.button import Button
 from kivy.uix.scrollview import ScrollView
 from kivy.core.window import Window
 
+from Helper import Helper
+
 # Create both screens. Please note the root.manager.current: this is how
 # you can control the ScreenManager from kv. Each screen has by default a
 # property manager that gives you the instance of the ScreenManager used.
@@ -43,8 +45,9 @@ Builder.load_string("""
 
         ScrollView:
             size: self.size
-            scroll_type: ['bars']
+            scroll_type: ['bars', 'content']
             GridLayout:
+                spacing: 10
                 id: grid
                 size_hint_y: None
                 height: self.minimum_height
@@ -103,20 +106,32 @@ Builder.load_string("""
 # Declare screens
 class MenuScreen(Screen):
 
+    helper = Helper()
+
     def inputChanged(self, text, *args):
-        if text:
-            print(int(text))
-            self.ids.grid.clear_widgets()
-            for i in range(int(text)):
-                button = Button(text="B_" + str(i), size_hint_y=None, height=40)
-                self.ids.grid.add_widget(button)
+
+        mailAddresses = self.helper.getMailAddresses()
+        filteredAdrresses = []
+
+
+        for address in mailAddresses:
+            if text in address:
+                filteredAdrresses.append(address)
+
+        self.ids.grid.clear_widgets()
+
+        for mail in filteredAdrresses:
+            button = Button(text=mail, size_hint_y=None, height=40, font_size=16)
+            self.ids.grid.add_widget(button)
 
     def on_enter(self):
-        NUMBER_OF_BUTTONS = 50
+
+        mailAddresses = self.helper.getMailAddresses()
+
         self.ids.grid.clear_widgets()
         
-        for i in range(NUMBER_OF_BUTTONS):
-            button = Button(text="B_" + str(i), size_hint_y=None, height=40)
+        for address in mailAddresses:
+            button = Button(text=address, size_hint_y=None, height=40, font_size=16)
             self.ids.grid.add_widget(button)
 
         # layout = GridLayout(cols=1, spacing=10, size_hint_y=None)
