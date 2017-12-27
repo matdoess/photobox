@@ -10,35 +10,65 @@ if host == "raspberrypi":
     from picamera import PiCamera
     
 class Camera():
+    # Load images
+    img3 = Image.open('img/3.png')
+    img2 = Image.open('img/2.png')
+    img1 = Image.open('img/1.png')
+    images = [img3,img2,img1]
+    imgwhite = Image.open('img/white.png')
+    
+    #Variablen
     imgname = ""
+    textshort = ""
+    textlong = ""
+    textsize = 64
     
     def start(self):
         print("Picamera Function");
         if host == "raspberrypi":
             cam = PiCamera()
             
-            cam.rotation = 180
+            cam.vflip = True
             cam.resolution = (3280, 2464)
-            #camera.resolution = (2000, 2000)
-            #camera.framerate = 15
+            #cam.resolution = (2000, 2000)
+            #cam.framerate = 15
             
             cam.start_preview(resolution=(1640, 1232), fullscreen=False, window=(0,0,800,480))
-            sleep(5)
-            cam.annotate_text = 'Hello world!'
+            #sleep(5)
+            
+            # Add Overlay Countdown For-Schleife
+            sleep(1)
+            for i in self.images:
+                o = cam.add_overlay(i.tobytes(), size=i.size, layer=3)
+                sleep(1)
+                cam.remove_overlay(o)
+            #Flash White
+            o = cam.add_overlay(self.imgwhite.tobytes(), size=self.imgwhite.size, layer=3)
+            o.alpha=128
+            sleep(0.2)
+            
+            #cam.remove_overlay(o)
+            cam.annotate_text_size = self.textsize
+            cam.annotate_text = self.textlong
             self.imgname = imagename()
+            cam.hflip = True
             cam.capture(self.imgname)
+            cam.hflip = False
             cam.stop_preview()
             cam.close()
+            
             
     def getName(self):
         return self.imgname
 #
 # TEST
 #
-##print(imagename())
-##camera = Camera()
-##camera.start()
-##print(camera.getname())
+if __name__ == "__main__":
+    print(imagename())
+    camera = Camera()
+    camera.textlong = 'Hochzeit von Elisabeth & Johannes' 
+    camera.start()
+    print(camera.getName())
 
 ##global video
 ##def video():
