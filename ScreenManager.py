@@ -16,9 +16,10 @@ from kivy.clock import mainthread
 from functools import partial
 
 from Helper import Helper
+from SendEmail import SendEmail
 
 from time import sleep
-
+import threading
 # Create both screens. Please note the root.manager.current: this is how
 # you can control the ScreenManager from kv. Each screen has by default a
 # property manager that gives you the instance of the ScreenManager used.
@@ -31,6 +32,7 @@ class MenuScreen(Screen):
 
 class SendEmailScreen(Screen):
     helper = Helper()
+    mail = SendEmail()
 
     def inputChanged(self, text, *args):
 
@@ -52,6 +54,13 @@ class SendEmailScreen(Screen):
     def sendEmail(self, mailAddress):
         if self.helper.findMailAddressByMail(mailAddress) == None:
             self.helper.addMailAddress(mailAddress)
+
+        mailtext = self.helper.getMailText()
+
+        mail_thread = threading.Thread(target=self.mail.send, args=(mailAddress,mailtext))
+        mail_thread.start()
+
+        self.parent.current = 'menu'
 
     # @mainthread
     # def on_enter(self):
