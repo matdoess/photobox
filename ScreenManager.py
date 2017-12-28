@@ -10,7 +10,10 @@ from kivy.uix.gridlayout import GridLayout
 from kivy.uix.button import Button
 from kivy.uix.scrollview import ScrollView
 from kivy.core.window import Window
-# from kivy.uix.screenmanager.CardTransition import CardTransition
+
+from kivy.clock import mainthread
+
+from functools import partial
 
 from Helper import Helper
 
@@ -27,29 +30,44 @@ class MenuScreen(Screen):
 
     def inputChanged(self, text, *args):
 
+        print(text)
+
         mailAddresses = self.helper.getMailAddresses()
         filteredAdrresses = []
 
-
-        for address in mailAddresses:
-            if text in address:
-                filteredAdrresses.append(address)
-
-        self.ids.grid.clear_widgets()
-
-        for mail in filteredAdrresses:
-            button = Button(text=mail, size_hint_y=None, height=40, font_size=16)
-            self.ids.grid.add_widget(button)
-
-    def on_enter(self):
-
-        mailAddresses = self.helper.getMailAddresses()
+        for mail in mailAddresses:
+            if text in mail:
+                filteredAdrresses.append(mail)
 
         self.ids.grid.clear_widgets()
-        
-        for address in mailAddresses:
-            button = Button(text=address, size_hint_y=None, height=40, font_size=16)
-            self.ids.grid.add_widget(button)
+
+        if filteredAdrresses:
+            for address in filteredAdrresses:
+                button = Button(text=address, size_hint_y=None, height=40, font_size=16)
+                button.bind(on_press=partial(self.setTextInput, address))
+                self.ids.grid.add_widget(button)
+
+    def sendEmail(self, mailAddress):
+        if self.helper.findMailAddressByMail(mailAddress) == None:
+            self.helper.addMailAddress(mailAddress)
+
+    # @mainthread
+    # def on_enter(self):
+
+    #     mailAddresses = self.helper.getMailAddresses()
+
+    #     self.ids.grid.clear_widgets()
+
+    #     for address in mailAddresses:
+    #         button = Button(text=address, size_hint_y=None, height=40, font_size=16)
+    #         button.bind(on_press=partial(self.setTextInput, address))
+    #         self.ids.grid.add_widget(button)
+
+
+    def setTextInput(self, address, *args):
+        print(address)
+        self.ids.emailInput.text = address
+
 
 
 class FotoScreen(Screen):
@@ -61,13 +79,13 @@ class VideoScreen(Screen):
 class TaskScreen(Screen):
     pass
 
+
 # Create the screen manager
 sm = ScreenManager(transition=WipeTransition())
 sm.add_widget(MenuScreen(name='menu'))
 sm.add_widget(FotoScreen(name='foto'))
 sm.add_widget(VideoScreen(name='video'))
 sm.add_widget(TaskScreen(name='task'))
-
 
 class ScreenManagerApp(App):
 
