@@ -20,9 +20,6 @@ from SendEmail import SendEmail
 
 from time import sleep
 import threading
-# Create both screens. Please note the root.manager.current: this is how
-# you can control the ScreenManager from kv. Each screen has by default a
-# property manager that gives you the instance of the ScreenManager used.
 
 Builder.load_file("./templates/ScreenManager.kv")
 
@@ -52,6 +49,9 @@ class SendEmailScreen(Screen):
                 self.ids.grid.add_widget(button)
 
     def sendEmail(self, mailAddress):
+
+        self.ids.emailInput.text = ""
+
         if self.helper.findMailAddressByMail(mailAddress) == None:
             self.helper.addMailAddress(mailAddress)
 
