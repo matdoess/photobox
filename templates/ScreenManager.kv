@@ -49,35 +49,6 @@
             on_press:
                 root.manager.current = 'task'
                 root.manager.transition.direction = 'left'
-        BoxLayout:
-            orientation:'vertical'
-            spacing: 10
-            size: root.size
-            TextInput:
-                id: emailInput
-                text: ""
-                size_hint_y: None
-                height: 40
-                pos_hint: {'x': 0, 'y': .9}
-                on_text: root.inputChanged(self.text)
-
-            Button:
-                id: sendMailButton
-                text: 'Senden'
-                size_hint: [1, .2]
-                # height: 20               
-                background_color: (0, 2, 0, 1)
-                on_press: root.sendEmail(emailInput.text)
-
-            ScrollView:
-                size: self.size
-                scroll_type: ['bars', 'content']
-                GridLayout:
-                    spacing: 10
-                    id: grid
-                    size_hint_y: None
-                    height: self.minimum_height
-                    cols: 1
 
 <VideoScreen>:
     BoxLayout:
@@ -110,6 +81,54 @@
 
 <FotoScreen>:
     BoxLayout:
+        orientation:'vertical'
+        spacing: 50
+        padding: 10
+        Button:
+            text: 'Klick simuliert Foto'
+            on_press:
+                root.sleep(3)
+                root.manager.current = 'sendemail'
+                root.manager.transition.direction = 'left'
+        Button:
+            text: 'Back to menu'
+            size_hint_y: None
+            height: self.parent.height * 0.1
+            on_press: 
+                root.manager.current = 'menu'
+                root.manager.transition.direction = 'right'
+
+<SendEmailScreen>:
+    BoxLayout:
+        orientation:'vertical'
+        spacing: 10
+        size: root.size
+        padding: 10
+        TextInput:
+            id: emailInput
+            text: ""
+            size_hint_y: None
+            height: 40
+            pos_hint: {'x': 0, 'y': .9}
+            on_text: root.inputChanged(self.text)
+
+        Button:
+            id: sendMailButton
+            text: 'Senden'
+            size_hint: [1, .2]
+            # height: 20               
+            background_color: (0, 2, 0, 1)
+            on_press: root.sendEmail(emailInput.text)
+
+        ScrollView:
+            size: self.size
+            scroll_type: ['bars', 'content']
+            GridLayout:
+                spacing: 10
+                id: grid
+                size_hint_y: None
+                height: self.minimum_height
+                cols: 1
         Button:
             text: 'Back to menu'
             size_hint_y: None

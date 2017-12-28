@@ -17,6 +17,8 @@ from functools import partial
 
 from Helper import Helper
 
+from time import sleep
+
 # Create both screens. Please note the root.manager.current: this is how
 # you can control the ScreenManager from kv. Each screen has by default a
 # property manager that gives you the instance of the ScreenManager used.
@@ -25,12 +27,12 @@ Builder.load_file("./templates/ScreenManager.kv")
 
 # Declare screens
 class MenuScreen(Screen):
+    pass
 
+class SendEmailScreen(Screen):
     helper = Helper()
 
     def inputChanged(self, text, *args):
-
-        print(text)
 
         mailAddresses = self.helper.getMailAddresses()
         filteredAdrresses = []
@@ -65,13 +67,11 @@ class MenuScreen(Screen):
 
 
     def setTextInput(self, address, *args):
-        print(address)
         self.ids.emailInput.text = address
 
-
-
 class FotoScreen(Screen):
-    pass
+    def sleep(self, time):
+        sleep(time)
 
 class VideoScreen(Screen):
     pass
@@ -86,6 +86,7 @@ sm.add_widget(MenuScreen(name='menu'))
 sm.add_widget(FotoScreen(name='foto'))
 sm.add_widget(VideoScreen(name='video'))
 sm.add_widget(TaskScreen(name='task'))
+sm.add_widget(SendEmailScreen(name='sendemail'))
 
 class ScreenManagerApp(App):
 
