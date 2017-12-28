@@ -1,147 +1,152 @@
-#: kivy 1.9
 #: import ScreenManager kivy.uix.screenmanager.ScreenManager
 #: import Screen kivy.uix.screenmanager.ScreenManager
+#: import WipeTransition kivy.uix.screenmanager.WipeTransition
 #: import MenuScreen screen
 #: import FotoScreen screen
 #: import VideoScreen screen
 #: import TaskScreen screen
 
 
-#ScreenManager:
-#    id: screen_manager
-#    #transition: FadeTransition()
-#    MenuScreen:
-#        id: menu_screen
-#        name: 'MenuScreen'
-#        manager: 'screen_manager'
-#    FotoScreen:
-#        id: foto_screen
-#        name: 'FotoScreen'
-#        manager: 'screen_manager'
-#    VideoScreen: 
-#        id: task_screen
-#        name: 'VideoScreen'
-#        manager: 'screen_manager'
-#    TaskScreen: 
-#        id: task_screen
-#        name: 'TaskScreen'
-#        manager: 'screen_manager'
+ScreenManagement:
+    id: screen_manager
+    # transition: WipeTransition()
+    MenuScreen:
+        id: menu_screen
+        name: 'MenuScreen'
+        manager: 'screen_manager'
+    FotoScreen:
+        id: foto_screen
+        name: 'FotoScreen'
+        manager: 'screen_manager'
+    VideoScreen: 
+        id: task_screen
+        name: 'VideoScreen'
+        manager: 'screen_manager'
+    TaskScreen: 
+        id: task_screen
+        name: 'TaskScreen'
+        manager: 'screen_manager'
+    SendEmailScreen: 
+        id: sendEmail_screen
+        name: 'SendEmailScreen'
+        manager: 'screen_manager'
 
-# <MailButton@Button>:
-#     font_size: 32
-#     on_press:
-#         root.setTextInput(self.text)
+<TaskLabel@Label>:
+    text_size: self.width, None
+    size_hint: 1, 1
+
+<InnerBoxLayout@BoxLayout>:
+    padding: 10
+    spacing: 10
+
+<SuccessButton@Button>:
+    font_size: 32
+    background_color: (0, 0, 1.8, 1)
+
+<BackHomeButton@Button>:
+    font_size: 16
+    background_color: (0.4, 0.4, 0.4, 1)
+    text: 'Zurück zum Hauptmenü'
+    size_hint_y: None
+    height: 60
+    on_press: 
+        app.root.current = 'MenuScreen'
+        app.root.transition.direction = 'down'
 
 <MenuScreen>:
     BoxLayout:
-        Button:
-            text: 'Video'
-            on_press:
-                root.manager.current = 'video'
-                root.manager.transition.direction = 'left'
-        Button:
-            text: 'Foto'
-            on_press:
-                root.manager.current = 'foto'
-                root.manager.transition.direction = 'left'
-        Button:
-            text: 'Aufgabe'
-            on_press:
-                root.manager.current = 'task'
-                root.manager.transition.direction = 'left'
+        orientation: 'horizontal'
+        
+        InnerBoxLayout:
+            orientation: 'horizontal'
+            
+            Button:
+                text: 'Video'
+                on_press:
+                    app.root.current = 'VideoScreen'
+                    app.root.transition.direction = 'up'
+            Button:
+                text: 'Foto'
+                on_press:
+                    app.root.current = 'FotoScreen'
+                    app.root.transition.direction = 'up'
+            Button:
+                text: 'Aufgabe'
+                on_press:
+                    app.root.current = 'TaskScreen'
+                    app.root.transition.direction = 'up'
 
 <VideoScreen>:
     BoxLayout:
-        orientation:'vertical'
-        Label:
-            text: 'Test label'
-            size_hint_y: None
-            height: self.parent.height * 0.1
-            canvas.before: 
-                Color: 
-                    rgb: 0, 1, 0
-                Rectangle: 
-                    pos: self.pos 
-                    size: self.size 
-        Label:
-            text: 'Label in der Mitte'
-            canvas.before: 
-                Color: 
-                    rgb: 0, 0, 1
-                Rectangle: 
-                    pos: self.pos 
-                    size: self.size 
-        Button:
-            text: 'Back to menu'
-            size_hint_y: None
-            height: self.parent.height * 0.1
-            on_press: 
-                root.manager.current = 'menu'
-                root.manager.transition.direction = 'right'
+        orientation: 'vertical'
+        
+        InnerBoxLayout:
+            orientation: 'vertical'
+            
+            Label:
+                text: 'Hier soll Video Gedöns passieren'
+
+        BackHomeButton:
 
 <FotoScreen>:
     BoxLayout:
         orientation:'vertical'
-        spacing: 50
-        padding: 10
-        Button:
-            text: 'Klick simuliert Foto'
-            on_press:
-                root.manager.current = 'sendemail'
-                root.manager.transition.direction = 'left'
-        Button:
-            text: 'Back to menu'
-            size_hint_y: None
-            height: self.parent.height * 0.1
-            on_press: 
-                root.manager.current = 'menu'
-                root.manager.transition.direction = 'right'
+        
+        InnerBoxLayout:
+            orientation:'vertical'
+
+            Label:
+                id:FotoTaskLabel
+                text:""
+                size_hint_y: None
+                text_size: self.width, None
+                height: self.texture_size[1]        
+
+            Button:
+                text: 'Klick simuliert Foto'
+                on_press:
+                    app.root.current = 'SendEmailScreen'
+                    app.root.transition.direction = 'up'
+        
+        BackHomeButton:
 
 <SendEmailScreen>:
     BoxLayout:
         orientation:'vertical'
-        spacing: 10
         size: root.size
-        padding: 10
-        TextInput:
-            id: emailInput
-            text: ""
-            size_hint_y: None
-            height: 40
-            pos_hint: {'x': 0, 'y': .9}
-            on_text: root.inputChanged(self.text)
 
-        Button:
-            id: sendMailButton
-            text: 'Senden'
-            size_hint: [1, .2]
-            # height: 20               
-            background_color: (0, 2, 0, 1)
-            on_press: root.sendEmail(emailInput.text)
+        InnerBoxLayout:
+            orientation: 'vertical'
 
-        ScrollView:
-            size: self.size
-            scroll_type: ['bars', 'content']
-            GridLayout:
-                spacing: 10
-                id: grid
+            TextInput:
+                id: emailInput
+                text: ""
                 size_hint_y: None
-                height: self.minimum_height
-                cols: 1
-        Button:
-            text: 'Back to menu'
-            size_hint_y: None
-            height: self.parent.height * 0.1
-            on_press: 
-                root.manager.current = 'menu'
-                root.manager.transition.direction = 'right'
+                height: 40
+                pos_hint: {'x': 0, 'y': .9}
+                on_text: root.inputChanged(self.text)
+
+            Button:
+                id: sendMailButton
+                text: 'Senden'
+                size_hint: [1, .2]
+                background_color: (0, 2, 0, 1)
+                on_press: root.sendEmail(emailInput.text)
+
+            ScrollView:
+                size: self.size
+                scroll_type: ['bars', 'content']
+
+                GridLayout:
+                    spacing: 10
+                    id: grid
+                    size_hint_y: None
+                    height: self.minimum_height
+                    cols: 1
+
+        BackHomeButton:
 
 <TaskScreen>:
     BoxLayout:
-        Button:
-            text: 'Back to menu'
-            size_hint_y: None
-            height: self.parent.height * 0.1
-            on_press: 
-                root.manager.current = 'menu'
-                root.manager.transition.direction = 'right'
+        orientation: 'vertical'
+        id: taskRootScreen

@@ -1,3 +1,5 @@
+import random
+
 class Helper():
 
     def getTasks(self):
@@ -12,6 +14,13 @@ class Helper():
             tasks[shortTask] = longTask
         
         return tasks
+
+    def getRandomTask(self):
+        tasks = self.getTasks();
+        randomTaskKey = random.choice(list(tasks.keys()))
+        randomTask = {"short": randomTaskKey, "long": tasks[randomTaskKey]}
+        return randomTask
+
 
     def getMailText(self):
         file = open("./config/mailtext.txt");
@@ -57,7 +66,7 @@ class Helper():
 
 if __name__ == "__main__":
     helper = Helper()
-    helper.getMailAddresses()
+    print(helper.getRandomTask())
 # helper = Helper()
 # helper.getMailAddresses()
 # foundAddress = helper.findMailAddressByMail("elisabethkeller1@web.des")

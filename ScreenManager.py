@@ -1,16 +1,9 @@
 from kivy.app import App
 from kivy.lang import Builder
-from kivy.uix.screenmanager import ScreenManager, Screen, WipeTransition
-from kivy.uix.textinput import TextInput
-from kivy.uix.button import Button
+from kivy.uix.screenmanager import ScreenManager, Screen
 from kivy.uix.boxlayout import BoxLayout
-from kivy.adapters.listadapter import ListAdapter
-from kivy.uix.listview import ListItemButton, ListView
-from kivy.uix.gridlayout import GridLayout
 from kivy.uix.button import Button
-from kivy.uix.scrollview import ScrollView
-from kivy.core.window import Window
-
+from kivy.uix.label import Label
 from kivy.clock import mainthread
 
 from functools import partial
@@ -18,11 +11,7 @@ from functools import partial
 from Helper import Helper
 from SendEmail import SendEmail
 
-from time import sleep
 import threading
-
-# kv Datei laden
-Builder.load_file("./templates/ScreenManager.kv")
 
 # Screens definieren
 class MenuScreen(Screen):
@@ -75,7 +64,7 @@ class SendEmailScreen(Screen):
         mail_thread.start()
 
         # Wieder zum Startbildschirm zuruek navigieren
-        self.parent.current = 'menu'
+        self.parent.current = 'MenuScreen'
 
     # Wird aufgerufen wenn Benutzer auf eine Emailadresse aus der Vorschlagsliste klickt
     # schreibt die Auswahl in das Textfeld
@@ -98,28 +87,95 @@ class SendEmailScreen(Screen):
 
 
 class FotoScreen(Screen):
-    def sleep(self, time):
-        sleep(time)
+
+
+    def on_enter(self):
+
+        app = App.get_running_app()
+
+        taskLong = app.TASK_LONG if app.TASK_LONG != None else ""
+        taskShort = app.TASK_SHORT
+        app.TASK_LONG = None            
+        app.TASK_SHORT = None
+
+        labeltext = "Deine Aufgabe lautet: " + taskLong if taskLong != "" else "" 
+        self.ids.FotoTaskLabel.text = labeltext
+
 
 class VideoScreen(Screen):
     pass
 
-class TaskScreen(Screen):
+class SuccessButton(Button):
     pass
 
+class BackHomeButton(Button):
+    pass
 
-# Screenmanager erzeugen
-sm = ScreenManager(transition=WipeTransition())
-sm.add_widget(MenuScreen(name='menu'))
-sm.add_widget(FotoScreen(name='foto'))
-sm.add_widget(VideoScreen(name='video'))
-sm.add_widget(TaskScreen(name='task'))
-sm.add_widget(SendEmailScreen(name='sendemail'))
+class InnerBoxLayout(BoxLayout):
+    pass
+
+class TaskLabel(Label):
+    pass
+
+class TaskScreen(Screen):
+    
+    helper = Helper()
+
+    def on_enter(self):
+        print("TaskScreen entered")
+
+        self.ids.taskRootScreen.clear_widgets()
+
+        task = self.helper.getRandomTask()
+
+        boxLayout = InnerBoxLayout(
+            orientation = 'horizontal'
+        )
+
+        label = Label(
+            text = "Deine Aufgabe lautet:",
+            size_hint_y = None,
+            height = self.parent.height * 0.1,
+            pos=(100, 100),
+            font_size=20
+        )
+
+        labelTask = TaskLabel(
+            text=task["long"],
+            font_size=32
+        )
+
+        startTaskButton = SuccessButton(text="LOS!")
+        startTaskButton.bind(on_press=partial(self.startTask, task["long"], task["short"]))
+        
+        boxLayout.add_widget(labelTask)
+        boxLayout.add_widget(startTaskButton)
+        self.ids.taskRootScreen.add_widget(label)
+        self.ids.taskRootScreen.add_widget(boxLayout)
+
+        self.ids.taskRootScreen.add_widget(BackHomeButton())
+
+
+    def startTask(self, taskLong, taskShort, *args):
+        app = App.get_running_app()
+        app.TASK_SHORT = taskShort
+        app.TASK_LONG = taskLong
+        self.parent.current = 'FotoScreen'
+
+
+class ScreenManagement(ScreenManager):
+    pass
+
+# kv Datei laden
+presentation = Builder.load_file("./templates/ScreenManager.kv")
 
 class ScreenManagerApp(App):
 
+    TASK_SHORT = None
+    TASK_LONG = None
+
     def build(self):
-        return sm
+        return presentation
 
 if __name__ == '__main__':
     screenManagerApp = ScreenManagerApp()
