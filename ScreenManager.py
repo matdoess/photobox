@@ -8,6 +8,9 @@ from kivy.uix.label import Label
 from kivy.uix.image import Image
 from kivy.clock import mainthread
 
+import os
+os.environ["KIVY_IMAGE"]="pil"
+
 from functools import partial
 from time import sleep
 
@@ -110,6 +113,7 @@ class FotoScreen(Screen):
         counter = 0
         
         if fromtakefoto:
+            #self.ids.FotoImageID.source='img/loading.gif'
             app.FROMTAKEFOTO = False
             isResizeInprogress = app.SM.get_screen('TakeFotoScreen').ThreadCheck()
             while (isResizeInprogress and counter < 15):
@@ -122,7 +126,8 @@ class FotoScreen(Screen):
             print('afterwhile')
             thumbnailimage = app.SM.get_screen('TakeFotoScreen').res.getName()
             print(thumbnailimage)
-            self.ids.FotoImageID.source=thumbnailimage
+            self.ids.FotoImageID.source='img/loading.gif'
+            #self.ids.FotoImageID.source=thumbnailimage
 
         labeltext = "Deine Aufgabe lautet: " + taskLong if taskLong != "" else "" 
         self.ids.FotoTaskLabel.text = labeltext
