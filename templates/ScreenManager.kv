@@ -149,9 +149,11 @@ ScreenManagement:
                 text_size: self.width, None
                 height: self.texture_size[1]
                 
-            FotoImage:
-                id:FotoImageID
-                source:'pics/mail/2017-12-27_18-50-11_Test_mail.jpg'
+            BoxLayout:
+                id:FotoImageContainer
+##                FotoImage:
+##                    id:FotoImageID
+##                    source:'pics/mail/2017-12-27_18-50-11_Test_mail.jpg'
 
 ##            Button:
 ##                text: 'Klick simuliert Foto'
@@ -174,6 +176,9 @@ ScreenManagement:
                 text: 'Foto senden'
                 size_hint_y: None
                 height: 60
+                on_press:
+                    app.root.current = 'SendEmailScreen'
+                    app.root.transition.direction = 'up'
 
 
 <SendEmailScreen>:

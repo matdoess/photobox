@@ -23,7 +23,10 @@ import threading
 
 # Screens definieren
 class MenuScreen(Screen):
-    pass
+    def on_enter(self):
+        app = App.get_running_app()
+        app.TASK_LONG = None
+        app.TASK_SHORT = None
 
 class SendEmailScreen(Screen):
 
@@ -66,9 +69,13 @@ class SendEmailScreen(Screen):
             self.helper.addMailAddress(mailAddress)
 
         mailtext = self.helper.getMailText()
+        
+        app = App.get_running_app()
+        mailimage = app.MAILIMAGE
+        app.MAILIMAGE = None
 
         # Email im Hintergrund verschicken
-        mail_thread = threading.Thread(target=self.mail.send, args=(mailAddress,mailtext))
+        mail_thread = threading.Thread(target=self.mail.send, args=(mailAddress,mailtext,mailimage))
         mail_thread.start()
 
         # Wieder zum Startbildschirm zuruek navigieren
@@ -100,7 +107,22 @@ class FotoImage(Image):
 
 class FotoScreen(Screen):
 
-
+    def on_pre_enter(self):
+        app = App.get_running_app()
+        fromtakefoto = app.FROMTAKEFOTO
+        if fromtakefoto:
+            label = Label(
+            text = "Dein Bild wird geladen",
+            font_size=20
+            )
+            self.ids.FotoImageContainer.add_widget(label)
+        else:
+            self.ids.FotoImageContainer.clear_widgets()
+            fotoimage = FotoImage(source='img/camera_icon.png')
+            self.ids.FotoImageContainer.add_widget(fotoimage)
+            app.MAILIMAGE = None
+            
+            
     def on_enter(self):
 
         app = App.get_running_app()
@@ -113,9 +135,21 @@ class FotoScreen(Screen):
         counter = 0
         
         if fromtakefoto:
-            #self.ids.FotoImageID.source='img/loading.gif'
+##            self.ids.FotoImageID.source='img/loading_black.gif'
+##            print('fromtakefotostart')
+##            label = Label(
+##            text = "Deine Aufgabe lautet:",
+##            size_hint_y = None,
+##            height = self.parent.height * 0.1,
+##            pos=(100, 100),
+##            font_size=20
+##            )
+##
+##            self.ids.FotoImageContainer.add_widget(label)
+            
             app.FROMTAKEFOTO = False
             isResizeInprogress = app.SM.get_screen('TakeFotoScreen').ThreadCheck()
+            sleep(2)
             while (isResizeInprogress and counter < 15):
                 print(counter)
                 print(isResizeInprogress)
@@ -126,7 +160,13 @@ class FotoScreen(Screen):
             print('afterwhile')
             thumbnailimage = app.SM.get_screen('TakeFotoScreen').res.getName()
             print(thumbnailimage)
-            self.ids.FotoImageID.source='img/loading.gif'
+            
+            self.ids.FotoImageContainer.clear_widgets()
+            fotoimage = FotoImage(source=thumbnailimage)
+            self.ids.FotoImageContainer.add_widget(fotoimage)
+            app.MAILIMAGE = thumbnailimage
+            
+            #self.ids.FotoImageID.source='img/loading_black.gif'
             #self.ids.FotoImageID.source=thumbnailimage
 
         labeltext = "Deine Aufgabe lautet: " + taskLong if taskLong != "" else "" 
@@ -243,6 +283,7 @@ class ScreenManagerApp(App):
     TASK_LONG = None
     FROMTAKEFOTO = False
     SM = screenmanager
+    MAILIMAGE = None
 
     def build(self):
         return screenmanager
