@@ -24,7 +24,7 @@ class ImageResize():
         imgfolder = os.path.dirname(imgfile)
         #print('imgfolder=' + imgfolder)
         self.imgnewname = imgfolder + '/' + self.imgaddfolder + '/' + imgname + self.imgaddname + imgext
-        print(self.imgnewname)
+        #print(self.imgnewname)
         with Image(filename=imgfile) as img:
             with img.clone() as converted:
                 converted.transform(resize=self.imgsize)

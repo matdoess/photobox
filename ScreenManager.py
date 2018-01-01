@@ -5,9 +5,11 @@ from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.button import Button
 from kivy.uix.popup import Popup
 from kivy.uix.label import Label
+from kivy.uix.image import Image
 from kivy.clock import mainthread
 
 from functools import partial
+from time import sleep
 
 from Helper import Helper
 from SendEmail import SendEmail
@@ -90,6 +92,9 @@ class SendEmailScreen(Screen):
 class FotoPopup(Popup):
     pass
 
+class FotoImage(Image):
+    pass
+
 class FotoScreen(Screen):
 
 
@@ -101,6 +106,8 @@ class FotoScreen(Screen):
         taskShort = app.TASK_SHORT
         app.TASK_LONG = None            
         app.TASK_SHORT = None
+        imagename = app.IMAGENAME
+        app.IMAGENAME = None
 
         labeltext = "Deine Aufgabe lautet: " + taskLong if taskLong != "" else "" 
         self.ids.FotoTaskLabel.text = labeltext
@@ -126,10 +133,28 @@ class TakeFotoScreen(Screen):
     camera = Camera()
     res = ImageResize()
     helper = Helper()
+    resize_thread = None
     
     def on_enter(self):
         self.camera.start()
-    
+        app = App.get_running_app()
+        app.IMAGENAME = self.camera.getName()
+        imgname = self.camera.getName()
+        # Email im Hintergrund verschicken
+        self.resize_thread = threading.Thread(name='resize_deamon', target=self.res.imgresize, args=(self.camera.getName(),))
+        self.resize_thread.start()
+        for thread in threading.enumerate():
+            print(thread)
+            if thread.name == 'resize_deamon':
+                print(thread.is_alive())
+##        print(threading.enumerate())
+##        print(threading._active.get(resize_deamon))
+##        sleep (10)
+##        print(threading._active.get('resize_deamon'))
+
+        self.parent.current = 'FotoScreen'
+        
+
 class SuccessButton(Button):
     pass
 
@@ -198,6 +223,7 @@ class ScreenManagerApp(App):
 
     TASK_SHORT = None
     TASK_LONG = None
+    IMAGENAME = None
 
     def build(self):
         return presentation
