@@ -51,6 +51,7 @@ class Camera():
             cam.annotate_text_size = self.textsize
             cam.annotate_text = self.textlong
             self.imgname = imagename(self.textshort)
+            #print(self.imgname)
             cam.hflip = True
             cam.capture(self.imgname)
             cam.hflip = False
