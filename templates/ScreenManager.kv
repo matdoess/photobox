@@ -18,6 +18,10 @@ ScreenManagement:
         id: foto_screen
         name: 'FotoScreen'
         manager: 'screen_manager'
+    TakeFotoScreen:
+        id: take_foto_screen
+        name: 'TakeFotoScreen'
+        manager: 'screen_manager'
     VideoScreen: 
         id: task_screen
         name: 'VideoScreen'
@@ -30,6 +34,23 @@ ScreenManagement:
         id: sendEmail_screen
         name: 'SendEmailScreen'
         manager: 'screen_manager'
+
+<FotoPopup>:
+##    size_hint: .5, .5
+    background: 'img/black.png'
+    separator_color: (0, 0, 0, 1)
+    auto_dismiss: False
+    title: ""
+    on_open:
+        root.open_video()
+        root.img_resize()
+        root.send_email()
+        root.dismiss()
+    Button:
+        #size_hint: .5, .5
+        background_color: (0, 0, 0, 1)
+        text: ""
+        #on_press: root.dismiss()
 
 <TaskLabel@Label>:
     text_size: self.width, None
@@ -88,9 +109,26 @@ ScreenManagement:
 
         BackHomeButton:
 
+<TakeFotoScreen>:
+    # background: 'img/black.png'
+    # separator_color: (0, 0, 0, 1)
+    # auto_dismiss: False
+    # title: ""
+    # on_open:
+    #     root.open_video()
+    #     root.img_resize()
+    #     root.send_email()
+    #     root.dismiss()
+    Button:
+        #size_hint: .5, .5
+        background_color: (0, 0, 0, 1)
+        text: ""
+        #on_press: root.dismiss()
+
 <FotoScreen>:
     BoxLayout:
         orientation:'vertical'
+        id: FotoScreenContainer
         
         InnerBoxLayout:
             orientation:'vertical'
@@ -107,8 +145,23 @@ ScreenManagement:
                 on_press:
                     app.root.current = 'SendEmailScreen'
                     app.root.transition.direction = 'up'
-        
-        BackHomeButton:
+        BoxLayout:
+            orientation: 'horizontal'
+            size_hint_y: None
+            height: 60
+            BackHomeButton:
+            Button:
+                text: 'Foto aufnehmen'
+                size_hint_y: None
+                height: 60
+                on_press: 
+                    app.root.current = 'TakeFotoScreen'
+                    app.root.transition.direction = 'up'
+            Button:
+                text: 'Foto senden'
+                size_hint_y: None
+                height: 60
+
 
 <SendEmailScreen>:
     BoxLayout:

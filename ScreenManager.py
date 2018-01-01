@@ -3,6 +3,7 @@ from kivy.lang import Builder
 from kivy.uix.screenmanager import ScreenManager, Screen
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.button import Button
+from kivy.uix.popup import Popup
 from kivy.uix.label import Label
 from kivy.clock import mainthread
 
@@ -10,6 +11,8 @@ from functools import partial
 
 from Helper import Helper
 from SendEmail import SendEmail
+from Camera import Camera
+from ImageResize import ImageResize
 
 import threading
 
@@ -84,7 +87,8 @@ class SendEmailScreen(Screen):
     #         button.bind(on_press=partial(self.setTextInput, address))
     #         self.ids.grid.add_widget(button)
 
-
+class FotoPopup(Popup):
+    pass
 
 class FotoScreen(Screen):
 
@@ -101,10 +105,31 @@ class FotoScreen(Screen):
         labeltext = "Deine Aufgabe lautet: " + taskLong if taskLong != "" else "" 
         self.ids.FotoTaskLabel.text = labeltext
 
+    # def doFoto(self, task=None):
+    #     camera = Camera()
+    #     # res = ImageResize()
+    #     helper = Helper()
+
+    #     print("DoFoto called")
+
+    #     # def open_video(self):
+    #     fotoPopup = FotoPopup()
+    #     self.ids.FotoScreenContainer.add_widget(fotoPopup)
+            # self.camera.start()
+    
+
 
 class VideoScreen(Screen):
     pass
 
+class TakeFotoScreen(Screen):
+    camera = Camera()
+    res = ImageResize()
+    helper = Helper()
+    
+    def on_enter(self):
+        self.camera.start()
+    
 class SuccessButton(Button):
     pass
 
