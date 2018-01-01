@@ -1,0 +1,152 @@
+#: import ScreenManager kivy.uix.screenmanager.ScreenManager
+#: import Screen kivy.uix.screenmanager.ScreenManager
+#: import WipeTransition kivy.uix.screenmanager.WipeTransition
+#: import MenuScreen screen
+#: import FotoScreen screen
+#: import VideoScreen screen
+#: import TaskScreen screen
+
+
+ScreenManagement:
+    id: screen_manager
+    # transition: WipeTransition()
+    MenuScreen:
+        id: menu_screen
+        name: 'MenuScreen'
+        manager: 'screen_manager'
+    FotoScreen:
+        id: foto_screen
+        name: 'FotoScreen'
+        manager: 'screen_manager'
+    VideoScreen: 
+        id: task_screen
+        name: 'VideoScreen'
+        manager: 'screen_manager'
+    TaskScreen: 
+        id: task_screen
+        name: 'TaskScreen'
+        manager: 'screen_manager'
+    SendEmailScreen: 
+        id: sendEmail_screen
+        name: 'SendEmailScreen'
+        manager: 'screen_manager'
+
+<TaskLabel@Label>:
+    text_size: self.width, None
+    size_hint: 1, 1
+
+<InnerBoxLayout@BoxLayout>:
+    padding: 10
+    spacing: 10
+
+<SuccessButton@Button>:
+    font_size: 32
+    background_color: (0, 0, 1.8, 1)
+
+<BackHomeButton@Button>:
+    font_size: 16
+    background_color: (0.4, 0.4, 0.4, 1)
+    text: 'Zurück zum Hauptmenü'
+    size_hint_y: None
+    height: 60
+    on_press: 
+        app.root.current = 'MenuScreen'
+        app.root.transition.direction = 'down'
+
+<MenuScreen>:
+    BoxLayout:
+        orientation: 'horizontal'
+        
+        InnerBoxLayout:
+            orientation: 'horizontal'
+            
+            Button:
+                text: 'Video'
+                on_press:
+                    app.root.current = 'VideoScreen'
+                    app.root.transition.direction = 'up'
+            Button:
+                text: 'Foto'
+                on_press:
+                    app.root.current = 'FotoScreen'
+                    app.root.transition.direction = 'up'
+            Button:
+                text: 'Aufgabe'
+                on_press:
+                    app.root.current = 'TaskScreen'
+                    app.root.transition.direction = 'up'
+
+<VideoScreen>:
+    BoxLayout:
+        orientation: 'vertical'
+        
+        InnerBoxLayout:
+            orientation: 'vertical'
+            
+            Label:
+                text: 'Hier soll Video Gedöns passieren'
+
+        BackHomeButton:
+
+<FotoScreen>:
+    BoxLayout:
+        orientation:'vertical'
+        
+        InnerBoxLayout:
+            orientation:'vertical'
+
+            Label:
+                id:FotoTaskLabel
+                text:""
+                size_hint_y: None
+                text_size: self.width, None
+                height: self.texture_size[1]        
+
+            Button:
+                text: 'Klick simuliert Foto'
+                on_press:
+                    app.root.current = 'SendEmailScreen'
+                    app.root.transition.direction = 'up'
+        
+        BackHomeButton:
+
+<SendEmailScreen>:
+    BoxLayout:
+        orientation:'vertical'
+        size: root.size
+
+        InnerBoxLayout:
+            orientation: 'vertical'
+
+            TextInput:
+                id: emailInput
+                text: ""
+                size_hint_y: None
+                height: 40
+                pos_hint: {'x': 0, 'y': .9}
+                on_text: root.inputChanged(self.text)
+
+            Button:
+                id: sendMailButton
+                text: 'Senden'
+                size_hint: [1, .2]
+                background_color: (0, 2, 0, 1)
+                on_press: root.sendEmail(emailInput.text)
+
+            ScrollView:
+                size: self.size
+                scroll_type: ['bars', 'content']
+
+                GridLayout:
+                    spacing: 10
+                    id: grid
+                    size_hint_y: None
+                    height: self.minimum_height
+                    cols: 1
+
+        BackHomeButton:
+
+<TaskScreen>:
+    BoxLayout:
+        orientation: 'vertical'
+        id: taskRootScreen
