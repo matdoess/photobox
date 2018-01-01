@@ -24,6 +24,7 @@ import threading
 # Screens definieren
 class MenuScreen(Screen):
     def on_pre_leave(self):
+        pass
         #app = App.get_running_app()
         #print('MenuScreen on_pre_leave')
         #app.TASK_LONG = None
@@ -221,6 +222,9 @@ class FotoScreen(Screen):
 
 
 class VideoScreen(Screen):
+    def on_enter(self):
+        app = App.get_running_app()
+        app.show_popup('Popup aus Video datei')
     pass
 
 class TakeFotoScreen(Screen):
@@ -336,6 +340,12 @@ class ScreenManagement(ScreenManager):
 # kv Datei laden
 screenmanager = Builder.load_file("./templates/ScreenManager.kv")
 
+class CustomPopup(Popup):
+    pass
+
+class PopupButton(Button):
+    pass
+
 class ScreenManagerApp(App):
 
     TASK_SHORT = None
@@ -343,6 +353,17 @@ class ScreenManagerApp(App):
     FROMTAKEFOTO = False
     SM = screenmanager
     MAILIMAGE = None
+    
+    def show_popup(self, popuptext, popuptype = None):
+        popupboxlayout = BoxLayout(orientation='vertical')
+        popup = CustomPopup(title='Info',
+                            content=popupboxlayout)
+        
+        popupboxlayout.add_widget(Label(text=popuptext))
+        popupboxlayout.add_widget(PopupButton(text='OK', height=60, size_hint_y = None, on_press = popup.dismiss))
+        
+        popup.open()
+        
 
     def build(self):
         return screenmanager

@@ -52,6 +52,23 @@ ScreenManagement:
         text: ""
         #on_press: root.dismiss()
 
+<CustomPopup>:
+##    size_hint: .5, .5
+    #background: 'img/black.png'
+    #separator_color: (0, 0, 0, 1)
+    #auto_dismiss: False
+    #title: ""
+    #on_open:
+        #root.dismiss()
+##    Button:
+##        #size_hint: .5, .5
+##        background_color: (0, 0, 0, 1)
+##        text: ""
+##        #on_press: root.dismiss()
+    
+<PopupButton@Button>:
+    #on_press: root.dismiss()
+
 <TaskLabel@Label>:
     text_size: self.width, None
     size_hint: 1, 1
