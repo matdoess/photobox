@@ -8,8 +8,8 @@ from kivy.uix.label import Label
 from kivy.uix.image import Image
 from kivy.clock import mainthread
 
-import os
-os.environ["KIVY_IMAGE"]="pil"
+#import os
+#os.environ["KIVY_IMAGE"]="pil"
 
 from functools import partial
 from time import sleep

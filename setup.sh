@@ -3,7 +3,7 @@
 ### System Basics ###
 sudo apt-get update
 sudo apt-get upgrade
-sudo apt-get install synaptic
+sudo apt-get install synaptic xscreensaver
 
 ### Photobox ###
 # Schriften
