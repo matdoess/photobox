@@ -67,8 +67,9 @@ class Helper():
     def isThreadAlive(self, threadname):
         
         for thread in threading.enumerate():
+            print(thread.name)
             if thread.name == threadname:
-                return thread.ia_alive()
+                return thread.is_alive()
             else:
                 return False
 

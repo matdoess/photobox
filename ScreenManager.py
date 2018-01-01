@@ -106,8 +106,23 @@ class FotoScreen(Screen):
         taskShort = app.TASK_SHORT
         app.TASK_LONG = None            
         app.TASK_SHORT = None
-        imagename = app.IMAGENAME
-        app.IMAGENAME = None
+        fromtakefoto = app.FROMTAKEFOTO
+        counter = 0
+        
+        if fromtakefoto:
+            app.FROMTAKEFOTO = False
+            isResizeInprogress = app.SM.get_screen('TakeFotoScreen').ThreadCheck()
+            while (isResizeInprogress and counter < 15):
+                print(counter)
+                print(isResizeInprogress)
+                counter += 1
+                sleep(0.5)
+                isResizeInprogress = app.SM.get_screen('TakeFotoScreen').ThreadCheck()
+
+            print('afterwhile')
+            thumbnailimage = app.SM.get_screen('TakeFotoScreen').res.getName()
+            print(thumbnailimage)
+            self.ids.FotoImageID.source=thumbnailimage
 
         labeltext = "Deine Aufgabe lautet: " + taskLong if taskLong != "" else "" 
         self.ids.FotoTaskLabel.text = labeltext
@@ -135,6 +150,9 @@ class TakeFotoScreen(Screen):
     helper = Helper()
     resize_thread = None
     
+    def ThreadCheck(self):
+        return self.resize_thread.isAlive()
+    
     def on_enter(self):
         self.camera.start()
         app = App.get_running_app()
@@ -143,15 +161,10 @@ class TakeFotoScreen(Screen):
         # Email im Hintergrund verschicken
         self.resize_thread = threading.Thread(name='resize_deamon', target=self.res.imgresize, args=(self.camera.getName(),))
         self.resize_thread.start()
-        for thread in threading.enumerate():
-            print(thread)
-            if thread.name == 'resize_deamon':
-                print(thread.is_alive())
-##        print(threading.enumerate())
-##        print(threading._active.get(resize_deamon))
-##        sleep (10)
-##        print(threading._active.get('resize_deamon'))
-
+##        self.ThreadCheck()
+##        sleep(10)
+##        self.ThreadCheck()
+        app.FROMTAKEFOTO = True
         self.parent.current = 'FotoScreen'
         
 
@@ -217,16 +230,17 @@ class ScreenManagement(ScreenManager):
     pass
 
 # kv Datei laden
-presentation = Builder.load_file("./templates/ScreenManager.kv")
+screenmanager = Builder.load_file("./templates/ScreenManager.kv")
 
 class ScreenManagerApp(App):
 
     TASK_SHORT = None
     TASK_LONG = None
-    IMAGENAME = None
+    FROMTAKEFOTO = False
+    SM = screenmanager
 
     def build(self):
-        return presentation
+        return screenmanager
 
 if __name__ == '__main__':
     screenManagerApp = ScreenManagerApp()
