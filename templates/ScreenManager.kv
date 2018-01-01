@@ -70,9 +70,12 @@ ScreenManagement:
     text: 'Zurück zum Hauptmenü'
     size_hint_y: None
     height: 60
-    on_press: 
+    on_press:
+        self.clear_tasks()
         app.root.current = 'MenuScreen'
         app.root.transition.direction = 'down'
+        
+<TaskButton@Button>:
         
 <FotoImage@Image>:
 ##    canvas:
@@ -100,10 +103,12 @@ ScreenManagement:
                 on_press:
                     app.root.current = 'FotoScreen'
                     app.root.transition.direction = 'up'
-            Button:
+            TaskButton:
                 text: 'Aufgabe'
                 on_press:
-                    app.root.current = 'TaskScreen'
+                    #app.root.current = 'TaskScreen'
+                    self.get_task()
+                    app.root.current = 'FotoScreen'
                     app.root.transition.direction = 'up'
 
 <VideoScreen>:

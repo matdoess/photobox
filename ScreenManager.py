@@ -23,10 +23,11 @@ import threading
 
 # Screens definieren
 class MenuScreen(Screen):
-    def on_enter(self):
-        app = App.get_running_app()
-        app.TASK_LONG = None
-        app.TASK_SHORT = None
+    def on_pre_leave(self):
+        #app = App.get_running_app()
+        #print('MenuScreen on_pre_leave')
+        #app.TASK_LONG = None
+        #app.TASK_SHORT = None
 
 class SendEmailScreen(Screen):
 
@@ -111,6 +112,10 @@ class FotoScreen(Screen):
         app = App.get_running_app()
         fromtakefoto = app.FROMTAKEFOTO
         if fromtakefoto:
+            self.ids.FotoImageContainer.clear_widgets()
+            fotoimage = FotoImage(source='img/camera_icon.png')
+            self.ids.FotoImageContainer.add_widget(fotoimage)
+            
             label = Label(
             text = "Dein Bild wird geladen",
             font_size=20
@@ -121,16 +126,45 @@ class FotoScreen(Screen):
             fotoimage = FotoImage(source='img/camera_icon.png')
             self.ids.FotoImageContainer.add_widget(fotoimage)
             app.MAILIMAGE = None
+        
+        taskshort = app.TASK_SHORT
+        tasklong = app.TASK_LONG
+        if tasklong:
             
+            boxLayout = InnerBoxLayout(
+            orientation = 'vertical',
+            padding = 20
+            )
+            
+            label = Label(
+            text = "Deine Aufgabe lautet:",
+            size_hint_y = None,
+            height = self.parent.height * 0.1,
+            pos=(100, 100),
+            font_size=20
+            )
+            
+            self.ids.FotoImageContainer.clear_widgets()
+            fotoimage = FotoImage(source='img/camera_icon.png')
+            self.ids.FotoImageContainer.add_widget(fotoimage)
+            
+            tasklabel = TaskLabel(
+            text = tasklong,
+            font_size=32
+            )
+            
+            boxLayout.add_widget(label)
+            boxLayout.add_widget(tasklabel)
+            self.ids.FotoImageContainer.add_widget(boxLayout)
+            print(app.TASK_SHORT)
+
             
     def on_enter(self):
 
         app = App.get_running_app()
-
+        print(app.TASK_SHORT)
         taskLong = app.TASK_LONG if app.TASK_LONG != None else ""
         taskShort = app.TASK_SHORT
-        app.TASK_LONG = None            
-        app.TASK_SHORT = None
         fromtakefoto = app.FROMTAKEFOTO
         counter = 0
         
@@ -169,8 +203,8 @@ class FotoScreen(Screen):
             #self.ids.FotoImageID.source='img/loading_black.gif'
             #self.ids.FotoImageID.source=thumbnailimage
 
-        labeltext = "Deine Aufgabe lautet: " + taskLong if taskLong != "" else "" 
-        self.ids.FotoTaskLabel.text = labeltext
+        #labeltext = "Deine Aufgabe lautet: " + taskLong if taskLong != "" else "" 
+        #self.ids.FotoTaskLabel.text = labeltext
 
     # def doFoto(self, task=None):
     #     camera = Camera()
@@ -199,11 +233,18 @@ class TakeFotoScreen(Screen):
         return self.resize_thread.isAlive()
     
     def on_enter(self):
-        self.camera.start()
         app = App.get_running_app()
+        #print(app.TASK_SHORT)
+        taskshort = app.TASK_SHORT if app.TASK_SHORT else ""
+        tasklong = app.TASK_LONG if app.TASK_LONG else ""
+        self.camera.textlong = tasklong
+        self.camera.textshort = taskshort
+        
+        self.camera.start()
         app.IMAGENAME = self.camera.getName()
         imgname = self.camera.getName()
-        # Email im Hintergrund verschicken
+
+        # Resize Deamon
         self.resize_thread = threading.Thread(name='resize_deamon', target=self.res.imgresize, args=(self.camera.getName(),))
         self.resize_thread.start()
 ##        self.ThreadCheck()
@@ -217,7 +258,10 @@ class SuccessButton(Button):
     pass
 
 class BackHomeButton(Button):
-    pass
+    def clear_tasks(self):
+        app = App.get_running_app()
+        app.TASK_LONG = None
+        app.TASK_SHORT = None
 
 class InnerBoxLayout(BoxLayout):
     pass
@@ -225,11 +269,26 @@ class InnerBoxLayout(BoxLayout):
 class TaskLabel(Label):
     pass
 
+class TaskButton(Button):
+    helper = Helper()
+
+    def get_task(self):
+        print("get_task ausgeführt")
+
+        task = self.helper.getRandomTask()
+        
+        app = App.get_running_app()
+        app.TASK_SHORT = task["short"]
+        app.TASK_LONG = task["long"]
+        #print(app.TASK_LONG)
+        
+        #self.parent.current = 'FotoScreen'
+
 class TaskScreen(Screen):
     
     helper = Helper()
 
-    def on_enter(self):
+    def on_pre_enter(self):
         print("TaskScreen entered")
 
         self.ids.taskRootScreen.clear_widgets()

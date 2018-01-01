@@ -1,6 +1,7 @@
 kuss:Küsst euch
 grimasse:Schneide eine Grimasse
 model:Mach eine Modelpose
+duck: Mach ein Duckface
 herz:Mach ein Herz mit der Hand
-profil:Lass ein Profil fotografieren
+profil:Lass dich von der Seite fotographieren
 prost:Stoße mit jemandem an
