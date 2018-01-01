@@ -1,4 +1,5 @@
 import random
+import threading
 
 class Helper():
 
@@ -62,6 +63,14 @@ class Helper():
             file.write("\n")
             file.write(mail)
             file.close()
+
+    def isThreadAlive(self, threadname):
+        
+        for thread in threading.enumerate():
+            if thread.name == threadname:
+                return thread.ia_alive()
+            else:
+                return False
 
 
 if __name__ == "__main__":
