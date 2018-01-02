@@ -256,7 +256,7 @@ class VideoScreen(Screen):
             self.ids.VideoScreenContainer.add_widget(fotoimage)
             
             label = TaskLabel(
-            text = "Hier kannst du dem Brautpaar eine Videonachricht aufnehmen.\n\nNochmal auf den Bildschirm tippen um die Aufnahme zu stoppen.",
+            text = "Hier kannst du dem Brautpaar eine Videonachricht aufnehmen.\n\nTippe auf den Bildschirm um die Aufnahme zu stoppen.",
             font_size=20
             )
             self.ids.VideoScreenContainer.add_widget(label)

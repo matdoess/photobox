@@ -9,6 +9,10 @@ TODO:
 -- Video Thumbnails erstellen (incl. Video Icon)
 -- Konvert Video to mkv after creation
 -- exit button einbauen.
+-- Bei Aufagbe wird kein "Dein Bild wird geladen angezeigt"
+-- Nach laden von Bild bei Aufgabe: Bild neben Aufgabentext anzeigen.
+-- Nach Aufgabe Button auf "Neues Foto" ändern (evtl.)
+-- Fehler Popup bei Email Senden ohne Bild einbauen.
 
 
 DONE
