@@ -17,11 +17,20 @@ from time import sleep
 from Helper import Helper
 from SendEmail import SendEmail
 from Camera import Camera
+from PiCam import PiCam
 from ImageResize import ImageResize
 
 import threading
 
 # Screens definieren
+class StartUpScreen(Screen):
+##    def on_enter(self):
+##        self.current = 'MenuScreen'
+##        sleep(10)
+##        app = App.get_running_app()
+##        app.SM.current = 'MenuScreen'
+    pass
+
 class MenuScreen(Screen):
     def on_pre_leave(self):
         pass
@@ -29,6 +38,10 @@ class MenuScreen(Screen):
         #print('MenuScreen on_pre_leave')
         #app.TASK_LONG = None
         #app.TASK_SHORT = None
+    def on_enter(self):
+        app = App.get_running_app()
+        app.TASK_LONG = None
+        app.TASK_SHORT = None
 
 class SendEmailScreen(Screen):
 
@@ -222,10 +235,36 @@ class FotoScreen(Screen):
 
 
 class VideoScreen(Screen):
-    def on_enter(self):
+    
+    def on_pre_enter(self):
         app = App.get_running_app()
-        app.show_popup('Popup aus Video datei')
-    pass
+        fromtakevideo = app.FROMTAKEVIDEO
+        app.FROMTAKEVIDEO = None
+        if fromtakevideo:
+            self.ids.VideoScreenContainer.clear_widgets()
+            fotoimage = FotoImage(source='img/video_icon.png')
+            self.ids.VideoScreenContainer.add_widget(fotoimage)
+            
+            label = TaskLabel(
+            text = "Danke das du dem Brautpaar eine Nachricht hinterlassen hast.",
+            font_size=20
+            )
+            self.ids.VideoScreenContainer.add_widget(label)
+        else:
+            self.ids.VideoScreenContainer.clear_widgets()
+            fotoimage = FotoImage(source='img/video_icon.png')
+            self.ids.VideoScreenContainer.add_widget(fotoimage)
+            
+            label = TaskLabel(
+            text = "Hier kannst du dem Brautpaar eine Videonachricht aufnehmen.\n\nNochmal auf den Bildschirm tippen um die Aufnahme zu stoppen.",
+            font_size=20
+            )
+            self.ids.VideoScreenContainer.add_widget(label)
+            
+    
+##    def on_enter(self):
+##        app = App.get_running_app()
+##        app.show_popup('Popup aus Video datei')
 
 class TakeFotoScreen(Screen):
     camera = Camera()
@@ -257,15 +296,43 @@ class TakeFotoScreen(Screen):
         app.FROMTAKEFOTO = True
         self.parent.current = 'FotoScreen'
         
+class TakeVideoScreen(Screen):
+    
+    picam = PiCam()
+    
+    def on_enter(self):
+        self.picam.init()
+        sleep(1)
+        self.picam.start()
+    
+##    def picam_init(self):
+##        self.picam.init()
+    
+    def picam_quit(self):
+        self.picam.quit()
+    
+##    def picam_start(self):
+##        self.picam.start()
+    
+    def picam_stop(self):
+        self.picam.stop()
+    
+    def sleep(self, time):
+        sleep(time)
+        
+    def set_fromtakevideo(self):
+        app = App.get_running_app()
+        app.FROMTAKEVIDEO = True
 
 class SuccessButton(Button):
     pass
 
 class BackHomeButton(Button):
-    def clear_tasks(self):
-        app = App.get_running_app()
-        app.TASK_LONG = None
-        app.TASK_SHORT = None
+##    def clear_tasks(self):
+##        app = App.get_running_app()
+##        app.TASK_LONG = None
+##        app.TASK_SHORT = None
+    pass
 
 class InnerBoxLayout(BoxLayout):
     pass
@@ -351,6 +418,7 @@ class ScreenManagerApp(App):
     TASK_SHORT = None
     TASK_LONG = None
     FROMTAKEFOTO = False
+    FROMTAKEVIDEO = False
     SM = screenmanager
     MAILIMAGE = None
     
@@ -367,6 +435,10 @@ class ScreenManagerApp(App):
 
     def build(self):
         return screenmanager
+    
+##    def on_start(self):
+##        print('on_start')
+##        self.current = 'MenuScreen'
 
 if __name__ == '__main__':
     screenManagerApp = ScreenManagerApp()

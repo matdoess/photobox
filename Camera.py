@@ -10,6 +10,10 @@ if host == "raspberrypi":
     from picamera import PiCamera
     
 class Camera():
+    
+    # Settings
+    mirror = False
+    
     # Load images
     img3 = Image.open('img/3.png')
     img2 = Image.open('img/2.png')
@@ -52,9 +56,11 @@ class Camera():
             cam.annotate_text = self.textlong
             self.imgname = imagename(self.textshort)
             #print(self.imgname)
-            cam.hflip = True
+            if self.mirror:
+                cam.hflip = True
             cam.capture(self.imgname)
-            cam.hflip = False
+            if self.mirror:
+                cam.hflip = False
             cam.stop_preview()
             cam.close()
             
