@@ -4,6 +4,7 @@ from imagename import imagename
 
 import os
 host = os.environ.get('HOSTNAME')
+print('host= ' + host)
 
 if host == "raspberrypi":
     #PiCamera

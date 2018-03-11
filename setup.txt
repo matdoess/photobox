@@ -33,3 +33,16 @@ sudo systemctl stop picam.service
 sudo systemctl start picam.service
 # Änderungen in picam.service laden
 sudo systemctl daemon-reload
+
+#RAMDISK
+Folgende Zeile in /etc/rc.local ergänzen
+----
+# picam RAMDISK Ordner anlegen
+/home/pi/photobox/bootscript_picam.sh
+----
+
+### pi settings ###
+- Bildschirmschoner deaktivieren
+- GPU-Speicher min. 256
+
+

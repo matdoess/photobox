@@ -7,6 +7,8 @@ from kivy.uix.popup import Popup
 from kivy.uix.label import Label
 from kivy.uix.image import Image
 from kivy.clock import mainthread
+from kivy.core.window import Window #Für Keyboard Shortscuts
+
 
 #import os
 #os.environ["KIVY_IMAGE"]="pil"
@@ -432,8 +434,17 @@ class ScreenManagerApp(App):
         
         popup.open()
         
-
+    def on_keyboard(self, window, key, scancode, codepoint, modifier):
+        if modifier == ['ctrl'] and codepoint == 'k':
+            print('stop')
+            self.stop()
+        if codepoint == 'k':
+            self.stop()
+        print('windows' + str(window) + 'key' + str(key) + 'scancode' + str(scancode) + 'codepoint' + str(codepoint) + 'modifier' + str(modifier))
+        
     def build(self):
+        Window.bind(on_keyboard=self.on_keyboard)
+        Window._system_keyboard.keycodes['ctrl'] = 305
         return screenmanager
     
 ##    def on_start(self):
