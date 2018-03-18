@@ -13,7 +13,11 @@ if host == "raspberrypi":
 class Camera():
     
     # Settings
+    mirrorview = True
     mirror = False
+    # Flashmode on,auto,off,redeye,fillin,torch
+    flashmode = 'on'
+    upsidedown = False
     
     # Load images
     img3 = Image.open('img/3.png')
@@ -33,7 +37,9 @@ class Camera():
         if host == "raspberrypi":
             cam = PiCamera()
             
-            cam.vflip = True
+            cam.flash_mode = self.flashmode
+            cam.vflip = self.upsidedown
+            cam.hflip = self.mirrorview
             cam.resolution = (3280, 2464)
             #cam.resolution = (2000, 2000)
             #cam.framerate = 15
@@ -58,10 +64,10 @@ class Camera():
             self.imgname = imagename(self.textshort)
             #print(self.imgname)
             if self.mirror:
-                cam.hflip = True
+                cam.hflip = not cam.hflip
             cam.capture(self.imgname)
             if self.mirror:
-                cam.hflip = False
+                cam.hflip = not cam.hflip
             cam.stop_preview()
             cam.close()
             

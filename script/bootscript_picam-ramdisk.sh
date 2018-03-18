@@ -2,9 +2,9 @@
 
 
 # RAMDISK Ordner & Verknüpfungen anlegen
-DEST_DIR=~/picam
+DEST_DIR=/home/pi/picam
 SHM_DIR=/run/shm
-VIDEO_DIR=~/photobox/pics/videos
+VIDEO_DIR=/home/pi/photobox/pics/videos
 
 mkdir -p $SHM_DIR/rec
 mkdir -p $SHM_DIR/hooks

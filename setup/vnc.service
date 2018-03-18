@@ -1,0 +1,13 @@
+[Unit]
+Description=Picam Service
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+User=pi
+Group=pi
+Type=simple
+ExecStart=/usr/bin/vncserver -geometry 1600x900
+
+[Install]
+WantedBy=multi-user.target

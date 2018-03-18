@@ -1,0 +1,15 @@
+[Unit]
+Description=Photobox Startup Script
+
+[Service]
+User=pi
+Group=pi
+Type=simple
+Environment=HOSTNAME=raspberrypi
+WorkingDirectory=/home/pi/photobox
+ExecStart=/usr/bin/python3 /home/pi/photobox/ScreenManager.py
+RestartSec=10
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
