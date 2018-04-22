@@ -9,6 +9,10 @@ from kivy.uix.image import Image
 from kivy.clock import mainthread
 from kivy.core.window import Window #Für Keyboard Shortscuts
 
+#
+from kivy.uix.vkeyboard import VKeyboard
+VKeyboard.layout_path = 'keyboards'
+VKeyboard.layout = 'photoboxkeys'
 
 #import os
 #os.environ["KIVY_IMAGE"]="pil"
@@ -23,6 +27,7 @@ from PiCam import PiCam
 from ImageResize import ImageResize
 
 import threading
+
 
 # Screens definieren
 class StartUpScreen(Screen):

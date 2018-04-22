@@ -273,13 +273,27 @@ ScreenManagement:
         InnerBoxLayout:
             orientation: 'vertical'
 
-            TextInput:
-                id: emailInput
-                text: ""
+            BoxLayout:
+                orientation: 'horizontal'
+                height: self.minimum_height
                 size_hint_y: None
-                height: 40
-                pos_hint: {'x': 0, 'y': .9}
-                on_text: root.inputChanged(self.text)
+
+                Label:
+                    text: " email "
+                    height: 40
+                    #size_hint_y: None
+                    size_hint_x: None
+                    #pos_hint: {'x': 0, 'y': .9}
+                    #size_hint: None, None
+                    size: self.texture_size
+
+                TextInput:
+                    id: emailInput
+                    text: ""
+                    size_hint_y: None
+                    height: 40
+                    #pos_hint: {'x': 0, 'y': .9}
+                    on_text: root.inputChanged(self.text)
 
             Button:
                 id: sendMailButton
