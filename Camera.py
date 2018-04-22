@@ -16,7 +16,7 @@ class Camera():
     mirrorview = True
     mirror = False
     # Flashmode on,auto,off,redeye,fillin,torch
-    flashmode = 'on'
+    flashmode = 'auto'
     upsidedown = False
     
     # Load images
