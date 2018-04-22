@@ -144,22 +144,24 @@ class FotoScreen(Screen):
         app = App.get_running_app()
         fromtakefoto = app.FROMTAKEFOTO
         fromtaskfoto = app.FROMTASKFOTO
-        self.ids.sendEmailButton.disabled = True            
+        self.ids.sendEmailButton.disabled = True    
+        
+        if fromtaskfoto:
+            app.FROMTASKFOTO = False
+            self.ids.ButtonTakeFoto.text = 'Aufgabe wiederholen'
+        else:
+            self.ids.ButtonTakeFoto.text = 'Foto aufnehmen'
+
         if fromtakefoto:
             self.ids.FotoImageContainer.clear_widgets()
             fotoimage = FotoImage(source='img/camera_icon.png')
             self.ids.FotoImageContainer.add_widget(fotoimage)
             
             label = Label(
-            text = "Dein Bild wird geladen",
-            font_size=20
+                text = "Dein Bild wird geladen",
+                font_size=20
             )
             self.ids.FotoImageContainer.add_widget(label)
-            if fromtaskfoto:
-                app.FROMTASKFOTO = False
-                self.ids.ButtonTakeFoto.text = 'Aufgabe wiederholen'
-            else:
-                self.ids.ButtonTakeFoto.text = 'Foto aufnehmen'
 
         else:
             self.ids.FotoImageContainer.clear_widgets()
@@ -172,16 +174,16 @@ class FotoScreen(Screen):
         if tasklong:
             
             boxLayout = InnerBoxLayout(
-            orientation = 'vertical',
-            padding = 20
+                orientation = 'vertical',
+                padding = 20
             )
             
             label = Label(
-            text = "Deine Aufgabe lautet:",
-            size_hint_y = None,
-            height = self.parent.height * 0.1,
-            pos=(100, 100),
-            font_size=20
+                text = "Deine Aufgabe lautet:",
+                size_hint_y = None,
+                height = self.parent.height * 0.1,
+                pos=(100, 100),
+                font_size=20
             )
             
             self.ids.FotoImageContainer.clear_widgets()
@@ -392,54 +394,6 @@ class TaskButton(Button):
         #print(app.TASK_LONG)
         
         #self.parent.current = 'FotoScreen'
-
-
-
-class TaskScreen(Screen):
-    
-    helper = Helper()
-
-    def on_pre_enter(self):
-        print("TaskScreen entered")
-
-        self.ids.taskRootScreen.clear_widgets()
-
-        task = self.helper.getRandomTask()
-
-        boxLayout = InnerBoxLayout(
-            orientation = 'horizontal'
-        )
-
-        label = Label(
-            text = "Deine Aufgabe lautet:",
-            size_hint_y = None,
-            height = self.parent.height * 0.1,
-            pos=(100, 100),
-            font_size=20
-        )
-
-        labelTask = TaskLabel(
-            text=task["long"],
-            font_size=32
-        )
-
-        startTaskButton = SuccessButton(text="LOS!")
-        startTaskButton.bind(on_press=partial(self.startTask, task["long"], task["short"]))
-        
-        boxLayout.add_widget(labelTask)
-        boxLayout.add_widget(startTaskButton)
-        self.ids.taskRootScreen.add_widget(label)
-        self.ids.taskRootScreen.add_widget(boxLayout)
-
-        self.ids.taskRootScreen.add_widget(BackHomeButton())
-
-
-    def startTask(self, taskLong, taskShort, *args):
-        app = App.get_running_app()
-        app.TASK_SHORT = taskShort
-        app.TASK_LONG = taskLong
-        self.parent.current = 'FotoScreen'
-
 
 class ScreenManagement(ScreenManager):
     pass

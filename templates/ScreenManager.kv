@@ -4,7 +4,6 @@
 #: import MenuScreen screen
 #: import FotoScreen screen
 #: import VideoScreen screen
-#: import TaskScreen screen
 
 
 ScreenManagement:
@@ -33,10 +32,6 @@ ScreenManagement:
     TakeVideoScreen:
         id: take_video_screen
         name: 'TakeVideoScreen'
-        manager: 'screen_manager'
-    TaskScreen: 
-        id: task_screen
-        name: 'TaskScreen'
         manager: 'screen_manager'
     SendEmailScreen: 
         id: sendEmail_screen
@@ -316,8 +311,3 @@ ScreenManagement:
                     cols: 1
 
         BackHomeButton:
-
-<TaskScreen>:
-    BoxLayout:
-        orientation: 'vertical'
-        id: taskRootScreen
