@@ -37,6 +37,10 @@ ScreenManagement:
         id: sendEmail_screen
         name: 'SendEmailScreen'
         manager: 'screen_manager'
+    HelpScreen: 
+        id:help_screen
+        name: 'HelpScreen'
+        manager: 'screen_manager'
 
 <FotoPopup>:
 ##    size_hint: .5, .5
@@ -84,6 +88,10 @@ ScreenManagement:
     font_size: 32
     background_color: (0, 0, 1.8, 1)
 
+<HelpButton@Button>:
+    font_size: 32
+    background_color: (0, 0, 1.8, 1)
+
 <BackHomeButton@Button>:
     font_size: 16
     background_color: (0.4, 0.4, 0.4, 1)
@@ -126,7 +134,15 @@ ScreenManagement:
 
 <MenuScreen>:
     BoxLayout:
-        orientation: 'horizontal'
+        orientation: 'vertical'
+
+        Button:
+            text: 'Hilfe'
+            height: 60
+            size_hint_y: None        
+            on_press:
+                app.root.current = 'HelpScreen'
+                app.root.transition.direction = 'up'
         
         InnerBoxLayout:
             orientation: 'horizontal'
@@ -310,4 +326,26 @@ ScreenManagement:
                     height: self.minimum_height
                     cols: 1
 
+        BackHomeButton:
+
+<HelpScreen>:
+    BoxLayout:
+        orientation:'vertical'
+        id: HelpScreenContainer
+        
+        InnerBoxLayout:
+            orientation:'horizontal'
+
+            BoxLayout:
+                id:HelpImageContainer
+                Image:
+                    id:HelpImageId
+
+            Label:
+                id:HelpScreenLabel
+                text_size: self.size
+                valign: 'middle'
+                halign: 'center'
+                font_size:20
+                    
         BackHomeButton:

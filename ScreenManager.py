@@ -61,6 +61,11 @@ class MenuScreen(Screen):
         app.TASK_LONG = None
         app.TASK_SHORT = None
 
+class HelpScreen(Screen):
+    def on_pre_enter(self):
+        self.ids.HelpImageId.source = config['images']['help_person']
+        self.ids.HelpScreenLabel.text = config['text']['help_text']
+
 class SendEmailScreen(Screen):
 
     helper = Helper()
@@ -365,6 +370,10 @@ class TakeVideoScreen(Screen):
         app.FROMTAKEVIDEO = True
 
 class SuccessButton(Button):
+    pass
+
+
+class HelpButton(Button):
     pass
 
 class BackHomeButton(Button):
