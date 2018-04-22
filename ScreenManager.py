@@ -171,7 +171,7 @@ class FotoScreen(Screen):
         
         taskshort = app.TASK_SHORT
         tasklong = app.TASK_LONG
-        if tasklong:
+        if tasklong and not fromtaskfoto:
             
             boxLayout = InnerBoxLayout(
                 orientation = 'vertical',
