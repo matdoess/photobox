@@ -1,5 +1,10 @@
+import configparser
+
+config = configparser.ConfigParser()
+config.read('./config/global-config.ini')
+
 from kivy.config import Config
-Config.read('./config/config.ini')
+Config.read(config['kivy']['config_file'])
 
 from kivy.app import App
 from kivy.lang import Builder
@@ -14,8 +19,8 @@ from kivy.core.window import Window #Für Keyboard Shortscuts
 
 #
 from kivy.uix.vkeyboard import VKeyboard
-VKeyboard.layout_path = 'keyboards'
-VKeyboard.layout = 'photoboxkeys'
+VKeyboard.layout_path = config['keyboard']['layout_path']
+VKeyboard.layout = config['keyboard']['layout']
 
 #import os
 #os.environ["KIVY_IMAGE"]="pil"
