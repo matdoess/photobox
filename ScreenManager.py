@@ -25,6 +25,9 @@ VKeyboard.layout = config['keyboard']['layout']
 #import os
 #os.environ["KIVY_IMAGE"]="pil"
 
+from os import access, R_OK
+from os.path import isfile
+
 from functools import partial
 from time import sleep
 
@@ -141,6 +144,7 @@ class FotoScreen(Screen):
         app = App.get_running_app()
         fromtakefoto = app.FROMTAKEFOTO
         fromtaskfoto = app.FROMTASKFOTO
+        self.ids.sendEmailButton.disabled = True            
         if fromtakefoto:
             self.ids.FotoImageContainer.clear_widgets()
             fotoimage = FotoImage(source='img/camera_icon.png')
@@ -233,12 +237,15 @@ class FotoScreen(Screen):
                 sleep(0.5)
                 isResizeInprogress = app.SM.get_screen('TakeFotoScreen').ThreadCheck()
 
-            print('afterwhile')
             thumbnailimage = app.SM.get_screen('TakeFotoScreen').res.getName()
-            print(thumbnailimage)
-            
+
+            if isfile(thumbnailimage) and access(thumbnailimage, R_OK):
+                self.ids.sendEmailButton.disabled = False   
+                fotoimage = FotoImage(source=thumbnailimage)
+            else:
+                fotoimage = FotoImage(source=config['images']['error_no_photo'])
+
             self.ids.FotoImageContainer.clear_widgets()
-            fotoimage = FotoImage(source=thumbnailimage)
             self.ids.FotoImageContainer.add_widget(fotoimage)
             app.MAILIMAGE = thumbnailimage
             
@@ -385,6 +392,8 @@ class TaskButton(Button):
         #print(app.TASK_LONG)
         
         #self.parent.current = 'FotoScreen'
+
+
 
 class TaskScreen(Screen):
     
