@@ -1,3 +1,6 @@
+from kivy.config import Config
+Config.read('./config/config.ini')
+
 from kivy.app import App
 from kivy.lang import Builder
 from kivy.uix.screenmanager import ScreenManager, Screen
