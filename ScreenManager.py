@@ -140,6 +140,7 @@ class FotoScreen(Screen):
     def on_pre_enter(self):
         app = App.get_running_app()
         fromtakefoto = app.FROMTAKEFOTO
+        fromtaskfoto = app.FROMTASKFOTO
         if fromtakefoto:
             self.ids.FotoImageContainer.clear_widgets()
             fotoimage = FotoImage(source='img/camera_icon.png')
@@ -150,6 +151,12 @@ class FotoScreen(Screen):
             font_size=20
             )
             self.ids.FotoImageContainer.add_widget(label)
+            if fromtaskfoto:
+                app.FROMTASKFOTO = False
+                self.ids.ButtonTakeFoto.text = 'Aufgabe wiederholen'
+            else:
+                self.ids.ButtonTakeFoto.text = 'Foto aufnehmen'
+
         else:
             self.ids.FotoImageContainer.clear_widgets()
             fotoimage = FotoImage(source='img/camera_icon.png')
@@ -181,9 +188,15 @@ class FotoScreen(Screen):
             text = tasklong,
             font_size=32
             )
+
+            taskstupid = Label(
+            text = 'Bereit?\nKlicke auf "Foto aufnehmen"',
+            font_size=20
+            )
             
             boxLayout.add_widget(label)
             boxLayout.add_widget(tasklabel)
+            boxLayout.add_widget(taskstupid)
             self.ids.FotoImageContainer.add_widget(boxLayout)
             print(app.TASK_SHORT)
 
@@ -309,6 +322,9 @@ class TakeFotoScreen(Screen):
 ##        sleep(10)
 ##        self.ThreadCheck()
         app.FROMTAKEFOTO = True
+        app.FROMTASKFOTO = True if tasklong else False
+        print("FROMTASKFOTO:")
+        print(app.FROMTASKFOTO)
         self.parent.current = 'FotoScreen'
         
 class TakeVideoScreen(Screen):
@@ -433,6 +449,7 @@ class ScreenManagerApp(App):
     TASK_SHORT = None
     TASK_LONG = None
     FROMTAKEFOTO = False
+    FROMTASKFOTO = False
     FROMTAKEVIDEO = False
     SM = screenmanager
     MAILIMAGE = None
