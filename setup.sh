@@ -39,4 +39,7 @@ sudo pip install Wand
 sudo pip3 install Wand
 sudo apt-get install libmagickwand-dev
 
+# Telegram Bot
+sudo pip3 install python-telegram-bot
+
 

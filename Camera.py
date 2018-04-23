@@ -1,4 +1,5 @@
 from PIL import Image
+from io import BytesIO
 from time import sleep
 from imagename import imagename
 
@@ -31,6 +32,11 @@ class Camera():
     textshort = ""
     textlong = ""
     textsize = 64
+
+    #Objekte
+    imagestream = BytesIO()
+    imagestream.name = ""
+
     
     def start(self):
         print("Picamera Function");
@@ -74,6 +80,30 @@ class Camera():
             
     def getName(self):
         return self.imgname
+
+    def stream(self):
+        print("Picamera Image Stream to ByteIO Objekt")
+        if host == "raspberrypi":
+            cam = PiCamera()
+            
+            cam.vflip = self.upsidedown
+            cam.hflip = self.mirrorview
+            cam.resolution = (640, 480)
+            
+            cam.start_preview()
+            sleep(2)
+            
+            if self.mirror:
+                cam.hflip = not cam.hflip
+            cam.capture(self.imagestream, 'jpeg')
+            if self.mirror:
+                cam.hflip = not cam.hflip
+            cam.stop_preview()
+            cam.close()
+
+            self.imagestream.seek(0)
+            print("Camera.imagestream bereit")
+
 #
 # TEST
 #
