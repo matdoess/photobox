@@ -3,6 +3,11 @@ from io import BytesIO
 from time import sleep
 from imagename import imagename
 
+#Randomimage
+import random
+from shutil import copyfile
+#
+
 import os
 host = os.environ.get('HOSTNAME')
 print('host= ' + host)
@@ -76,8 +81,12 @@ class Camera():
                 cam.hflip = not cam.hflip
             cam.stop_preview()
             cam.close()
-            
-            
+        else:
+            self.imgname = imagename('random')
+            randomimage = self.getRandomImage()
+            copyfile(randomimage,self.imgname)
+            print(self.imgname)
+             
     def getName(self):
         return self.imgname
 
@@ -103,6 +112,23 @@ class Camera():
 
             self.imagestream.seek(0)
             print("Camera.imagestream bereit")
+        else:
+            randomimage = self.getRandomImage()
+            # Alter Code Funktioniert auch aber Bild wird nicht aktualisiert
+            #pil_img = Image.open(randomimage)
+            #pil_img.save(self.imagestream, 'jpeg')
+            #pil_img.close()
+            self.imagestream = open(randomimage, "rb")
+            self.imagestream.seek(0)
+
+    def getRandomImage(self):
+        random_image_path = 'img/random/'
+        numbers = [1,2,3,4,5,6,7,8,9,10]
+        random_number = random.choice(numbers)
+        random_image = random_image_path + str(random_number) + '.jpg'
+        print('getRandomImage')
+        print(random_image)
+        return random_image
 
 #
 # TEST

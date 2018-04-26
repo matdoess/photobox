@@ -3,6 +3,9 @@ import configparser
 config = configparser.ConfigParser()
 config.read('./config/global-config.ini')
 
+private_config = configparser.ConfigParser()
+private_config.read('./config/private-config.ini')
+
 from kivy.config import Config
 Config.read(config['kivy']['config_file'])
 
@@ -65,6 +68,39 @@ class HelpScreen(Screen):
     def on_pre_enter(self):
         self.ids.HelpImageId.source = config['images']['help_person']
         self.ids.HelpScreenLabel.text = config['text']['help_text']
+
+    def sending_help(self):
+        self.ids.HelpScreenLabel.text = config['text']['help_sending_text']  
+
+    def send_help(self):
+        print("send_help ausgeführt")
+
+        # Create Imagestream Objekt and Take Picture
+        camera = Camera()
+        camera.stream()
+        # Bild wird in camera.imagestream gespeichert
+
+        # Telegram
+        import telegram
+        chat_id = private_config['telegram']['help_person_id']
+
+        #image.save(bio, 'JPEG')
+        #bio.seek(0)
+
+        print("Create BOT start")
+        bot = telegram.Bot(token=private_config['telegram']['api-token'])
+        print("Create BOT end")
+        #print(bot.get_me())
+        print("Send message start")
+        bot.send_message(chat_id, text="Photobox SOS")
+        print("Send image start")
+        bot.send_photo(chat_id, photo=camera.imagestream)
+        print("Send ENDE")
+
+        self.ids.HelpScreenLabel.text = config['text']['help_success_text']    
+
+class HelpSendButton(Button):
+    pass
 
 class SendEmailScreen(Screen):
 
@@ -375,6 +411,7 @@ class SuccessButton(Button):
 
 class HelpButton(Button):
     pass
+
 
 class BackHomeButton(Button):
 ##    def clear_tasks(self):

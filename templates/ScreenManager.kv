@@ -341,11 +341,22 @@ ScreenManagement:
                 Image:
                     id:HelpImageId
 
-            Label:
-                id:HelpScreenLabel
-                text_size: self.size
-                valign: 'middle'
-                halign: 'center'
-                font_size:20
+            BoxLayout:
+                orientation:'vertical'
+                Label:
+                    id:HelpScreenLabel
+                    text_size: self.size
+                    valign: 'middle'
+                    halign: 'center'
+                    font_size:20
+                HelpSendButton:
+                    text: 'Hilferuf Senden'
+                    height: 60
+                    size_hint_y: None        
+                    on_press:
+                        root.sending_help()
+                    on_release:
+                        root.send_help()
+                        
                     
         BackHomeButton:
