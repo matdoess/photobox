@@ -92,7 +92,7 @@ class HelpScreen(Screen):
         print("Create BOT end")
         #print(bot.get_me())
         print("Send message start")
-        bot.send_message(chat_id, text="Photobox SOS")
+        bot.send_message(chat_id, text=config['text']['photobox_sos'])
         print("Send image start")
         bot.send_photo(chat_id, photo=camera.imagestream)
         print("Send ENDE")
@@ -189,9 +189,9 @@ class FotoScreen(Screen):
         
         if fromtaskfoto:
             app.FROMTASKFOTO = False
-            self.ids.ButtonTakeFoto.text = 'Aufgabe wiederholen'
+            self.ids.ButtonTakeFoto.text = config['text']['repeat_task']
         else:
-            self.ids.ButtonTakeFoto.text = 'Foto aufnehmen'
+            self.ids.ButtonTakeFoto.text = config['text']['take_photo']
 
         if fromtakefoto:
             self.ids.FotoImageContainer.clear_widgets()
@@ -199,7 +199,7 @@ class FotoScreen(Screen):
             self.ids.FotoImageContainer.add_widget(fotoimage)
             
             label = Label(
-                text = "Dein Bild wird geladen",
+                text = config['text']['image_is_loading']
                 font_size=20
             )
             self.ids.FotoImageContainer.add_widget(label)
@@ -220,7 +220,7 @@ class FotoScreen(Screen):
             )
             
             label = Label(
-                text = "Deine Aufgabe lautet:",
+                text = config['text']['your_task']
                 size_hint_y = None,
                 height = self.parent.height * 0.1,
                 pos=(100, 100),
@@ -237,7 +237,7 @@ class FotoScreen(Screen):
             )
 
             taskstupid = Label(
-            text = 'Bereit?\nKlicke auf "Foto aufnehmen"',
+            text = config['text']['ready_for_photo'],
             font_size=20
             )
             
@@ -324,7 +324,7 @@ class VideoScreen(Screen):
             self.ids.VideoScreenContainer.add_widget(fotoimage)
             
             label = TaskLabel(
-            text = "Danke das du dem Brautpaar eine Nachricht hinterlassen hast.",
+            text = config['text']['thanks_for_photo'],
             font_size=20
             )
             self.ids.VideoScreenContainer.add_widget(label)
@@ -334,7 +334,7 @@ class VideoScreen(Screen):
             self.ids.VideoScreenContainer.add_widget(fotoimage)
             
             label = TaskLabel(
-            text = "Hier kannst du dem Brautpaar eine Videonachricht aufnehmen.\n\nTippe auf den Bildschirm um die Aufnahme zu stoppen.",
+            text = config['text']['video_message'],
             font_size=20
             )
             self.ids.VideoScreenContainer.add_widget(label)
@@ -430,8 +430,6 @@ class TaskButton(Button):
     helper = Helper()
 
     def get_task(self):
-        print("get_task ausgeführt")
-
         task = self.helper.getRandomTask()
         
         app = App.get_running_app()
