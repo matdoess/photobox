@@ -6,13 +6,10 @@ from imagename import imagename
 #Randomimage
 import random
 from shutil import copyfile
-#
 
-import os
-host = os.environ.get('HOSTNAME')
-print('host= ' + host)
+import settings
 
-if host == "raspberrypi":
+if settings.myList["env"] == "raspberrypi":
     #PiCamera
     from picamera import PiCamera
     

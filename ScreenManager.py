@@ -9,6 +9,15 @@ private_config.read('./config/private-config.ini')
 from kivy.config import Config
 Config.read(config['kivy']['config_file'])
 
+import sys
+import settings
+
+# Environment festlegen
+env = sys.argv[1] if len(sys.argv) > 1 else 'raspberrypi'
+
+# Environment in globale Liste schreiben
+settings.myList["env"] = env
+
 from kivy.app import App
 from kivy.lang import Builder
 from kivy.uix.screenmanager import ScreenManager, Screen
@@ -20,13 +29,9 @@ from kivy.uix.image import Image
 from kivy.clock import mainthread
 from kivy.core.window import Window #Für Keyboard Shortscuts
 
-#
 from kivy.uix.vkeyboard import VKeyboard
 VKeyboard.layout_path = config['keyboard']['layout_path']
 VKeyboard.layout = config['keyboard']['layout']
-
-#import os
-#os.environ["KIVY_IMAGE"]="pil"
 
 from os import access, R_OK
 from os.path import isfile
@@ -41,7 +46,6 @@ from PiCam import PiCam
 from ImageResize import ImageResize
 
 import threading
-
 
 # Screens definieren
 class StartUpScreen(Screen):
@@ -68,6 +72,8 @@ class HelpScreen(Screen):
     def on_pre_enter(self):
         self.ids.HelpImageId.source = config['images']['help_person']
         self.ids.HelpScreenLabel.text = config['text']['help_text']
+        helper = Helper()
+        helper.foobar()
 
     def sending_help(self):
         self.ids.HelpScreenLabel.text = config['text']['help_sending_text']  
@@ -199,7 +205,7 @@ class FotoScreen(Screen):
             self.ids.FotoImageContainer.add_widget(fotoimage)
             
             label = Label(
-                text = config['text']['image_is_loading']
+                text = config['text']['image_is_loading'],
                 font_size=20
             )
             self.ids.FotoImageContainer.add_widget(label)
@@ -220,7 +226,7 @@ class FotoScreen(Screen):
             )
             
             label = Label(
-                text = config['text']['your_task']
+                text = config['text']['your_task'],
                 size_hint_y = None,
                 height = self.parent.height * 0.1,
                 pos=(100, 100),
