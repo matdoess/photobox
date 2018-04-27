@@ -1,6 +1,6 @@
 from PIL import Image
 from time import sleep
-from imagename import imagename
+import imagename
 
 import os
 #host = os.environ.get('HOSTNAME')

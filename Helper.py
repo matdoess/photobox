@@ -1,5 +1,6 @@
 import random
 import threading
+from datetime import datetime
 
 class Helper():
 
@@ -53,7 +54,6 @@ class Helper():
 
 
     def addMailAddress(self, mail):
-        print("addMailAddress")
 
         address = self.findMailAddressByMail(mail)
 
@@ -73,14 +73,18 @@ class Helper():
             else:
                 return False
 
+    def getImagename(self, imagesuffix2=""):
+        
+        imagepath = 'pics/'
+        imagedatetime = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
+        imagesuffix = '_Hochzeit-EJ'
+        if imagesuffix2 != "":
+            imagesuffix2 = '_' + imagesuffix2
+        imageext = '.jpg'
+        imagenamecomplete = imagepath + imagedatetime + imagesuffix + imagesuffix2 + imageext
+        return imagenamecomplete
+
 
 if __name__ == "__main__":
     helper = Helper()
-    print(helper.getRandomTask())
-# helper = Helper()
-# helper.getMailAddresses()
-# foundAddress = helper.findMailAddressByMail("elisabethkeller1@web.des")
-# helper.addMailAddress("test@web.de")
-
-# print(foundAddress)
 

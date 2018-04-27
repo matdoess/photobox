@@ -1,11 +1,12 @@
 from PIL import Image
 from io import BytesIO
 from time import sleep
-from imagename import imagename
 
 #Randomimage
 import random
 from shutil import copyfile
+
+from Helper import Helper
 
 import settings
 
@@ -41,8 +42,10 @@ class Camera():
 
     
     def start(self):
-        print("Picamera Function");
-        if host == "raspberrypi":
+        
+        helper = Helper()
+
+        if settings.myList["env"] == "raspberrypi":
             cam = PiCamera()
             
             cam.flash_mode = self.flashmode
@@ -69,7 +72,7 @@ class Camera():
             #cam.remove_overlay(o)
             cam.annotate_text_size = self.textsize
             cam.annotate_text = self.textlong
-            self.imgname = imagename(self.textshort)
+            self.imgname = helper.getImagename(self.textshort)
             #print(self.imgname)
             if self.mirror:
                 cam.hflip = not cam.hflip
@@ -79,7 +82,7 @@ class Camera():
             cam.stop_preview()
             cam.close()
         else:
-            self.imgname = imagename('random')
+            self.imgname = helper.getImagename('random')
             randomimage = self.getRandomImage()
             copyfile(randomimage,self.imgname)
             print(self.imgname)
