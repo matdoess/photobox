@@ -6,15 +6,13 @@ Hinweise:
 
 TODO:
 - StandyBy Slideshow
--- Video Thumbnails erstellen (incl. Video Icon)
--- Konvert Video to mkv after creation
--- exit button einbauen.
--- Nach laden von Bild bei Aufgabe: Bild neben Aufgabentext anzeigen.
 -- telegram_bot in Helper Classe oder eigenes Modul einbauen. Zeit bei SOS mitschicken.
 
-
-
 DONE
+-- Video Thumbnails erstellen (incl. Video Icon)
+-- Konvert Video to mkv after creation
+-- Nach laden von Bild bei Aufgabe: Bild neben Aufgabentext anzeigen.
+-- exit button einbauen.
 -- Foto Spiegeln als Setting in Camera Classe einfügen.
 -- Bei Aufagbe wird kein "Dein Bild wird geladen angezeigt" > Erledigt
 -- Nach Aufgabe Button auf "Neues Foto" ändern (evtl.) > Erledigt "Aufgabe wiederholen"

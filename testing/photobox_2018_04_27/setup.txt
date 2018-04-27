@@ -1,0 +1,98 @@
+
+### Using Official RPi touch display
+https://kivy.org/docs/installation/installation-rpi.html#using-official-rpi-touch-display
+
+# If you are using the official Raspberry Pi touch display, you need to configure Kivy to use it as an input source. To do this, edit the file ~/.kivy/config.ini and go to the [input] section. Add this:
+
+mouse = mouse
+mtdev_%(name)s = probesysfs,provider=mtdev
+hid_%(name)s = probesysfs,provider=hidinput
+
+# Folgende Zeile auskommentieren
+%(name)s = probesysfs,provider=hidinput
+
+Fertiger Eintrag in .kivy/config.txt
+------
+[input]
+mouse = mouse
+## %(name)s = probesysfs,provider=hidinput
+mtdev_%(name)s = probesysfs,provider=mtdev
+hid_%(name)s = probesysfs,provider=hidinput
+------
+
+# Virtuelles Keyboard aktivieren
+keyboard_mode = systemanddock
+
+
+### picam ###
+# Service Datei
+copy setup/picam.service  to  /etc/systemd/system/
+# Systemctl Basics
+sudo systemctl status picam.service
+sudo systemctl stop picam.service
+sudo systemctl start picam.service
+# Änderungen in picam.service laden
+sudo systemctl daemon-reload
+
+## Ramdisk Script
+copy setup/picam-ramdisk.service  to  /etc/systemd/system/
+sudo systemctl enable picam-ramdisk.service
+
+# systemd config anpassen. [Sonst wird /run/shm/ nach dem ausführen des scripts gelöscht. ]
+sudo nano /etc/systemd/logind.conf 
+Zeile ändern:
+----
+#RemoveIPC=yes  >>>  RemoveIPC=no
+----
+
+### Photobox Service ###
+copy setup/photobox.service to /etc/systemd/system/
+sudo systemctl enable photobox.service
+
+### Picamera / Lisiparoi Flash ###
+==> GPIO Pin für Blitz festlegen und in Firmware schreiben
+[ http://picamera.readthedocs.io/en/release-1.10/api_camera.html#picamera.camera.PiCamera.flash_mode ]
+[ http://picamera.readthedocs.io/en/release-1.10/recipes2.html#using-a-flash-with-the-camera ]
+sudo cp ~/photobox/flash/dt-blob.bin /boot/
+
+### pi settings ###
+- Bildschirmschoner deaktivieren
+- GPU-Speicher min. 512
+- Wallpaper ändern ;-)  [default path = /usr/share/rpd-wallpaper ]
+
+### fstab und backup ###
+# Mounts
+==> siehe photobox/setup/fstab
+
+# Backupscript regelmäßig asuführen
+sudo nano /etc/crontab
+--------------
+#
+*/5 * * * *     root    /home/pi/photobox/script/backup_storage.sh  > /dev/null 2>&1
+#
+--------------
+
+###################################################
+### Fehlversuche
+###################################################
+
+#VNC Autostart
+Folgende Zeile in rc.local ergänzen
+----
+#VNC start
+/home/pi/photobox/bootscript_vnc.sh
+----
+==> Klappt nicht. Evtl. init.script mit warten auf Netzwerk anlegen
+
+
+#RAMDISK
+Folgende Zeile in /etc/rc.local ergänzen
+----
+# picam RAMDISK Ordner anlegen
+/home/pi/photobox/bootscript_picam.sh
+----
+==> Klappt nicht. Entweder fehlende Benutzerrechte oder systemd löscht /run/shm. Gelöst über systemd script.
+
+
+
+

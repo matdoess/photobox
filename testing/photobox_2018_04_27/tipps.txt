@@ -1,0 +1,8 @@
+Bei Problemen mit ssh Fernzugriff oder beim Ausführen auf Laptop kommt es zu Fehlermeldung bzgl. hostname.
+Variable hostname muss exportiert werden.
+$ export HOSTNAME
+
+Bildschirm dunkel/hell schalten (muss als root user erfolgen, nicht sudo. Evtl. über "sudo su Befehl" möglich ?!?):
+$ sudo su
+# echo 1 > /sys/class/backlight/rpi_backlight/bl_power
+# echo 0 > /sys/class/backlight/rpi_backlight/bl_power

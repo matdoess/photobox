@@ -1,0 +1,9 @@
+[Unit]
+Description=Picam Service
+
+[Service]
+User=pi
+Group=pi
+Type=simple
+WorkingDirectory=/home/pi/picam
+ExecStart=/home/pi/picam/picam --alsadev hw:1,0 --rotation 0 --hflip --preview --previewrect 0,0,800,480

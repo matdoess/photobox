@@ -1,0 +1,11 @@
+kuss:Kuesst euch
+grimasse:Schneide eine Grimasse
+model:Mach eine Modelpose
+duck: Mach ein Duckface
+herz:Mach ein Herz mit der Hand
+profil:Lass dich von der Seite fotographieren
+prost:Stosse mit jemandem an
+winken: Winke in die Kamera
+umarmung: Umarmt euch
+muskeln: Zeig deine Muskeln
+superman: Flieg wie Superman

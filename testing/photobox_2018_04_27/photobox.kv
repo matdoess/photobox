@@ -1,0 +1,107 @@
+# Custom buttons
+<HomeButton@Button>:
+    font_size: 32
+##    size_hint: 1, 0.5
+##    pos_hint: {'center_y': 0}
+
+<CustomPopup>:
+##    size_hint: .5, .5
+    background: 'img/black.png'
+    separator_color: (0, 0, 0, 1)
+    auto_dismiss: False
+    title: ""
+    on_open:
+        root.open_video()
+        root.img_resize()
+        root.send_email()
+        root.dismiss()
+    Button:
+        #size_hint: .5, .5
+        background_color: (0, 0, 0, 1)
+        text: ""
+        #on_press: root.dismiss()
+        
+<VideoPopup>:
+##    size_hint: .5, .5
+    background: 'img/black.png'
+    separator_color: (0, 0, 0, 1)
+    auto_dismiss: False
+    title: ""
+    on_open:
+        #root.picam_start()
+        root.picam_init()
+        root.sleep(1)
+        root.picam_start()
+        #root.dismiss()
+    Button:
+        #size_hint: .5, .5
+        background_color: (0, 0, 0, 1)
+        text: ""
+        on_press:
+            root.picam_stop()
+            root.sleep(1)
+            root.picam_quit()
+            root.dismiss()
+            
+<TaskPopup>:
+    background: 'img/black.png'
+    separator_color: (0, 0, 0, 1)
+    auto_dismiss: False
+    title: ""
+    on_open:
+##        foobar = self.randomtask()
+##        button1.text = self.randomtask()
+        self.randomtask()
+        #root.dismiss()
+    GridLayout:
+        rows: 2
+        padding: 10
+        spacing: 0
+##  size_hint: .5, .5
+
+        Label:
+            id:tasktextbutton
+            #size_hint: .5, .5
+            background_color: (0, 0, 0, 1)
+            text: ""
+            #on_press: root.dismiss()
+        Button:
+            text: "OK"
+            on_press: root.sendEmail()
+
+<HomeGridLayout>:
+    id: home
+    rows: 3
+    padding: 10
+    spacing: 0
+    
+    # Abstand oben
+    BoxLayout:
+    
+    # Buttons
+    BoxLayout:
+##        size_hint: 0.5, 0.5
+##        pos_hint: {'center_y': 1}
+        spacing: 10
+        
+        HomeButton:
+            text: "Video"
+            on_press:
+                root.open_videopopup()
+                #home.video()
+        HomeButton:
+            text: "Foto"
+            on_press:
+                print('Foto')
+                root.open_popup()
+                #root.open_video()
+        HomeButton:
+            #background_color: (0, 0, 0, 1)
+            text: "Aufgabe"
+            on_press:
+                print('Aufgabe')
+                root.open_taskpopup()
+    
+    # Abstand unten
+    BoxLayout:
+    
