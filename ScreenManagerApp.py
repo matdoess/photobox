@@ -1,22 +1,4 @@
-import configparser
-
-config = configparser.ConfigParser()
-config.read('./config/global-config.ini')
-
-private_config = configparser.ConfigParser()
-private_config.read('./config/private-config.ini')
-
-from kivy.config import Config
-Config.read(config['kivy']['config_file'])
-
-import sys
 import settings
-
-# Environment festlegen
-env = sys.argv[1] if len(sys.argv) > 1 else 'raspberrypi'
-
-# Environment in globale Liste schreiben
-settings.myList["env"] = env
 
 from kivy.app import App
 from kivy.lang import Builder
@@ -30,8 +12,8 @@ from kivy.clock import mainthread
 from kivy.core.window import Window #Für Keyboard Shortscuts
 
 from kivy.uix.vkeyboard import VKeyboard
-VKeyboard.layout_path = config['keyboard']['layout_path']
-VKeyboard.layout = config['keyboard']['layout']
+VKeyboard.layout_path = settings.myList['config']['keyboard']['layout_path']
+VKeyboard.layout = settings.myList['config']['keyboard']['layout']
 
 from os import access, R_OK
 from os.path import isfile
@@ -40,7 +22,6 @@ from functools import partial
 from time import sleep
 
 from Helper import Helper
-from SendEmail import SendEmail
 from Camera import Camera
 from PiCam import PiCam
 from ImageResize import ImageResize
@@ -48,250 +29,23 @@ from ImageResize import ImageResize
 import threading
 
 # Screens definieren
-class StartUpScreen(Screen):
-    pass
+from screens import StartUpScreen
 
-class MenuScreen(Screen):
-    def on_pre_leave(self):
-        pass
+from screens import MenuScreen
 
-    def on_enter(self):
-        app = App.get_running_app()
-        app.TASK_LONG = None
-        app.TASK_SHORT = None
+from screens import HelpScreen
 
-class HelpScreen(Screen):
-    def on_pre_enter(self):
-        self.ids.HelpImageId.source = config['images']['help_person']
-        self.ids.HelpScreenLabel.text = config['text']['help_text']
-        helper = Helper()
-        helper.foobar()
+from screens import SendEmailScreen
 
-    def sending_help(self):
-        self.ids.HelpScreenLabel.text = config['text']['help_sending_text']  
+from screens import FotoScreen
 
-    def send_help(self):
-        print("send_help ausgeführt")
-
-        # Create Imagestream Objekt and Take Picture
-        camera = Camera()
-        camera.stream()
-        # Bild wird in camera.imagestream gespeichert
-
-        # Telegram
-        import telegram
-        chat_id = private_config['telegram']['help_person_id']
-
-        #image.save(bio, 'JPEG')
-        #bio.seek(0)
-
-        print("Create BOT start")
-        bot = telegram.Bot(token=private_config['telegram']['api-token'])
-        print("Create BOT end")
-        #print(bot.get_me())
-        print("Send message start")
-        bot.send_message(chat_id, text=config['text']['photobox_sos'])
-        print("Send image start")
-        bot.send_photo(chat_id, photo=camera.imagestream)
-        print("Send ENDE")
-
-        self.ids.HelpScreenLabel.text = config['text']['help_success_text']    
+from screens import VideoScreen
 
 class HelpSendButton(Button):
     pass
 
-class SendEmailScreen(Screen):
-
-    helper = Helper()
-    mail = SendEmail()
-
-    # Wird aufgerufen sobald sich im Textfeld etwas aendert
-    # schraenkt dann die auswahl der bereits vorhandenen Mailadressen ein
-    def inputChanged(self, text, *args):
-
-        mailAddresses = self.helper.getMailAddresses()
-        filteredAdrresses = []
-
-        # loop ueber alle bereits vorhandenen Mail Adressen
-        for mail in mailAddresses:
-            # Wenn ein teilstueck der eingabe in der Mailadresse vorhanden wird die Adresse in das Array der gefilterten adressen hinzugefuegt
-            if text in mail:
-                filteredAdrresses.append(mail)
-
-        # loescht die Auswahlliste der Emails
-        self.ids.grid.clear_widgets()
-
-        # wenn gefilterte Adressen vorhanden
-        if filteredAdrresses:
-            # loop ueber gefilterte Adressen um diese zur Auswahl in Scrollview anzuzeigen
-            for address in filteredAdrresses:
-                button = Button(text=address, size_hint_y=None, height=40, font_size=16)
-                button.bind(on_press=partial(self.setTextInput, address))
-                self.ids.grid.add_widget(button)
-
-
-    # Wird aufgerufen sobald auf "Senden" gedrueckt wird
-    def sendEmail(self, mailAddress):
-
-        # Textfeld mit Emailadresse wieder leeren
-        self.ids.emailInput.text = ""
-
-        # prueft ob Emailadresse bereits gespeichert ist, falls nein speichern
-        if self.helper.findMailAddressByMail(mailAddress) == None:
-            self.helper.addMailAddress(mailAddress)
-
-        mailtext = self.helper.getMailText()
-        
-        app = App.get_running_app()
-        mailimage = app.MAILIMAGE
-        app.MAILIMAGE = None
-
-        # Email im Hintergrund verschicken
-        mail_thread = threading.Thread(target=self.mail.send, args=(mailAddress,mailtext,mailimage))
-        mail_thread.start()
-
-        # Wieder zum Startbildschirm zuruek navigieren
-        self.parent.current = 'MenuScreen'
-
-    # Wird aufgerufen wenn Benutzer auf eine Emailadresse aus der Vorschlagsliste klickt
-    # schreibt die Auswahl in das Textfeld
-    def setTextInput(self, address, *args):
-        self.ids.emailInput.text = address
-
 class FotoPopup(Popup):
     pass
-
-class FotoImage(Image):
-    pass
-
-class FotoScreen(Screen):
-
-    def on_pre_enter(self):
-        app = App.get_running_app()
-        fromtakefoto = app.FROMTAKEFOTO
-        fromtaskfoto = app.FROMTASKFOTO
-        self.ids.sendEmailButton.disabled = True    
-        
-        if fromtaskfoto:
-            app.FROMTASKFOTO = False
-            self.ids.ButtonTakeFoto.text = config['text']['repeat_task']
-        else:
-            self.ids.ButtonTakeFoto.text = config['text']['take_photo']
-
-        if fromtakefoto:
-            self.ids.FotoImageContainer.clear_widgets()
-            fotoimage = FotoImage(source='img/camera_icon.png')
-            self.ids.FotoImageContainer.add_widget(fotoimage)
-            
-            label = Label(
-                text = config['text']['image_is_loading'],
-                font_size=20
-            )
-            self.ids.FotoImageContainer.add_widget(label)
-
-        else:
-            self.ids.FotoImageContainer.clear_widgets()
-            fotoimage = FotoImage(source='img/camera_icon.png')
-            self.ids.FotoImageContainer.add_widget(fotoimage)
-            app.MAILIMAGE = None
-        
-        taskshort = app.TASK_SHORT
-        tasklong = app.TASK_LONG
-        if tasklong and not fromtaskfoto:
-            
-            boxLayout = InnerBoxLayout(
-                orientation = 'vertical',
-                padding = 20
-            )
-            
-            label = Label(
-                text = config['text']['your_task'],
-                size_hint_y = None,
-                height = self.parent.height * 0.1,
-                pos=(100, 100),
-                font_size=20
-            )
-            
-            self.ids.FotoImageContainer.clear_widgets()
-            fotoimage = FotoImage(source='img/camera_icon.png')
-            self.ids.FotoImageContainer.add_widget(fotoimage)
-            
-            tasklabel = TaskLabel(
-            text = tasklong,
-            font_size=32
-            )
-
-            taskstupid = Label(
-            text = config['text']['ready_for_photo'],
-            font_size=20
-            )
-            
-            boxLayout.add_widget(label)
-            boxLayout.add_widget(tasklabel)
-            boxLayout.add_widget(taskstupid)
-            self.ids.FotoImageContainer.add_widget(boxLayout)
-            print(app.TASK_SHORT)
-
-            
-    def on_enter(self):
-
-        app = App.get_running_app()
-        print(app.TASK_SHORT)
-        taskLong = app.TASK_LONG if app.TASK_LONG != None else ""
-        taskShort = app.TASK_SHORT
-        fromtakefoto = app.FROMTAKEFOTO
-        counter = 0
-        
-        if fromtakefoto:
-            
-            app.FROMTAKEFOTO = False
-            isResizeInprogress = app.SM.get_screen('TakeFotoScreen').ThreadCheck()
-            sleep(2)
-            while (isResizeInprogress and counter < 15):
-                print(counter)
-                print(isResizeInprogress)
-                counter += 1
-                sleep(0.5)
-                isResizeInprogress = app.SM.get_screen('TakeFotoScreen').ThreadCheck()
-
-            thumbnailimage = app.SM.get_screen('TakeFotoScreen').res.getName()
-
-            if isfile(thumbnailimage) and access(thumbnailimage, R_OK):
-                self.ids.sendEmailButton.disabled = False   
-                fotoimage = FotoImage(source=thumbnailimage)
-            else:
-                fotoimage = FotoImage(source=config['images']['error_no_photo'])
-
-            self.ids.FotoImageContainer.clear_widgets()
-            self.ids.FotoImageContainer.add_widget(fotoimage)
-            app.MAILIMAGE = thumbnailimage  
-
-class VideoScreen(Screen):
-    
-    def on_pre_enter(self):
-        app = App.get_running_app()
-        fromtakevideo = app.FROMTAKEVIDEO
-        app.FROMTAKEVIDEO = None
-        if fromtakevideo:
-            self.ids.VideoScreenContainer.clear_widgets()
-            fotoimage = FotoImage(source='img/video_icon.png')
-            self.ids.VideoScreenContainer.add_widget(fotoimage)
-            
-            label = TaskLabel(
-            text = config['text']['thanks_for_photo'],
-            font_size=20
-            )
-            self.ids.VideoScreenContainer.add_widget(label)
-        else:
-            self.ids.VideoScreenContainer.clear_widgets()
-            fotoimage = FotoImage(source='img/video_icon.png')
-            self.ids.VideoScreenContainer.add_widget(fotoimage)
-            
-            label = TaskLabel(
-            text = config['text']['video_message'],
-            font_size=20
-            )
-            self.ids.VideoScreenContainer.add_widget(label)
 
 class TakeFotoScreen(Screen):
     camera = Camera()
@@ -359,8 +113,7 @@ class BackHomeButton(Button):
 class InnerBoxLayout(BoxLayout):
     pass
 
-class TaskLabel(Label):
-    pass
+
 
 class TaskButton(Button):
     helper = Helper()

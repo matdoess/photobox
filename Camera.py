@@ -92,7 +92,7 @@ class Camera():
 
     def stream(self):
         print("Picamera Image Stream to ByteIO Objekt")
-        if host == "raspberrypi":
+        if settings.myList['env'] == "raspberrypi":
             cam = PiCamera()
             
             cam.vflip = self.upsidedown
