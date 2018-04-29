@@ -1,7 +1,9 @@
 from kivy.uix.screenmanager import Screen
 from kivy.uix.button import Button
+from kivy.app import App
 
 from functools import partial
+import threading
 
 from Helper import Helper
 from SendEmail import SendEmail

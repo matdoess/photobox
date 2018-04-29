@@ -2,6 +2,8 @@ from kivy.uix.screenmanager import Screen
 from kivy.app import App
 from kivy.uix.image import Image
 from kivy.uix.label import Label
+from kivy.uix.boxlayout import BoxLayout
+
 
 from time import sleep
 from os import access, R_OK
@@ -10,6 +12,12 @@ from os.path import isfile
 from elements import FotoImage
 
 import settings
+
+class InnerBoxLayout(BoxLayout):
+    pass
+
+class TaskLabel(Label):
+    pass
 
 class FotoScreen(Screen):
 
