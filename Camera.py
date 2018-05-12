@@ -100,6 +100,7 @@ class Camera():
             cam.resolution = (640, 480)
             
             cam.start_preview()
+            cam.preview.alpha = 0
             sleep(2)
             
             if self.mirror:
