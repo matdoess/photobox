@@ -25,5 +25,6 @@ class TelegramBot():
         for chat_id in self.help_person:
             bot.send_message(chat_id, self.text)
             bot.send_photo(chat_id, self.photo)
+            # Für mehrfaches Versenden an Anfang des Bildes springen
             self.photo.seek(0)
 
