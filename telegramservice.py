@@ -1,3 +1,5 @@
+import settings
+
 from telegram.ext import Updater, CommandHandler
 import pickle
 from os.path import isfile
