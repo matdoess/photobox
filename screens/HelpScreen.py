@@ -1,6 +1,8 @@
 from kivy.uix.screenmanager import Screen
 
 from Camera import Camera
+from TelegramBot import TelegramBot
+from datetime import datetime
 
 import settings
 
@@ -20,21 +22,27 @@ class HelpScreen(Screen):
         camera.stream()
         # Bild wird in camera.imagestream gespeichert
 
-        # Telegram
-        import telegram
-        chat_id = settings.myList['private_config']['telegram']['help_person_id']
+        telegrambot = TelegramBot()
+        senddatetime = datetime.now().strftime("%Y-%m-%d - %H:%M:%S")
+        telegrambot.text = settings.myList['config']['text']['photobox_sos'] + ' [' + senddatetime + ']'
+        telegrambot.photo = camera.imagestream
+        telegrambot.send()
 
-        #image.save(bio, 'JPEG')
-        #bio.seek(0)
+        # # Telegram
+        # import telegram
+        # chat_id = settings.myList['private_config']['telegram']['help_person_id']
 
-        print("Create BOT start")
-        bot = telegram.Bot(token=settings.myList['private_config']['telegram']['api-token'])
-        print("Create BOT end")
-        #print(bot.get_me())
-        print("Send message start")
-        bot.send_message(chat_id, text=settings.myList['config']['text']['photobox_sos'])
-        print("Send image start")
-        bot.send_photo(chat_id, photo=camera.imagestream)
-        print("Send ENDE")
+        # #image.save(bio, 'JPEG')
+        # #bio.seek(0)
+
+        # print("Create BOT start")
+        # bot = telegram.Bot(token=settings.myList['private_config']['telegram']['api-token'])
+        # print("Create BOT end")
+        # #print(bot.get_me())
+        # print("Send message start")
+        # bot.send_message(chat_id, text=settings.myList['config']['text']['photobox_sos'])
+        # print("Send image start")
+        # bot.send_photo(chat_id, photo=camera.imagestream)
+        # print("Send ENDE")
 
         self.ids.HelpScreenLabel.text = settings.myList['config']['text']['help_success_text']    
