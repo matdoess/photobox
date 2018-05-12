@@ -25,6 +25,9 @@ settings.myList['config'] = config._sections
 # Private_Config in globale Variable schreiben
 settings.myList['private_config'] = private_config._sections
 
+# Telegram Bot Service starten
+import telegramservice
+
 from ScreenManagerApp import ScreenManagerApp
 
 if __name__ == '__main__':
