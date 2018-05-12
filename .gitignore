@@ -1,4 +1,5 @@
 pics/
 config/private-config.ini
+config/private-tasks.txt
 .vscode/
 __pycache__/
