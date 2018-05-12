@@ -5,6 +5,8 @@ import pickle
 from os.path import isfile
 from datetime import datetime
 
+from PIL import Image
+from io import BytesIO
 
 class TelegramBot():
 
@@ -23,4 +25,5 @@ class TelegramBot():
         for chat_id in self.help_person:
             bot.send_message(chat_id, self.text)
             bot.send_photo(chat_id, self.photo)
+            self.photo.seek(0)
 
