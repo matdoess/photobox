@@ -7,7 +7,7 @@ Group=pi
 Type=simple
 Environment=HOSTNAME=raspberrypi
 WorkingDirectory=/home/pi/photobox
-ExecStart=/usr/bin/python3 /home/pi/photobox/ScreenManager.py
+ExecStart=/usr/bin/python3 /home/pi/photobox/main.py
 RestartSec=10
 Restart=on-failure
 
