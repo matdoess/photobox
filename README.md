@@ -6,7 +6,6 @@ Hinweise:
 
 TODO:
 - StandyBy Slideshow
--- telegram_bot in Helper Classe oder eigenes Modul einbauen. Zeit bei SOS mitschicken.
 - imageresize: check if mail folder exists. if not create it.
 
 DONE
@@ -18,6 +17,8 @@ DONE
 -- Bei Aufagbe wird kein "Dein Bild wird geladen angezeigt" > Erledigt
 -- Nach Aufgabe Button auf "Neues Foto" ändern (evtl.) > Erledigt "Aufgabe wiederholen"
 -- Fehler Popup bei Email Senden ohne Bild einbauen. > erledigt (Button disabled)
+-- telegram_bot in Helper Classe oder eigenes Modul einbauen. Zeit bei SOS mitschicken.
+
 
 Changelog:
 2018-01-02 (matze):

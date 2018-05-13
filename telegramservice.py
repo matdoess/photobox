@@ -16,7 +16,7 @@ updater = Updater(settings.myList['private_config']['telegram']['api-token'])
 
 def save_chat_id(bot, update):
     update.message.reply_text(
-        'Hello {}. You have been added as "Photobox Help Person". Send /end to get removed from the list.'.format(update.message.from_user.first_name))
+        'Hello {}. You have been added as "Photobox Help Person".\nSend /end to get removed from the list.\nSend /status to see the list.'.format(update.message.from_user.first_name))
     #print("chat_id")
     #print(update.message.chat_id)
     #print(update.message.from_user.username)
@@ -34,8 +34,14 @@ def delete_chat_id(bot, update):
     print(help_person)
     pickle.dump( help_person, open( "objects/help_person.dict", "wb"))
 
+def status_help_persons(bot, update):
+    update.message.reply_text(
+        'Registered Help Persons:\n{}'.format(help_person))
+    print(help_person)
+
 
 updater.dispatcher.add_handler(CommandHandler('start', save_chat_id))
 updater.dispatcher.add_handler(CommandHandler('end', delete_chat_id))
+updater.dispatcher.add_handler(CommandHandler('status', status_help_persons))
 
 updater.start_polling()
