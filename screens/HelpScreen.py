@@ -4,6 +4,8 @@ from Camera import Camera
 from TelegramBot import TelegramBot
 from datetime import datetime
 
+import threading
+
 import settings
 
 class HelpScreen(Screen):
@@ -26,7 +28,11 @@ class HelpScreen(Screen):
         senddatetime = datetime.now().strftime("%Y-%m-%d - %H:%M:%S")
         telegrambot.text = settings.myList['config']['text']['photobox_sos'] + ' [' + senddatetime + ']'
         telegrambot.photo = camera.imagestream
-        telegrambot.send()
+        telegrambot.updateHelpPerson()
+        #telegrambot.send()
+
+        telegram_thread = threading.Thread(target=telegrambot.send, args=())
+        telegram_thread.start()
 
         # # Telegram
         # import telegram

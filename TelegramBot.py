@@ -19,12 +19,16 @@ class TelegramBot():
     text = ""
     photo = ""
 
+    def updateHelpPerson(self):
+        self.help_person = pickle.load( open( "objects/help_person.dict", "rb" ) )
+
     def send(self):
         bot = telegram.Bot(token=settings.myList['private_config']['telegram']['api-token'])
+        print(self.help_person)
 
         for chat_id in self.help_person:
-            bot.send_message(chat_id, self.text)
-            bot.send_photo(chat_id, self.photo)
+            bot.send_message(chat_id, self.text, timeout=20)
+            bot.send_photo(chat_id, self.photo, timeout=40)
             # Für mehrfaches Versenden an Anfang des Bildes springen
             self.photo.seek(0)
 
