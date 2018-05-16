@@ -206,12 +206,13 @@ ScreenManagement:
         background_color: (0, 0, 0, 1)
         text: ""
         on_press:
-            root.set_fromtakevideo()
-            root.picam_stop()
-            root.sleep(1)
-            root.picam_quit()
-            app.root.current = 'VideoScreen'
-            app.root.transition.direction = 'down'
+            root.quit_video()
+            # root.set_fromtakevideo()
+            # root.picam_stop()
+            # root.sleep(1)
+            # root.picam_quit()
+            # app.root.current = 'VideoScreen'
+            # app.root.transition.direction = 'down'
 
 <TakeFotoScreen>:
     # background: 'img/black.png'
