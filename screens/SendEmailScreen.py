@@ -15,6 +15,10 @@ class SendEmailScreen(Screen):
     helper = Helper()
     mail = SendEmail()
 
+    def on_enter(self):
+        # Textfeld mit Emailadresse leeren
+        self.ids.emailInput.text = ""
+
     # Wird aufgerufen sobald sich im Textfeld etwas aendert
     # schraenkt dann die auswahl der bereits vorhandenen Mailadressen ein
     def inputChanged(self, text, *args):
@@ -67,3 +71,7 @@ class SendEmailScreen(Screen):
     # schreibt die Auswahl in das Textfeld
     def setTextInput(self, address, *args):
         self.ids.emailInput.text = address
+
+    def clearEmailInput(self):
+        self.ids.emailInput.text = ""
+

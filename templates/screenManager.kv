@@ -6,6 +6,12 @@
 #: import FotoScreen screen
 #: import VideoScreen screen
 
+<Label>:
+    font_name: 'fonts/larabiefont rg'
+
+# Alle Fonts ändern incl. VKeyBoard (zum Teil fehlen Tastaturzeichen)
+#<Widget>:
+#    font_name: 'fonts/larabiefont rg'
 
 ScreenManagement:
     id: screen_manager
@@ -92,8 +98,17 @@ ScreenManagement:
     font_size: 32
     background_color: (0, 0, 1.8, 1)
 
+<MenuButton@Button>:
+    font_size: 32
+
+<TaskButton@Button>:
+    font_size: 32
+
+<NavButton@Button>:
+    font_size: 18
+
 <BackHomeButton@Button>:
-    font_size: 16
+    font_size: 18
     background_color: (0.4, 0.4, 0.4, 1)
     text: 'Zurück zum Hauptmenü'
     size_hint_y: None
@@ -102,9 +117,8 @@ ScreenManagement:
         #self.clear_tasks()
         app.root.current = 'MenuScreen'
         app.root.transition.direction = 'down'
-        
-<TaskButton@Button>:
-        
+
+
 <FotoImage@Image>:
 ##    canvas:
 ##        Color:
@@ -123,8 +137,9 @@ ScreenManagement:
         
         Label:
             text: 'Photobox wurde gestartet'
+            font_size: 28
         
-        Button:
+        NavButton:
             text: 'Weiter'
             size_hint_y: None
             height: 60
@@ -136,7 +151,7 @@ ScreenManagement:
     BoxLayout:
         orientation: 'vertical'
 
-        Button:
+        NavButton:
             text: 'Hilfe'
             height: 60
             size_hint_y: None        
@@ -147,12 +162,12 @@ ScreenManagement:
         InnerBoxLayout:
             orientation: 'horizontal'
             
-            Button:
+            MenuButton:
                 text: 'Video'
                 on_press:
                     app.root.current = 'VideoScreen'
                     app.root.transition.direction = 'up'
-            Button:
+            MenuButton:
                 text: 'Foto'
                 on_press:
                     app.root.current = 'FotoScreen'
@@ -183,7 +198,7 @@ ScreenManagement:
             size_hint_y: None
             height: 60
             BackHomeButton:
-            Button:
+            NavButton:
                 text: 'Video aufnehmen'
                 size_hint_y: None
                 height: 60
@@ -261,7 +276,7 @@ ScreenManagement:
             size_hint_y: None
             height: 60
             BackHomeButton:
-            Button:
+            NavButton:
                 id:ButtonTakeFoto
                 text: 'Foto aufnehmen'
                 size_hint_y: None
@@ -269,7 +284,7 @@ ScreenManagement:
                 on_press: 
                     app.root.current = 'TakeFotoScreen'
                     app.root.transition.direction = 'up'
-            Button:
+            NavButton:
                 id:sendEmailButton
                 text: 'Foto senden'
                 size_hint_y: None
@@ -309,9 +324,15 @@ ScreenManagement:
                     #pos_hint: {'x': 0, 'y': .9}
                     on_text: root.inputChanged(self.text)
 
+                Button:
+                    text: "X"
+                    size_hint_x: None
+                    on_press: root.clearEmailInput()
+
             Button:
                 id: sendMailButton
                 text: 'Senden'
+                font_size: 20
                 size_hint: [1, .2]
                 background_color: (0, 2, 0, 1)
                 on_press: root.sendEmail(emailInput.text)
