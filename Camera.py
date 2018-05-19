@@ -15,13 +15,16 @@ if settings.myList["env"] == "raspberrypi":
     from picamera import PiCamera
     
 class Camera():
-    
+    import configparser
+    config = configparser.ConfigParser()
+    config.read('./config/global-config.ini')
+
     # Settings
-    mirrorview = True
-    mirror = False
+    mirrorview = config['camera'].getboolean('mirrorview')
+    mirror = config['camera'].getboolean('mirror')
     # Flashmode on,auto,off,redeye,fillin,torch
-    flashmode = 'auto'
-    upsidedown = False
+    flashmode = settings.myList['config']['camera']['flashmode']
+    upsidedown = config['camera'].getboolean('upsidedown')
     
     # Load images
     img3 = Image.open('img/3.png')
