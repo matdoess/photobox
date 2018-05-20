@@ -5,7 +5,7 @@ from datetime import datetime
 class Helper():
 
     def getTasks(self):
-        file = open("./config/tasks.txt");
+        file = open("./config/private-tasks.txt");
         lines = file.readlines();
         tasks = {}
     

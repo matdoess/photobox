@@ -5,6 +5,9 @@ from time import sleep
 #Randomimage
 import random
 from shutil import copyfile
+from os import listdir
+from os.path import isfile, join
+#
 
 from Helper import Helper
 
@@ -127,9 +130,17 @@ class Camera():
 
     def getRandomImage(self):
         random_image_path = 'img/random/'
-        numbers = [1,2,3,4,5,6,7,8,9,10]
-        random_number = random.choice(numbers)
-        random_image = random_image_path + str(random_number) + '.jpg'
+
+        ##Neue Methode (Auswahl aus allen Dateien im random_image_path):
+        image_files = [f for f in listdir(random_image_path) if isfile(join(random_image_path, f))]
+        print(image_files)
+        random_image = random_image_path + random.choice(image_files)
+
+        ## Alte Methode (Feste Dateinamen):
+        # numbers = [1,2,3,4,5,6,7,8,9,10]
+        # random_number = random.choice(numbers)
+        # random_image = random_image_path + str(random_number) + '.jpg'
+        
         print('getRandomImage')
         print(random_image)
         return random_image
