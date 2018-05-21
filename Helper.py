@@ -84,6 +84,16 @@ class Helper():
         imagenamecomplete = imagepath + imagedatetime + imagesuffix + imagesuffix2 + imageext
         return imagenamecomplete
 
+    def getVideoname(self):
+        
+        videopath = 'pics/videos/'
+        videodatetime = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
+        videosuffix = '_Hochzeit-EJ'
+        videoext = '.ts'
+        videonamecomplete = videopath + videodatetime + videosuffix + videoext
+        videoname = videodatetime + videosuffix + videoext        
+        return videonamecomplete
+
 
 if __name__ == "__main__":
     helper = Helper()
