@@ -1,6 +1,7 @@
 from kivy.uix.screenmanager import Screen
 from kivy.app import App
 from kivy.clock import Clock
+from functools import partial
 
 from time import sleep
 
@@ -13,6 +14,16 @@ class TakeVideoScreen(Screen):
     picam = PiCam()
 
     def on_enter(self):
+        self.countdown3 = Clock.schedule_once(partial(self.countdown, '3'), 0)
+        self.countdown2 = Clock.schedule_once(partial(self.countdown, '2'), 1)
+        self.countdown1 = Clock.schedule_once(partial(self.countdown, '1'), 2)
+        self.start_video_event = Clock.schedule_once(lambda dt: self.start_video(), 3)
+
+    def countdown(self, number, *dt):
+        self.ids.TakeVideoBackgroundButton.text = number
+
+    def start_video(self):
+        self.countdown(number="")
         self.picam.init()
         sleep(1)
         self.picam.start()

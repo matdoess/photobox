@@ -102,7 +102,7 @@ class FotoScreen(Screen):
             app.FROMTAKEFOTO = False
             isResizeInprogress = app.SM.get_screen('TakeFotoScreen').ThreadCheck()
             sleep(2)
-            while (isResizeInprogress and counter < 15):
+            while (isResizeInprogress and counter < int(settings.myList['config']['images']['resize_timeout'])):
                 print(counter)
                 print(isResizeInprogress)
                 counter += 1
@@ -115,7 +115,7 @@ class FotoScreen(Screen):
                 self.ids.sendEmailButton.disabled = False   
                 fotoimage = FotoImage.FotoImage(source=thumbnailimage)
             else:
-                fotoimage = FotoImage(source=settings.myList['config']['images']['error_no_photo'])
+                fotoimage = FotoImage.FotoImage(source=settings.myList['config']['images']['error_no_photo'])
 
             self.ids.FotoImageContainer.clear_widgets()
             self.ids.FotoImageContainer.add_widget(fotoimage)
