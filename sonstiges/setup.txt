@@ -1,3 +1,6 @@
+### Rasperry Pi Basic Settings ###
+
+
 
 ### Using Official RPi touch display
 https://kivy.org/docs/installation/installation-rpi.html#using-official-rpi-touch-display

@@ -1,0 +1,31 @@
+### Rasperry Pi Basic Settings ###
+
+- Menu > Preferences > Keyboard Settings > DE
+- Menu > Preferences > Configuration
+-- System
+--- Change Passwort
+--- Hostname = photobox
+--- Boot to CLI
+-- Interfaces
+--- Camera
+--- SSH
+--- VNC
+--- ???
+-- Performance
+--- GPU 512 ???
+-- Localisation
+--- Locale: de / DE / UTF-8
+--- Timezone: Europe > Berlin
+--- Wifi Cpountry: DE
+
+### Mounts ###
+==> siehe photobox/setup/fstab
+
+### Backup ###
+# Backupscript regelmäßig asuführen
+sudo nano /etc/crontab
+--------------
+#
+*/5 * * * *     root    /home/pi/photobox/script/backup_storage.sh  > /dev/null 2>&1
+#
+--------------

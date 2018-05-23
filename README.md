@@ -3,6 +3,9 @@
 Hinweise:
 - Aufgaben
 -- Picamera kann keine Sonderzeichen in das Bild einfügen (äüöß ...)
+- Photobox mit beliebigem Argument ausführen = Start im Testmodus z.B. auf Laptop für Entwicklung
+-- python3 main.py xyz
+
 
 TODO:
 - StandyBy Slideshow

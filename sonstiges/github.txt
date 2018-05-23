@@ -16,3 +16,7 @@ https://github.com/settings/keys
 
 # URL im Repo von https auf ssh ändern (Falls am Anfang nicht gemacht)
 git remote set-url origin ssh://git@github.com/matdoess/photobox.git
+
+
+# Repo Clonen
+pi@photobox:~ $ git clone ssh://git@github.com/matdoess/photobox.git
