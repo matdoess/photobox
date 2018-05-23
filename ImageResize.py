@@ -14,11 +14,20 @@ class ImageResize():
     imgnewname = ""
 
     def imgresize(self,imgfile):
+        
+        # Create Variables
         imgnameext = os.path.basename(imgfile)
         imgname = os.path.splitext(imgnameext)[0]
         imgext = os.path.splitext(imgnameext)[1]
         imgfolder = os.path.dirname(imgfile)
         self.imgnewname = imgfolder + '/' + self.imgaddfolder + '/' + imgname + self.imgaddname + imgext
+        
+        # Check if Imagefolder exists, if not create it
+        checkfolder = imgfolder + '/' + self.imgaddfolder
+        if not os.path.exists(checkfolder):
+            os.makedirs(checkfolder)
+        
+        # Convert Image
         with Image(filename=imgfile) as img:
             with img.clone() as converted:
                 converted.transform(resize=self.imgsize)
