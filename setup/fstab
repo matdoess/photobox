@@ -1,8 +1,8 @@
 proc            /proc           proc    defaults          0       0
-PARTUUID=b0164a70-01  /boot           vfat    defaults          0       2
-PARTUUID=b0164a70-02  /               ext4    defaults,noatime  0       1
+PARTUUID=199b9464-01  /boot           vfat    defaults          0       2
+PARTUUID=199b9464-02  /               ext4    defaults,noatime  0       1
 # a swapfile is not a swap partition, no line here
 #   use  dphys-swapfile swap[on|off]  for that
 
-UUID="b3896c4f-ce93-4052-ba36-3897b258e78d"	/home/pi/photobox/pics 	ext2 		defaults,errors=remount-ro	0  0
-UUID="0864560f-782f-4423-8d0d-edca2289ea0b"	/home/pi/photobox_storage_backup 	ext2 		defaults,errors=remount-ro	0  0
+UUID="4bd200de-0989-4253-9013-40a8b501aea9"	/home/pi/photobox/pics 	ext4 		defaults,nofail,errors=remount-ro	0  0
+UUID="3b74e883-2a2e-4b11-8f9c-5e03f0a4968f"	/home/pi/photobox_storage_backup 	ext4 		defaults,nofail,errors=remount-ro	0  0
