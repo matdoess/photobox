@@ -29,3 +29,42 @@ sudo nano /etc/crontab
 */5 * * * *     root    /home/pi/photobox/script/backup_storage.sh  > /dev/null 2>&1
 #
 --------------
+
+
+### systemd Dienste ###
+# picam
+sudo cp setup/picam.service /etc/systemd/system/
+
+# picam Soundcarte einstellen
+Übersicht: cat /proc/asound/cards
+In Service eintragen: sudo nano /etc/systemd/system/picam.service 
+z.B.: hw:1,0
+
+## Ramdisk Script
+sudo cp setup/picam-ramdisk.service /etc/systemd/system/
+sudo systemctl enable picam-ramdisk.service
+
+# systemd config anpassen. [Sonst wird /run/shm/ nach dem ausführen des scripts gelöscht. ]
+sudo nano /etc/systemd/logind.conf 
+Zeile ändern:
+----
+#RemoveIPC=yes  >>>  RemoveIPC=no
+----
+
+# Photobox Service
+sudo cp setup/photobox.service /etc/systemd/system/
+sudo systemctl enable photobox.service
+
+
+
+
+### Picamera / Lisiparoi Flash ###
+==> GPIO Pin für Blitz festlegen und in Firmware schreiben
+[ http://picamera.readthedocs.io/en/release-1.10/api_camera.html#picamera.camera.PiCamera.flash_mode ]
+[ http://picamera.readthedocs.io/en/release-1.10/recipes2.html#using-a-flash-with-the-camera ]
+sudo cp ~/photobox/flash/dt-blob.bin /boot/
+
+
+
+
+
