@@ -1,5 +1,12 @@
 # photobox
 
+Setup:
+- mv /config/private-config.ini.example /config/private-config.ini
+-- Werte eintragen
+- Copy fonts to ~/photobox/fonts
+-- Change Font in templates/screenmanager.kv or Comment out for deafault font
+
+
 Hinweise:
 - Aufgaben
 -- Picamera kann keine Sonderzeichen in das Bild einfügen (äüöß ...)

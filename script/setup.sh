@@ -43,7 +43,7 @@ sudo apt-get install libmagickwand-dev
 sudo pip3 install python-telegram-bot
 
 # Bluetooth
-sudo apt-get install bluetooth libbluetooth-dev bluez-obexd expect
-sudo pip install pybluez
-sudo pip3 install pybluez
-sudo pip3 install PyOBEX
+#sudo apt-get install bluetooth libbluetooth-dev bluez-obexd expect
+#sudo pip install pybluez
+#sudo pip3 install pybluez
+#sudo pip3 install PyOBEX
