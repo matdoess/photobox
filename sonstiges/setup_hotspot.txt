@@ -1,0 +1,16 @@
+# Show Network Devices (with Driver)
+sudo apt-get install lshw
+sudo lshw -C network
+
+# Alternativ
+sudo apt-get install ethtool
+ethtool -i wlan0 | grep driver
+
+# Daten
+ifconfig
+iwconfig
+
+sudo apt-get install ethtool
+ethtool -i wlan0
+ethtool -i wlan1 | grep driver
+
