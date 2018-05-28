@@ -25,7 +25,9 @@ class FotoScreen(Screen):
         app = App.get_running_app()
         fromtakefoto = app.FROMTAKEFOTO
         fromtaskfoto = app.FROMTASKFOTO
+        #self.ids.sendEmailButton.disabled = True
         self.ids.sendEmailButton.disabled = True    
+    
         
         if fromtaskfoto:
             app.FROMTASKFOTO = False

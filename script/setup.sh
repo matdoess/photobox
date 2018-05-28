@@ -34,6 +34,10 @@ sudo apt-get install libsdl2-dev libsdl2-image-dev libsdl2-mixer-dev libsdl2-ttf
 sudo pip install -U Cython==0.25.2
 sudo pip3 install -U Cython==0.25.2
 
+# OR: Install a new enough version of Cython
+sudo pip install -U Cython==0.28.2
+sudo pip3 install -U Cython==0.28.2
+
 # Install Kivy globally on your system (current github release)
 sudo pip install git+https://github.com/kivy/kivy.git@master
 sudo pip3 install git+https://github.com/kivy/kivy.git@master
@@ -43,7 +47,7 @@ sudo pip install kivy
 sudo pip3 install kivy
 
 # Check Version ( SOLL = Kivy 1.10.0)
-sudo pip status kivy
+sudo pip show kivy
 
 ### Python Module ###
 # Wand (ImageMagick API)
