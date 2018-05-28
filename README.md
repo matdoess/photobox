@@ -16,7 +16,7 @@ Hinweise:
 
 TODO:
 - StandyBy Slideshow
-- imageresize: check if mail folder exists. if not create it.
+
 
 DONE
 -- Video Thumbnails erstellen (incl. Video Icon)
@@ -28,6 +28,7 @@ DONE
 -- Nach Aufgabe Button auf "Neues Foto" ändern (evtl.) > Erledigt "Aufgabe wiederholen"
 -- Fehler Popup bei Email Senden ohne Bild einbauen. > erledigt (Button disabled)
 -- telegram_bot in Helper Classe oder eigenes Modul einbauen. Zeit bei SOS mitschicken.
+-- imageresize: check if mail folder exists. if not create it.
 
 
 Changelog:

@@ -8,8 +8,8 @@
 
 <Label>:
     font_name: 'fonts/larabiefont rg'
-    #disabled_color: (0.5, 0.5, 0.5, 1)
-    #color: (0.5, 0.5, 0.5, 1)
+    #disabled_color: (0, 0, 1, 1)
+    #color: (1, 1, 0, 1)
     #outline_color: (1, 1, 1)
 
 # Alle Fonts ändern incl. VKeyBoard (zum Teil fehlen Tastaturzeichen)
@@ -49,6 +49,10 @@ ScreenManagement:
     HelpScreen: 
         id:help_screen
         name: 'HelpScreen'
+        manager: 'screen_manager'
+    GalleryScreen:
+        id:gallery_screen
+        name: 'GalleryScreen'
         manager: 'screen_manager'
 
 <FotoPopup>:
@@ -112,7 +116,8 @@ ScreenManagement:
 
 <BackHomeButton@Button>:
     font_size: 18
-    background_color: (0.4, 0.4, 0.4, 1)
+    #background_color: (0.4, 0.4, 0.4, 1)
+    color: (1, 1, 0, 1)
     text: 'Zurück zum Hauptmenü'
     size_hint_y: None
     height: 60
@@ -159,7 +164,8 @@ ScreenManagement:
             height: 60
             size_hint_y: None        
             on_press:
-                app.root.current = 'HelpScreen'
+                #app.root.current = 'HelpScreen'
+                app.root.current = 'GalleryScreen'
                 app.root.transition.direction = 'up'
         
         InnerBoxLayout:
@@ -387,5 +393,16 @@ ScreenManagement:
                     on_release:
                         root.send_help()
                         
+                    
+        BackHomeButton:
+
+<GalleryScreen>:
+    BoxLayout:
+        orientation:'vertical'
+        id: GalleryScreenContainer
+        
+        Carousel:
+            direction: 'right'
+            id:carouselid
                     
         BackHomeButton:

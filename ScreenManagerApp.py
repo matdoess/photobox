@@ -32,6 +32,8 @@ from screens import TakeFotoScreen
 
 from screens import TakeVideoScreen
 
+from screens import GalleryScreen
+
 class HelpSendButton(Button):
     pass
 
@@ -67,6 +69,8 @@ screenmanager = Builder.load_file("./templates/screenManager.kv")
 
 class ScreenManagerApp(App):
 
+    # import telegramservice
+
     TASK_SHORT = None
     TASK_LONG = None
     FROMTAKEFOTO = False
@@ -87,3 +91,7 @@ class ScreenManagerApp(App):
         Window.bind(on_keyboard=self.on_keyboard)
         Window._system_keyboard.keycodes['ctrl'] = 305
         return screenmanager
+
+    # def on_stop(self):
+    #     print("On Stop ausgeführt")
+    #     updater.idle()

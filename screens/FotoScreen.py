@@ -26,7 +26,10 @@ class FotoScreen(Screen):
         fromtakefoto = app.FROMTAKEFOTO
         fromtaskfoto = app.FROMTASKFOTO
         #self.ids.sendEmailButton.disabled = True
-        self.ids.sendEmailButton.disabled = True    
+
+        # Disabled als Alias Property
+        # https://github.com/kivy/kivy/commit/1d999d15705d768a476f3d0dc5e208ab37be50a0
+        self.ids.sendEmailButton.set_disabled(True)
     
         
         if fromtaskfoto:
@@ -114,7 +117,8 @@ class FotoScreen(Screen):
             thumbnailimage = app.SM.get_screen('TakeFotoScreen').res.getName()
 
             if isfile(thumbnailimage) and access(thumbnailimage, R_OK):
-                self.ids.sendEmailButton.disabled = False   
+                #self.ids.sendEmailButton.disabled = False   
+                self.ids.sendEmailButton.set_disabled(False)
                 fotoimage = FotoImage.FotoImage(source=thumbnailimage)
             else:
                 fotoimage = FotoImage.FotoImage(source=settings.myList['config']['images']['error_no_photo'])
