@@ -14,6 +14,11 @@ sudo apt-get install imagemagick ffmpeg
 ### Nice to Have ###
 sudo apt-get install gimp
 
+### Python Tools ###
+sudo apt-get install python-dev
+sudo apt-get install python3-dev
+sudo apt-get install build-essential
+
 ### Kivy ###
 # https://kivy.org/docs/installation/installation-rpi.html
 # Dependencies:
