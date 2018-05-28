@@ -97,6 +97,10 @@ ScreenManagement:
     padding: 10
     spacing: 10
 
+<UpperBoxLayout@BoxLayout>:
+    padding: 0
+    spacing: 0
+
 <SuccessButton@Button>:
     font_size: 32
     background_color: (0, 0, 1.8, 1)
@@ -159,14 +163,31 @@ ScreenManagement:
     BoxLayout:
         orientation: 'vertical'
 
-        NavButton:
-            text: 'Hilfe'
+        UpperBoxLayout:
+            orientation: 'horizontal'
+            size_hint_y: None
             height: 60
-            size_hint_y: None        
-            on_press:
-                #app.root.current = 'HelpScreen'
-                app.root.current = 'GalleryScreen'
-                app.root.transition.direction = 'up'
+
+            NavButton:
+                text: 'Hilfe'
+                height: 60
+                size_hint_y: None        
+                on_press:
+                    app.root.current = 'HelpScreen'
+                    app.root.transition.direction = 'up'
+
+            NavButton:
+                text: 'Gallery'
+                height: 60
+                size_hint_y: None
+                #size_hint_x: None
+                #pos_hint: {'x': 0, 'y': .9}
+                #size_hint: None, None
+                #size: self.texture_size
+                #width: 100
+                on_press:
+                    app.root.current = 'GalleryScreen'
+                    app.root.transition.direction = 'up'
         
         InnerBoxLayout:
             orientation: 'horizontal'
