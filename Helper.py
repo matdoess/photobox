@@ -94,6 +94,13 @@ class Helper():
         videoname = videodatetime + videosuffix + videoext        
         return videonamecomplete
 
+    def chunks(self, l, n):
+        # Liste kürzen
+        # For item i in a range that is a length of l,
+        for i in range(0, len(l), n):
+            # Create an index range for l of n items:
+            yield l[i:i+n]
+
 
 if __name__ == "__main__":
     helper = Helper()

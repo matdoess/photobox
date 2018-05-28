@@ -425,5 +425,22 @@ ScreenManagement:
         Carousel:
             direction: 'right'
             id:carouselid
-                    
-        BackHomeButton:
+        
+        BoxLayout:
+            orientation: 'horizontal'
+            size_hint_y: None
+            height: 60
+            BackHomeButton:
+            NavButton:
+                id:sendEmailButton
+                #color: 1, 0, 0, 0
+                #disabled_color: (0.5, 0.5, 0.5, 1)
+                text: 'Foto senden'
+                size_hint_y: None
+                height: 60
+                on_press:
+                    root.get_image()
+                    app.root.current = 'SendEmailScreen'
+                    app.root.transition.direction = 'up'            
+       
+        #BackHomeButton:
