@@ -11,6 +11,9 @@ git push -u origin master
 # ssh key erzeugen in ~/.ssh
 ssh-keygen
 
+# key anzeigen
+cat .ssh/id_rsa.pub
+
 # Key bei GitHub hinzufügen
 https://github.com/settings/keys
 

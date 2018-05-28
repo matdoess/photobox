@@ -14,3 +14,93 @@ sudo apt-get install ethtool
 ethtool -i wlan0
 ethtool -i wlan1 | grep driver
 
+# AP einrichten
+[ https://www.raspberrypi.org/forums/viewtopic.php?t=208664 ]
+
+To set up an isolated AP:
+[ https://www.raspberrypi.org/documentation/configuration/wireless/access-point.md ]
+Follow the instructions here: https://www.raspberrypi.org/documentati ... s-point.md up to but not including "ADD ROUTING AND MASQUERADE" section.
+Comment out any "NETWORK={" entries in /etc/wpa_supplicant/wpa_supplicant.conf
+reboot
+
+To disable the isolated AP to contact the internet for apt-get updates etc:
+In /etc/default/hostapd set DAEMON_CONF=""
+Reinstate the "NETWORK={" entries in /etc/wpa_supplicant/wpa_supplicant.conf for your home network ssid etc
+Comment out the AP interface IP details in /etc/dhcpcd.conf
+reboot
+
+# DNS einrichten
+sudo nano /etc/hosts
+--------------
+#127.0.1.1      photobox
+192.168.4.1     photobox
+--------------
+
+
+# usb wifi to wlan1
+[ https://www.raspberrypi.org/forums/viewtopic.php?f=36&t=198946 ]
+
+sudo nano /etc/udev/rules.d/72-wlan-geo-dependent.rules
+
+----------------------
+#
+# +---------------+
+# | wlan1 | wlan1 |
+# +-------+-------+
+# | wlan1 | wlan1 |
+# +---------------+ (RPI USB ports with position independent device names for a maximum of 1 optional wifi dongle)
+# 
+# | wlan0 | (onboard wifi)
+#
+ACTION=="add", SUBSYSTEM=="net", SUBSYSTEMS=="sdio", KERNELS=="mmc1:0001:1", NAME="wlan0"
+ACTION=="add", SUBSYSTEM=="net", SUBSYSTEMS=="usb",  KERNELS=="1-1.2",       NAME="wlan1"
+ACTION=="add", SUBSYSTEM=="net", SUBSYSTEMS=="usb",  KERNELS=="1-1.4",       NAME="wlan1"
+ACTION=="add", SUBSYSTEM=="net", SUBSYSTEMS=="usb",  KERNELS=="1-1.3",       NAME="wlan1"
+ACTION=="add", SUBSYSTEM=="net", SUBSYSTEMS=="usb",  KERNELS=="1-1.5",       NAME="wlan1"
+----------------------
+
+# wpa_supplicant
+
+----
+You must split /etc/wpa_supplicant/wpa_supplicant.conf into two files.
+/etc/wpa_supplicant/wpa_supplicant-wlan0.conf
+/etc/wpa_supplicant/wpa_supplicant-wlan1.conf
+The device that is the AP must not have a network section. Only the client should have a network section. Otherwise the hostapd service will not start correctly.
+---
+
+
+# Startup Delay und enable unit
+sudo systemctl edit --full hostapd.service
+
+---
+[Service]
+ExecStartPre=/bin/sleep 30
+
+[Install]
+WantedBy=multi-user.target
+---
+sudo systemctl enable hostapd.service
+
+
+# Enable init.d (evtl nicht notwendig)
+sudo update-rc.d hostapd defaults
+sudo update-rc.d hostapd enable
+
+
+# Logging
+sudo nano /etc/default/hostapd
+---
+DAEMON_OPTS="-dd -t -f /home/pi/hostapd.log"
+---
+
+
+
+
+
+
+
+
+
+
+
+
