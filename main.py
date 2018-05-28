@@ -25,8 +25,8 @@ settings.myList['config'] = config._sections
 # Private_Config in globale Variable schreiben
 settings.myList['private_config'] = private_config._sections
 
-# Telegram Bot Service starten
-import telegramservice
+# Telegram Bot Service starten (Abgelöst durch telegramdaemon.py per systemctl in ScreenmanagerApp)
+#import telegramservice
 
 from ScreenManagerApp import ScreenManagerApp
 

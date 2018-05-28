@@ -1,0 +1,11 @@
+[Unit]
+Description=Telegram Daemon
+
+[Service]
+User=pi
+Group=pi
+Type=simple
+WorkingDirectory=/home/pi/photobox
+ExecStart=/usr/bin/python3 /home/pi/photobox/telegramdaemon.py
+RestartSec=10
+Restart=on-failure

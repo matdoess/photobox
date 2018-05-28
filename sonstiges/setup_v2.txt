@@ -55,6 +55,8 @@ Zeile ändern:
 sudo cp setup/photobox.service /etc/systemd/system/
 sudo systemctl enable photobox.service
 
+# Telegram Daemon
+sudo cp setup/telegram.service /etc/systemd/system/
 
 
 

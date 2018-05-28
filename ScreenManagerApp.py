@@ -13,6 +13,10 @@ VKeyboard.layout = settings.myList['config']['keyboard']['layout']
 
 import threading
 
+# Zum Ausführen von Systembefehlen zB systemctl
+import shlex
+from subprocess import run
+
 from Helper import Helper
 
 # Screens definieren
@@ -90,8 +94,15 @@ class ScreenManagerApp(App):
     def build(self):
         Window.bind(on_keyboard=self.on_keyboard)
         Window._system_keyboard.keycodes['ctrl'] = 305
+        
+        # Start Telegram Daemon
+        pscmd = shlex.split("sudo systemctl start telegram.service")
+        run(pscmd)
+        
         return screenmanager
 
-    # def on_stop(self):
-    #     print("On Stop ausgeführt")
-    #     updater.idle()
+    def on_stop(self):
+        #print("On Stop ausgeführt")
+        pscmd = shlex.split("sudo systemctl stop telegram.service")
+        run(pscmd)
+        #updater.idle()
