@@ -27,6 +27,7 @@ sudo nano /etc/crontab
 --------------
 #
 */5 * * * *     root    /home/pi/photobox/script/backup_storage.sh  > /dev/null 2>&1
+*/30 * * * *     root    /home/pi/photobox/script/backup_gitignorefiles.sh  > /dev/null 2>&1
 #
 --------------
 
