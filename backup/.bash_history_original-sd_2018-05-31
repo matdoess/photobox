@@ -1,0 +1,1007 @@
+which python
+python --version
+identify -verbose white.png 
+identify -verbose 1.png 
+identify 1.png 
+identify white.png 
+identify white.tiff 
+identify white.png 
+cd ..
+./create_image.sh 
+sudo apt-get install imagemagick
+sudo apt-get update
+sudo apt-get upgrade
+./create_image.sh 
+sudo apt-get install synaptic 
+sudo apt-get install fonts-yanone-kaffeesatz 
+sudo apt-get install ttf-staypuft 
+./create_image.sh 
+sudo apt-get install gimp
+./create_image.sh 
+convert -list font
+sudo apt-get update
+sudo apt-get upgrade
+sudo apt-get install git
+cd photobox/
+echo "# photobox" >> README.md
+git init
+git add README.md
+git commit -m "first commit"
+git config user.email "matthias.doess@gmail.com"
+git config user.name "Matthias Doess"
+git commit -m "first commit"
+git remote add origin https://github.com/matdoess/photobox.git
+git push -u origin master
+git add -A
+git commit -m "first complete upload"
+git push
+ssh-keygen
+git remote set-url origin ssh://git@github.com/matdoess/photobox.git
+git push
+read text
+echo text
+echo $text
+echo "$text"
+hostname
+vncserver
+vncserver -kill :1
+vncserver -geometry 1600x900
+./create_image.sh 
+arecord -vv -fdat foo.wav
+arecord -l
+arecord -vv foo.wav
+arecord -vv
+arecord
+arecord -l
+groups
+arecord -vv -fdat foo.wav
+sudo arecord -vv -fdat foo.wav
+arecord --device=plughw:1,0 -vv -fdat foo.wav
+alsamixer
+touch hooks/start_record
+cd ..
+cd pic
+cd picam/
+touch hooks/start_record
+touch hooks/stop_record
+alsamixer
+touch hooks/start_record
+touch hooks/stop_record
+alsamixer
+touch hooks/start_record
+touch hooks/stop_record
+touch hooks/start_record
+touch hooks/stop_record
+arecord -l
+alsamixer
+touch hooks/start_record
+touch hooks/stop_record
+cd picam/
+touch hooks/start_record
+touch hooks/stop_record
+arecord -l
+./picam_setup.sh 
+alsamixer
+cd picam/
+touch hooks/start_record
+touch hooks/stop_record
+cat rec.sub > ~/picam/hooks/subtitle
+cat rec.sub
+cat rec.sub > ~/picam/hooks/subtitle
+omxplayer 2017-09-17_19-43-59.ts 
+omxplayer --aspect-mode stretch 2017-09-17_19-43-59.ts 
+omxplayer --aspect-mode stretch 2017-09-17_19-57-15.ts 
+touch hooks/start_record
+cd picam/
+touch hooks/start_record
+touch hooks/stop_record
+touch hooks/start_record
+touch hooks/stop_record
+touch hooks/start_record
+touch hooks/stop_record
+touch hooks/start_record
+touch hooks/stop_record
+touch hooks/start_record
+touch hooks/stop_record
+echo 'text=Houston, we have a problem' > hooks/subtitle
+echo 'text=Houston, we have a problem' > hooks/subtitle2
+echo 'text=Houston, we have a problem' > hooks/subtitles
+echo 'text=Houston, we have a problem' > hooks/subtitle
+touch hooks/start_record
+touch hooks/stop_record
+touch hooks/start_record
+touch hooks/stop_record
+tvservice -s
+omxplayer *.mp4
+ffmpeg -i test.ts -c:v copy -c:a copy -bsf:a aac_adtstoasc test.mp4
+ffmpeg -i 2017-09-17_20-37-10.ts -c:v copy -c:a copy -bsf:a aac_adtstoasc 2017-09-17_20-37-10.mp4
+avconv -i 2017-09-17_20-37-10.ts -c:v copy -c:a copy -bsf:a aac_adtstoasc 2017-09-17_20-37-10.mp4
+sudo apt-get install ffmpeg
+ffmpeg -i 2017-09-17_20-37-10.ts -c:v copy -c:a copy -bsf:a aac_adtstoasc 2017-09-17_20-37-10.mp4
+ffmpeg -i 2017-09-17_20-37-10.ts -vf vflip -c:v copy -c:a copy -bsf:a aac_adtstoasc 2017-09-17_20-37-10.mp4
+ffmpeg -i 2017-09-17_20-37-10.ts -vf vflip -codec:v libx264 -preset slow -crf 20 -c:a copy -bsf:a aac_adtstoasc 2017-09-17_20-37-10.mp4
+ffmpeg -i 2017-09-17_20-37-10.ts -vf hflip -codec:v libx264 -preset slow -crf 20 -c:a copy -bsf:a aac_adtstoasc 2017-09-17_20-37-10.mp4
+ffmpeg -c:v h264_mmal -i 2017-09-17_20-37-10.ts -c:v h264_omx -vf hflip -preset slow -crf 20 -c:a copy -bsf:a aac_adtstoasc 2017-09-17_20-37-10.mp4
+ffmpeg -i 2017-09-17_20-37-10.ts -c:v h264_omx -vf hflip -preset slow -crf 20 -c:a copy -bsf:a aac_adtstoasc 2017-09-17_20-37-10.mp4
+ffmpeg -i 2017-09-17_20-37-10.ts -c:v h264_omx -vf hflip -c:a copy -bsf:a aac_adtstoasc 2017-09-17_20-37-10.mp4
+ffmpeg -i 2017-09-17_20-37-10.ts -c:v h264_omx -c:a copy -bsf:a aac_adtstoasc 2017-09-17_20-37-10.mp4
+ffmpeg -i 2017-09-17_20-37-10.ts -vf hflip -codec:v libx264 -preset slow -crf 20 -c:a copy -bsf:a aac_adtstoasc 2017-09-17_20-37-10.mp4
+ffmpeg -encoders | grep h264_omx
+ffmpeg -encoders | grep h264
+ffmpeg -decoders | grep h264
+arecord -l
+sudo leafpad config.txt 
+arecord --device=plughw:0,0 -vv -fdat foo.wav
+alsamixer 
+arecord -l
+alsamixer
+touch hooks/start_record
+cd ~/picam/
+touch hooks/start_record
+touch hooks/stop_record
+alsamixer 
+touch hooks/start_record
+touch hooks/stop_record
+arecord --device=plughw:0,0 -vv -fdat foo.wav
+aplay -l
+arecord -l
+arecord --device=plughw:0,0 -vv -fdat foo.wav
+arecord -f S32_LE -c 2 -r 96000 foo.wav
+arecord -vv -f S32_LE -c 2 -r 96000 foo.wav
+arecord --device=plughw:0,0 -vv -fdat foo.wav
+omxplayer foo.wav 
+aplay foo.wav 
+alsamixer 
+sudo pip install -U Cython==0.25.2
+sudo pip install git+https://github.com/kivy/kivy.git@master
+sudo pip3 install -U Cython==0.25.2
+sudo pip3 install git+https://github.com/kivy/kivy.git@master
+python3 inclem_a-first-kivy-app.py 
+export KIVY_WINDOW=sdl2
+cd photobox/kivy/kivy_tutorial/
+python3 inclem_3_more-widget.py 
+python -v
+python --version
+python3 --version
+python3.5 --version
+sudo leafpad config.txt 
+arecord -l
+cd Music/
+arecord --device=plughw:0,0 -vv -fdat foo.wav
+arecord --device=plughw:1,0 -vv -fdat foo.wav
+alsamixer 
+cd Music/
+arecord --device=plughw:1,0 -vv -fdat foo.wav
+arecord -l
+touch hooks/start_record
+cd ..
+cd picam/
+touch hooks/start_record
+touch hooks/stop_record
+touch hooks/start_record
+touch hooks/stop_record
+alsamixer 
+cd Music/
+arecord --device=plughw:1,0 -vv -fdat foo.wav
+sudo leafpad
+sudo systemctl enable picam.service
+sudo systemctl start picam.service
+systemctl daemon-reload
+sudo systemctl start picam.service
+sudo systemctl status picam.service
+sudo systemctl daemon-reload
+sudo systemctl start picam.service
+systemctl start picam.service
+sudo systemctl enable picam.service
+sudo systemctl status picam.service
+sudo systemctl daemon-reload
+sudo systemctl start picam.service
+sudo systemctl stop picam.service
+sudo systemctl status picam.service
+cd picam/
+touch hooks/start_record
+touch hooks/stop_record
+sudo systemctl stop picam.service
+htop
+aplay -l
+arecord -l
+amixer
+alsamixer
+arecord --device=plughw:1,0 -vv -fdat foo.wav
+date
+sudo ntpd -qg
+sudo /etc/init.d/ntp start
+sudo apt-get install ntp
+sudo /etc/init.d/ntp start
+sudo apt-get install ntp
+sudo apt-get update
+sudo apt-get upgrade
+sudo apt-get update
+sudo apt-get upgrade --fix-missing
+sudo /etc/init.d/ntp start
+sudo apt-get install ntp
+sudo /etc/init.d/ntp start
+sudo ntpd -qg
+sudo timedatectl set-ntp True
+sudo timedatectl set-local-rtc true
+git remote -v
+ifconfig 
+hostname
+git status
+git pull
+git branch
+git checkout photobox/jody
+git checkout master
+git checkout photobox/jody
+git pull
+ls -la
+sudo chown pi:pi setup
+sudo pip3 install Wand
+sudo pip install Wand
+sudo apt-get install libmagickwand-dev
+convert -v
+printenv
+git pull
+git checkout photobox/jody
+git pull
+git log --graph
+git pull
+git status
+git diff
+git pull
+git pull -f
+git status
+git merge --abort
+git status
+git pull
+git pull -f
+git rm img/loading.gif
+git status
+git commit
+git status
+git push
+git pull
+git status
+git push -f
+git add
+git add .
+git commit -m "TASK Variablen im Menü auf None setzten"
+git push -f
+sudo leafpad /etc/lightdm/lightdm.conf 
+sudo apt-get install xscreensaver
+sudo leafpad /etc/lightdm/lightdm.conf 
+python3 ScreenManager.py 
+python3 ScreenManager.py > error.log
+python3 Camera.py 
+python3.5 Camera.py 
+python3.5
+cd photobox/
+echo $HOSTNAME
+export HOSTNAME
+python3.5 Camera.py 
+export HOSTNAME
+cd /run/shm
+ls
+ls -la
+cd /home/pi/picam/
+ls
+ls -la
+man ls
+cd rec/
+ls -la
+cd ..
+man mkdir
+cd /run/shm
+mkdir rec
+mkdir hooks
+mkdir state
+cd /home/pi/picam/
+man ln
+cd /run/shm
+mkdir rec/archive
+cd /home/pi/picam/
+cd ~/photobox/pics/
+mkdir videos
+ln -sfm videos /run/shm/rec/archive/
+ln -sfn videos /run/shm/rec/archive/
+ln -sfn /run/shm/rec /home/pi/picam/rec
+ln -sfn /run/shm/hooks /home/pi/picam/hooks
+ln -sfn /run/shm/state /home/pi/picam/state
+ls
+ls -la
+cd /run/shm
+ls -la
+cd rec/
+ls -la
+rm archive/
+rm -r archive
+ln -sfn ~/photobox/pics/videos /run/shm/rec/archive
+ls -la
+cd ~/picam/
+ls -la
+mv rec rec_orig
+ls -la
+mv state state_orig
+mv hooks hooks_orig
+ls -la
+ln -sfn /run/shm/state /home/pi/picam/state
+ln -sfn /run/shm/hooks /home/pi/picam/hooks
+ln -sfn /run/shm/rec /home/pi/picam/rec
+ls -la
+exit
+./bootscript_picam.sh 
+photobox/
+cd photobox/
+./bootscript_vnc.sh 
+cd root
+cd /root
+sudo su
+sudo reboot
+sudo apt-get install gparted
+sudo apt-get update
+sudo apt-get upgrade
+sudo blkid
+sudo leafpad /etc/fstab 
+sudo blkid
+top
+cd photobox/pics
+ls -la
+sud -rm videos
+sudo -rm videos
+sudo rm -r videos
+ls -la
+sudo chown . pi:pi
+sudo chown pi:pi .
+ls -la
+man su
+sudo leafpad /etc/rc.local
+./photobox/vnc.sh 
+sudo reboot
+sudo leafpad /etc/rc.local
+su pi -C /home/pi/photobox/bootscript_picam.sh
+sudo reboot
+./photobox/vnc.sh 
+su pi -C /home/pi/photobox/bootscript_picam.sh
+su pi -c /home/pi/photobox/bootscript_picam.sh
+sudo su pi -c /home/pi/photobox/bootscript_picam.sh
+sudo leafpad /etc/rc.local
+sudo reboot
+sudo su pi -c /home/pi/photobox/bootscript_picam.sh
+sudo leafpad /etc/rc.local
+sudo shutdown -h now
+./photobox/vnc.sh 
+cd /run/shm
+ls -la
+sudo systemctl daemon-reload
+sudo systemctl start picam-ramdisk.service
+sudo systemctl enable picam-ramdisk.service
+sudo cp /etc/systemd/system/picam-ramdisk.service /home/pi/photobox/setup/
+cd photobox/setup/
+ls -la
+sudo chown root:root picam-ramdisk.service 
+ls -la
+sudo cp photobox/setup/picam-ramdisk.service /etc/systemd/system/
+cd /etc/systemd/system/
+ls -la
+sudo leafpad picam-ramdisk.service 
+./photobox/vnc.sh 
+sudo rebbot
+sudo reboot
+sudo systemctl start picam-ramdisk.service
+sudo systemctl is-enabled picam-ramdisk.service 
+cd /run/shm/
+ls -la
+cd /etc/systemd/system/
+sudo leafpad picam-ramdisk.service 
+sudo systemctl status picam-ramdisk.service 
+sudo systemctl start picam-ramdisk.service
+sudo systemctl status picam-ramdisk.service 
+cd /etc/systemd/system/
+sudo leafpad picam-ramdisk.service 
+sudo systemctl enable picam-ramdisk.service
+sudo reboot
+sudo systemctl status picam-ramdisk.service 
+./photobox/vnc.sh 
+sudo nano /etc/systemd/logind.conf 
+sudo nano photobox/bootscript_picam-ramdisk.sh 
+sudo reboot
+sudo nano photobox/bootscript_picam-ramdisk.sh 
+sudo reboot
+sudo nano photobox/bootscript_picam-ramdisk.sh 
+sudo reboot
+sudo nano /etc/systemd/logind.conf 
+sudo nano /etc/rc.local 
+sudo nano picam-ramdisk.service 
+sudo nano /etc/systemd/system/picam-ramdisk.service 
+sudo nano /etc/rc.local 
+sudo reboot
+sudo nano /etc/rc.local 
+sudo cp /etc/systemd/system/picam-ramdisk.service photobox/setup/
+sudo cp /etc/systemd/system/picam.service vnc.service
+sudo leafpad vnc.service 
+sudo systemctl enable vnc.service
+sudo mv vnc.service /etc/systemd/system/
+cd /etc/systemd/system/
+ls -la
+sudo systemctl enable vnc.service
+sudo reboot
+sudo systemctl status vnc.service 
+whereis vncserver
+sudo nano /etc/systemd/system/vnc.service 
+sudo reboot
+sudo systemctl status vnc.service 
+journalctl -u vnc
+journalctl
+sudo reboot
+sudo cp /etc/systemd/system/vnc.service photobox/setup/
+systemctl edit --full vncserver-virtuald.service 
+sudo systemctl edit --full vncserver-virtuald.service 
+sudo systemctl edit --full vncserver-x11-serviced.service 
+sudo systemctl status vncserver-x11-serviced.service 
+sudo systemctl status vnc
+sudo systemctl edit --full vncserver-x11-serviced.service 
+sudo systemctl edit --full vncserver-virtuald.service 
+sudo systemctl status vncserver-virtuald.service 
+sudo systemctl start vnc
+sudo systemctl status vnc
+sudo systemctl stop vnc
+sudo systemctl status vnc
+sudo systemctl start vnc
+sudo systemctl status vnc
+sudo systemctl edit --full vncserver-virtuald.service 
+man vncserver
+sudo systemctl start vncserver-virtuald.service
+sudo systemctl status vncserver-virtuald.service 
+sudo systemctl edit --full vncserver-virtuald.service 
+sudo systemctl edit --full vnc
+sudo reboot
+sudo systemctl status vnc
+sudo systemctl edit --full vnc
+sudo reboot
+sudo systemctl status vnc
+sudo systemctl status vncserver-x11-serviced.service 
+sudo systemctl disable vnc.service
+sudo systemctl edit --full vnc
+sudo reboot
+sudo systemctl status vnc
+vncserver -help
+sudo systemctl edit --full vncserver-virtuald.service 
+sudo systemctl status vncserver-x11-serviced.service 
+sudo systemctl start vnc
+sudo systemctl status vnc
+sudo systemctl edit --full vncserver-x11-serviced.service 
+sudo systemctl edit --full vnc
+sudo reboot
+sudo systemctl status vnc
+sudo systemctl start vnc
+sudo systemctl status vnc
+sudo systemctl status vncserver-x11-serviced.service 
+vncserver-x11 -help
+sudo systemctl edit --full vnc
+sudo systemctl start vnc
+sudo systemctl status vnc
+sudo systemctl edit --full vnc
+sudo systemctl start vnc
+sudo reboot
+sudo systemctl status vnc
+sudo systemctl start vnc
+sudo systemctl status vnc
+sudo systemctl disable vnc.service
+sudo systemctl enable vnc.service
+sudo systemctl disable vnc.service
+sudo systemctl enable vnc.service
+sudo reboot
+sudo systemctl disable vnc.service
+sudo reboot
+./photobox/vnc.sh 
+systemctl --user enable vnc.service
+cd /etc/systemd/user/
+ls
+cd ..
+sudo systemctl disable vnc.service
+mv system/vnc.service user/
+sudo mv system/vnc.service user/
+ls -la user
+systemctl --user enable vnc.service
+sudo reboot
+sudo systemctl status vnc
+systemctl --user status vnc.service
+systemctl --user start vnc.service
+systemctl --user status vnc.service
+systemctl --user start vnc.service
+systemctl --user status vnc.service
+sudo systemctl edit --full vnc
+sudo systemctl --user edit --full vnc
+sudo systemctl edit --user --full vnc
+sudo nano /etc/systemd/user/vnc.service 
+sudo reboot
+systemctl --user status vnc.service
+systemctl --user start vnc.service
+systemctl --user status vnc.service
+sudo reboot
+journalctl 
+systemctl --user disable vnc.service
+sudo rm /etc/systemd/user/vnc.service 
+sudo shutdown -h now
+cat /proc/cpuinfo
+cd /boot/
+ls
+systemctl --user status vnc.service
+sudo systemctl status vnc.service
+cd /etc/systemd/system/
+ls
+cd /etc/systemd/user/
+ls
+cd ~
+$ sudo apt-get install device-tree-compiler
+sudo apt-get install device-tree-compiler
+cd photobox
+mkdir flash
+cd flash/
+wget https://github.com/raspberrypi/firmware/raw/master/extra/dt-blob.dts
+ls
+ls -la
+nano dt-blob.dts 
+dtc -q -I dts -O dtb dt-blob.dts -o dt-blob.bin
+ls
+sudo cp dt-blob.bin /boot/
+cd /boot
+ls
+sudo reboot
+./photobox/vnc.sh 
+./photobox/script/backup_storage.sh 
+sudo ./photobox/script/backup_storage.sh 
+sudo rm -r photobox_storage_backup/*
+sudo ./photobox/script/backup_storage.sh 
+sudo nano /etc/crontab 
+sudo reboot
+./photobox/vnc.sh 
+sudo nano /etc/systemd/system/picam.service 
+sudo nano /home/pi/photobox/setup/picam.service 
+whereis phython3
+whereis python3
+cd photobox/setup/
+ls
+sudo chown root:root photobox.service 
+ls -la
+sudo cp photobox.service /etc/systemd/system/
+sudo systemctl status photobox.service
+sudo systemctl start photobox.service
+sudo systemctl status photobox.service
+sudo nano /etc/systemd/system/photobox.service 
+sudo systemctl start photobox.service
+sudo systemctl daemon-reload 
+sudo systemctl start photobox.service
+sudo systemctl status photobox.service
+sudo reboot
+sudo systemctl start photobox.service
+sudo nano /etc/systemd/system/photobox.service 
+sudo reboot
+sudo systemctl start photobox.service
+sudo systemctl status photobox.service
+sudo nano /etc/systemd/system/photobox.service 
+sudo systemctl daemon-reload 
+sudo systemctl start photobox.service
+sudo systemctl status photobox.service
+sudo nano /etc/systemd/system/photobox.service 
+sudo systemctl daemon-reload 
+sudo systemctl start photobox.service
+sudo systemctl stop photobox.service
+sudo nano /etc/systemd/system/photobox.service 
+sudo systemctl enable photobox.service
+./photobox/script/vnc.sh 
+sudo reboot
+./photobox/script/vnc.sh 
+sudo cp /etc/systemd/system/photobox.service photobox/setup/
+sudo nano /etc/systemd/system/picam-ramdisk.service 
+sudo cp /etc/systemd/system/picam-ramdisk.service photobox/setup/
+sudo nano /etc/crontab 
+sudo cp /etc/crontab photobox/setup/
+sudo cp /etc/fstab photobox/setup
+sudo reboot
+sudo systemctl stop photobox.service
+sudo shutdown -h now
+./photobox/script/vnc.sh 
+man raspistill
+raspistill
+raspistill -t 30000 -tl 2000 -o image%04d.jpg -w 1280 -h 960
+raspistill -n -t 5400000 -tl 10000 -o image%04d.jpg -w 1280 -h 960
+sudo /opt/vc/bin/tvservice -o
+echo 0 > /sys/class/backlight/rpi_backlight/bl_power
+sudo echo 0 > /sys/class/backlight/rpi_backlight/bl_power
+sudo echo 1 > /sys/class/backlight/rpi_backlight/bl_power 
+sudo reboot
+ls -la /sys/class/backlight/rpi_backlight/
+sudo echo 1 > /sys/class/backlight/rpi_backlight/bl_power 
+./photobox/script/vnc.sh 
+avconv -r 10 -i image%04d.jpg -r 10 -vcodec libx264 -vf scale=1280:960 timelapse.mp4
+ffmpeg -framerate 4 -pattern_type glob -i '*.jpg' -r 25 timelapse.mp4
+raspistill -o test.jpg
+raspistill -n -t 5400000 -tl 10000 -o image%04d.jpg -w 1280 -h 960
+raspistill -o test.jpg
+raspistill -n -t 43200000 -tl 10000 -o image%04d.jpg -w 1280 -h 960
+ffmpeg -framerate 10 -pattern_type glob -i '*.jpg' -r 25 timelapse10.mp4
+ffmpeg -framerate 25 -pattern_type glob -i '*.jpg' -r 25 timelapse25.mp4
+sudo echo 1 > /sys/class/backlight/rpi_backlight/bl_power 
+sudo su
+su
+udo shutdown -h now
+sudo shutdown -h now
+cd photobox
+./git.sh 
+startx
+cd photobox
+git pull
+cd testing/
+python3 telegram_camera.py 
+sudo pip3 install python-telegram-bot
+python3 telegram_camera.py 
+raspistill
+python3 telegram_camera.py 
+cd ..
+python3 telegram_camera_imagestream.py 
+export HOSTNAME
+python3 telegram_camera_imagestream.py 
+sudo su
+./git.sh 
+sudo shutdown -h now
+sudo systemctl stop photobox.service
+cd photobox
+git pull
+git branch 
+git branch -r
+git checkout refactoring 
+git branch 
+python3 main.py 
+git pull
+python3 main.py 
+sudo shutdown -h now
+sudo systemctl start photobox.service
+sudo systemctl status photobox.service 
+cd photobox
+nano config/config.ini 
+nano config/global-config.ini 
+python3 main.py 
+nano config/global-config.ini 
+python3 main.py 
+nano config/global-config.ini 
+python3 main.py 
+sudo nano /etc/systemd/system/photobox.service 
+sudo reboot
+startx
+ping matthias-laptop
+ping www.google.de
+ping matthias-laptop
+ping fritz.box
+ping matthias-server
+ping matthias-laptop
+ifconfig 
+ping matthias-laptop
+cd photobox/pics/
+ls
+rm -r mail
+ls
+sudo reboot
+cd photobox/pics/
+mkdir mail
+cd ..
+./script/git.sh 
+sudo systemctl stop photobox.service
+git pull
+sudo systemctl start photobox.service
+sudo systemctl status photobox.service
+sudo systemctl start photobox.service
+sudo systemctl status photobox.service
+sudo systemctl restart photobox.service
+sudo systemctl status photobox.service
+sudo systemctl start photobox.service
+sudo systemctl status photobox.service
+journalctl 
+ls
+git branch 
+mkdir objects
+sudo systemctl start photobox.service
+sudo systemctl status photobox.service
+journalctl 
+rm -r objects
+git pull
+ls
+rm -r objects
+ls
+sudo systemctl start photobox.service
+ls
+journalctl 
+sudo systemctl restart photobox.service
+journalctl 
+mkdir objects
+sudo systemctl restart photobox.service
+journalctl 
+sudo systemctl stop photobox.service
+python3 main.py 
+./script/git.sh 
+git pull
+sudo reboot
+startx
+sudo systemctl restart photobox.service
+cd photobox
+python3 main.py 
+sudo systemctl stop photobox.service
+python3 main.py 
+git pull
+python3 main.py 
+git pull
+startx
+cd photobox
+./script/git.sh 
+git pull
+./script/git.sh 
+journalctl 
+sudo systemctl stop photobox.service
+git pull
+python3 main.py 
+sudo cp /etc/systemd/system/photobox.service /home/pi/photobox/setup/photobox.service 
+cat setup/photobox.service 
+./script/git.sh 
+sudo apt-get update
+sudo apt-get upgrade 
+sudo reboot
+ping www.google.de
+cd photobox
+python3 main.py 
+sudo reboot
+sudo systemctl stop photobox.service
+python3 main.py 
+cd photobox
+python3 main.py 
+sudo systemctl stop photobox.service
+python3 main.py 
+cd photobox
+python3 main.py 
+sudo rebooot
+sudo reboot
+sudo systemctl stop photobox.service
+cd photobox
+git pull
+./script/git.sh 
+git pull
+cat TelegramBot.py 
+sudo reboot
+sudo systemctl restart photobox.service
+sudo systemctl stop photobox.service
+touch /home/pi/picam/hooks/stop_record
+sudo systemctl stop picam.service
+cd photobox
+python3 main.py 
+sudo systemctl stop picam.service
+python3 main.py 
+sudo systemctl stop picam.service
+python3 main.py 
+sudo systemctl stop picam.service
+python3 main.py 
+sudo systemctl stop picam.service
+python3 main.py 
+sudo systemctl stop picam.service
+python3 main.py 
+sudo systemctl stop picam.service
+python3 main.py 
+./script/git.sh 
+sudo reboot
+sudo systemctl stop photobox.service
+cd photobox
+./script/git.sh 
+git pull
+sudo reboot
+sudo systemctl restart photobox.service
+sudo systemctl stop photobox.service
+python3 main.py 
+cd photobox
+python3 main.py 
+sudo systemctl restart photobox.service
+sudo systemctl stop photobox.service
+script/git.sh 
+sudo systemctl restart photobox.service
+exit
+sudo systemctl stop photobox.service
+cd photobox
+script/git.sh 
+sudo systemctl start picam.service
+cd ..
+cd picam/
+ls
+echo -e "filename=test0815.ts" > hooks/start_record
+touch /home/pi/picam/hooks/stop_record
+cd ..
+cd photobox/pics/videos/
+ffmpeg -i test.ts -c:v copy -c:a copy -bsf:a aac_adtstoasc test.mp4
+ffmpeg -i test0815.ts -c:v copy -c:a copy -bsf:a aac_adtstoasc test0815.mp4
+cd ..
+python3 main.py 
+sudo systemctl stop picam.service
+python3 main.py 
+sudo systemctl stop picam.service
+python3 main.py 
+sudo systemctl stop picam.service
+python3 main.py 
+sudo systemctl stop picam.service
+python3 main.py 
+sudo systemctl stop picam.service
+python3 main.py 
+cd testing/
+python3 bluetoothtest.py 
+sudo pip3 -install bluetooth
+sudo pip3 install bluetooth
+sudo apt-get install bluetooth libbluetooth-dev
+sudo pip install pybluez
+sudo pip3 install pybluez
+python3 bluetoothtest.py 
+sudo pip3 install PyOBEX
+python3 bluetoothtest.py 
+bluetooth-sendto --device=12:34:56:78:9A:BC filename
+sudo apt-get install bluez
+sudo apt-get install bluetooth-sendto
+bluetoothctl 
+sudo apt-get install bluez-utils libopenobex1 obexftp obexpushd --yes
+sudo apt-get install bluez
+sudo su
+sudo apt-get install o
+obexctl 
+man obexctl
+obexctl -h
+sudo apt-get install ussp-push 
+sudo hciconfig hci0 piscan
+bluetoothhctl
+bluetoothctl 
+sudo chmod bluetoothallow.sh +x
+sudo chmod
+sudo chmod --help
+sudo chmod +x bluetoothallow.sh 
+bluetoothctl 
+./bluetoothallow.sh 
+bluetoothctl 
+./bluetoothallow.sh 
+obexctl 
+sudo obexctl 
+sdptool browse 
+obexctl 
+cd ..
+./script/git.sh 
+sudo reboot
+startx
+bluetoothctl 
+sudo hciconfig hci0 piscan
+bluetoothctl 
+sudo service bluetooth status
+sudo bluetoothctl 
+sudo obexctl 
+sudo service obexd status
+sudo apt-get install obexd
+bluetoothd 
+sudo bluetoothd 
+sudo apt-get install bluez-obexd 
+sudo apt-get install bluez
+sudo apt-get update
+sudo apt-get upgrade 
+sudo apt-get install bluez-obexd 
+sudo bluetoothctl 
+sudo reboot
+sudo service obexd status
+sudo bluetoothctl 
+sudo obexctl 
+/usr/lib/bluetooth/obexd
+/usr/lib/bluetooth/obexd &
+sudo obexctl 
+obexctl 
+cd photobox/testing/
+nano bluetoothallow.sh 
+sudo cp bluetoothallow.sh bluetoothobexd.sh
+sudo cp bluetoothallow.sh bluetoothobexsend.sh
+nano bluetoothobexd.sh 
+sudo chown pi:pi bluetoothobexd.sh 
+nano bluetoothobexd.sh 
+sudo chown pi:pi bluetoothobexsend.sh 
+nano bluetoothobexsend.sh 
+./bluetoothobexsend.sh 
+obexctl 
+./bluetoothobexsend.sh 
+nano bluetoothtest.py 
+python3 bluetoothtest.py 
+sudo apt-get install expect 
+./bluetoothobexsend.sh 
+sudo bluetoothctl 
+./bluetoothallow.sh 
+sudo bluetoothctl 
+./bluetoothobexsend.sh 
+sudo shutdown -h now
+sudo systemctl stop photobox.service 
+cd photobox
+python3 main.py 
+ls
+python3 main.py 
+sudo blkid
+sudo df -h
+python3 main.py 
+./script/git.sh 
+sudo reboot
+alsactl 
+alsamixer 
+cd photobox/pics/videos/mp4/
+cd ..
+ffmpeg -i 2018-05-21_14-34-27_Hochzeit-EJ.ts -c:v copy -c:a copy -filter: "volume=1.5" -bsf:a aac_adtstoasc test.mp4
+ffmpeg -i 2018-05-21_14-34-27_Hochzeit-EJ.ts -c:v copy -c:a aac -filter: "volume=1.5" -bsf:a aac_adtstoasc test.mp4
+ffmpeg -i 2018-05-21_14-34-27_Hochzeit-EJ.ts -c:v copy -c:a aac -filter:a "volume=1.5" -bsf:a aac_adtstoasc test.mp4
+ffmpeg -i 2018-05-21_14-34-27_Hochzeit-EJ.ts -c:v copy -c:a copy -filter:a "volume=1.5" -bsf:a aac_adtstoasc test.mp4
+alsamixer 
+exit
+df -h
+sudo systemctl restart photobox.service 
+sudo shutdown -h now
+sudo nano /etc/fstab 
+sysctl shutdown
+systemctl shutdown
+sudo shutdown -h now
+sudo blkid
+sudo nano /etc/fstab 
+sudo blkid
+sudo nano /etc/fstab 
+sudo reboot
+cd photobox/pics/
+ls
+ls -la
+sudo systemctl stop photobox.service 
+sudo rm -r mail
+ls
+sudo systemctl start photobox.service 
+ls
+sudo nano /etc/systemd/system/photobox.service 
+sudo nano /etc/systemd/system/picam.service 
+sudo nano /etc/systemd/system/picam-ramdisk.service 
+cd ..
+cat script/bootscript_picam-ramdisk.sh 
+cat /etc/rc.local 
+ls pics
+sudo reboot
+cd photobox
+ls pics
+sudo systemctl restart photobox.service 
+sudo systemctl status photobox.service 
+sudo systemctl restart photobox.service 
+sudo systemctl stop photobox.service 
+sudo systemctl start photobox.service 
+systemctl status home-pi-photobox-pics.mount 
+sudo nano /etc/fstab 
+cat ImageResize.py 
+sudo reboot
+cd photobox
+ls -la pics
+cd pics
+sudo chown pi:pi .
+ls -la
+sudo reboot
+ls -la photobox_storage_backup/
+rm *
+rm -r *
+ls
+cd photobox
+ls
+sudo ahutdown -h now
+sudo shutdown -h now
+cd photobox
+ls
+git checkout refactoring 
+python3 main.py 
+mkdir pics
+mkdir pics/mail
+python3 main.py 
+sudo shutdown -h now
+cd photobox
+git pull
+cd ..
+mv photobox photobox-alt
+ls
+git clone ssh://git@github.com/matdoess/photobox.git
+starx
+startx
+sudo systemctl stop photobox.service
+cd photobox
+python3 main.py 
+sudo shutdown -h now
