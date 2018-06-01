@@ -1,0 +1,12 @@
+[Unit]
+Description=Picam Ramdisk Script
+
+[Service]
+User=pi
+Group=pi
+Type=simple
+WorkingDirectory=/home/pi/photobox
+ExecStart=/home/pi/photobox/script/bootscript_picam-ramdisk.sh
+
+[Install]
+WantedBy=multi-user.target

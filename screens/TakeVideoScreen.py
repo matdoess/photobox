@@ -17,7 +17,7 @@ class TakeVideoScreen(Screen):
         self.countdown3 = Clock.schedule_once(partial(self.countdown, '3'), 0)
         self.countdown2 = Clock.schedule_once(partial(self.countdown, '2'), 1)
         self.countdown1 = Clock.schedule_once(partial(self.countdown, '1'), 2)
-        self.start_video_event = Clock.schedule_once(lambda dt: self.start_video(), 3)
+        self.start_video_event = Clock.schedule_once(lambda dt: self.start_video(), 2.5)
 
     def countdown(self, number, *dt):
         self.ids.TakeVideoBackgroundButton.text = number
