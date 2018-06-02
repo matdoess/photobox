@@ -71,6 +71,7 @@ sudo cp ~/photobox/flash/dt-blob.bin /boot/
 copy gitignore files from backup to photobox folder
 
 ### Kivy Config ###
+* Zuerst Photobox einmal starten
 sudo mv ~/.kivy/config.ini ~/.kivy/config.ini.orig
 sudo cp ~/photobox/config/config.ini ~/.kivy/config.ini
 

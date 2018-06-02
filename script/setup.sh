@@ -66,7 +66,7 @@ sudo pip3 install Wand
 sudo apt-get install libmagickwand-dev -y
 
 # Telegram Bot
-sudo pip3 install python-telegram-bot -y
+sudo pip3 install python-telegram-bot
 
 # Bluetooth
 #sudo apt-get install bluetooth libbluetooth-dev bluez-obexd expect
