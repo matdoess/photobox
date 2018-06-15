@@ -27,6 +27,8 @@ class Camera():
     mirror = config['camera'].getboolean('mirror')
     # Flashmode on,auto,off,redeye,fillin,torch
     flashmode = settings.myList['config']['camera']['flashmode']
+    #awb_mode = off, auto ,sunlight ,cloudy,shade ,tungsten ,fluorescent ,incandescent ,flash ,horizon
+    awb_mode = settings.myList['config']['camera']['awb_mode']
     upsidedown = config['camera'].getboolean('upsidedown')
     
     # Load images
@@ -55,6 +57,7 @@ class Camera():
             cam = PiCamera()
             
             cam.flash_mode = self.flashmode
+            cam.awb_mode = self.awb_mode
             cam.vflip = self.upsidedown
             cam.hflip = self.mirrorview
             cam.resolution = (3280, 2464)

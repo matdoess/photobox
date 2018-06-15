@@ -9,3 +9,5 @@ winken:Winke in die Kamera
 umarmung:Umarmt euch
 muskeln:Zeig deine Muskeln
 superman:Flieg wie Superman
+springen:Spring in die Luft
+klo:Du musst ganz dringend aufs Klo
