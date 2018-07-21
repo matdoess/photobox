@@ -12,6 +12,11 @@ from base64 import encodebytes
 from os.path import basename
 # from email import Encoders
 
+from email.header import Header
+from email.utils import formataddr
+
+
+import settings
 
 class SendEmail():
     #
@@ -19,16 +24,16 @@ class SendEmail():
     #
 
     # mail address of the sender
-    sender = 'Hochzeit von Elisabeth und Johannes'
+    sender = settings.myList['private_config']['mail']['sender']
 
     # fully qualified domain name of the mail server
-    smtpserver = 'smtp.gmail.com'
+    smtpserver = settings.myList['private_config']['mail']['smtpserver']
 
     # username for the SMTP authentication
-    smtpusername = 'hochzeit.elisabeth.johannes.1@gmail.com'
+    smtpusername = settings.myList['private_config']['mail']['smtpusername']
 
     # password for the SMTP authentication
-    smtppassword = '8ung3rad!'
+    smtppassword = settings.myList['private_config']['mail']['smtppassword']
 
     # use TLS encryption for the connection
     usetls = True
@@ -54,10 +59,13 @@ class SendEmail():
     #
     def sendmail(self, recipient, subject, content, attachementPath):
 
+        author = formataddr((str(Header(u'Photobox', 'utf-8')), self.sender))
+
         # generate a RFC 2822 message
         msg = MIMEMultipart()
         # msg = MIMEText(content)
-        msg['From'] = self.sender
+        msg['From'] = author
+        #msg['From'] = self.sender
         msg['To'] = recipient
         msg['Subject'] = subject
 

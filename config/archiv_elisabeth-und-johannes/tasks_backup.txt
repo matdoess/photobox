@@ -10,4 +10,4 @@ umarmung:Umarmt euch
 muskeln:Zeig deine Muskeln
 superman:Flieg wie Superman
 springen:Spring in die Luft
-nah:Komm ganz nah an die Kamera
+klo:Du musst ganz dringend aufs Klo

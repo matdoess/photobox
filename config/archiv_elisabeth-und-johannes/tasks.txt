@@ -11,3 +11,11 @@ muskeln:Zeig deine Muskeln
 superman:Flieg wie Superman
 springen:Spring in die Luft
 nah:Komm ganz nah an die Kamera
+klo:Du musst ganz dringend aufs Klo
+verkleidung:such dir eine Verkleidung aus
+hut:mach ein Bild mit Hut
+bart:mach ein Bild mit Bart
+kussmund:such dir einen Kussmund aus und mach ein Bild
+brille:mach ein Bild mit einer schicken Brille
+krawatte:such dir eine neue Krawatte oder Fliege aus und mach ein Bild
+
