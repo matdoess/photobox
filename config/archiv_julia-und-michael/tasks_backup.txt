@@ -10,7 +10,4 @@ umarmung:Umarmt euch
 muskeln:Zeig deine Muskeln
 superman:Flieg wie Superman
 springen:Spring in die Luft
-nah:Komm ganz nah an die Kamera
-verkleidung:Mach ein Bild mit Verkleidung
-fussball:Feuere den FC Bayern an
-gitarre:Spiele Luftgitarre
+klo:Du musst ganz dringend aufs Klo

@@ -77,7 +77,7 @@ class Helper():
         
         imagepath = 'pics/'
         imagedatetime = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
-        imagesuffix = '_Hochzeit-EJ'
+        imagesuffix = '_Hochzeit-KW'
         if imagesuffix2 != "":
             imagesuffix2 = '_' + imagesuffix2
         imageext = '.jpg'
@@ -88,7 +88,7 @@ class Helper():
         
         videopath = 'pics/videos/'
         videodatetime = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
-        videosuffix = '_Hochzeit-EJ'
+        videosuffix = '_Hochzeit-KW'
         videoext = '.ts'
         videonamecomplete = videopath + videodatetime + videosuffix + videoext
         videoname = videodatetime + videosuffix + videoext        
